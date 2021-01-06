@@ -1,0 +1,618 @@
+
+PL
+  PLSwRI_Tools:ResFinder
+  Command='SwRI_Tools:ResFinder'
+  Caption='Resistor Finder'
+  Description='Finds accurate resistor values.'
+  Params='Action=Toggle | ObjectKind=Panel | ID=ResFinder'
+End
+
+PL
+  PLSwRI_Tools:PlaceReplicate 
+  Command='SwRI_Tools:PlaceReplicate'
+  Caption='Place Replicate'
+  Description='Allows for repeating layout of similar circuits.'
+  Params='Action=Toggle | ObjectKind=Panel | ID=PlaceReplicate'
+End
+
+PL
+  PLSwRI_Tools:RefdesReport
+  Command='SwRI_Tools:RefdesReport' 
+  Caption='Refdes Report'
+  Description='Check for dupes, similar and EM FM refdes.'
+End
+
+PL
+  PLSwRI_Tools:ProjDocGrouping
+  Command='SwRI_Tools:DocGrouping' 
+  Caption='By Project'
+  Description='Change document grouping type.'
+  Params='Project'
+End
+
+PL
+  PLSwRI_Tools:DisableDocGrouping
+  Command='SwRI_Tools:DocGrouping' 
+  Caption='Disabled'
+  Description='Change document grouping type.'
+  Params='Disabled'
+End
+
+PL
+  PLSwRI_Tools:TypeDocGrouping
+  Command='SwRI_Tools:DocGrouping' 
+  Caption='By Type'
+  Description='Change document grouping type.'
+  Params='Type'
+End
+
+PL
+  PLSwRI_Tools:ShowSelectedNets
+  Command='SwRI_Tools:ShowSelectedNets' 
+  Caption='Show Selected Nets'
+  Description='Show nets of selected components.'
+End
+
+PL
+  PLSwRI_Tools:LayerStackup
+  Command='SwRI_Tools:LayerStackup' 
+  Caption='Layer Stackup Table'
+  Description='Creates a layer stackup table.'
+End
+
+PL
+  PLSwRI_Tools:ViaReplace
+  Command='SwRI_Tools:ViaReplace' 
+  Caption='Via Replace'
+  Description='Replace a via with one or more different via stacks.'
+  Params='Action=Toggle | ObjectKind=Panel | ID=ViaReplace'
+End
+
+PL
+  PLSwRI_Tools:ComponentDensity
+  Command='SwRI_Tools:ComponentDensity' 
+  Caption='Component Density'
+  Description='Determine the desnity of parts on a board.'
+End
+
+PL
+  PLSwRI_Tools:DownloadDatasheets
+  Command='SwRI_Tools:DownloadDatasheets' 
+  Caption='Download Datasheets'
+  Description='Gather all datasheets for a schematic to a single folder.'
+End
+
+PL
+  PLSwRI_Tools:FootprintCompare
+  Command='SwRI_Tools:FootprintCompare'
+  Caption='Footprint Compare'
+  Description='Compare footprints between base and variants. Set Class Name based on results.'
+End
+
+//PL
+//  PLSwRI_Tools:AssignNet
+//  Command='SwRI_Tools:AssignNet'
+//  Caption='Assign Net'
+//  Description='Assign net of selected object to that of new object.'
+//End
+
+//PL
+//  PLSwRI_Tools:OpenSchematics
+//  Command='SwRI_Tools:OpenSchematics'
+//  Caption='Open All Schematics'
+//   Description='Open Schematics'
+//End
+
+PL
+  PLSwRI_Tools:ExportDoDiffPair
+  Command='SwRI_Tools:ExportDoDiffPair'
+  Caption='Diff Pairs Do File'
+   Description='Export diff pair do file.'
+End
+
+PL
+  PLSwRI_Tools:FixRefDesRotation
+  Command='SwRI_Tools:FixRefDesRotation'
+  Caption='Fix Rotation'
+   Description='Fixes the rotation of component refdes based on component rotation.'
+End
+
+PL
+  PLSwRI_Tools:PIMS
+  Command='SwRI_Tools:PIMS'
+  Caption='Open PIMS'
+   Description='Open PIMS'
+End
+
+PL
+  PLSwRI_Tools:ExportRules
+  Command='SwRI_Tools:ExportRules'
+  Caption='Design Rules Report'
+   Description='Export design rules.'
+End
+
+PL
+  PLSwRI_Tools:ExportxSignal
+  Command='SwRI_Tools:ExportxSignal'
+  Caption='xSignals Report'
+   Description='Export xSignals'
+End
+
+PL
+  PLSwRI_Tools:ExportDoRules
+  Command='SwRI_Tools:ExportDoRules'
+  Caption='Design Rules Do file'
+   Description='Export design rules.'
+End
+
+PL
+  PLSwRI_Tools:ExportDoxSignal
+  Command='SwRI_Tools:ExportDoxSignal'
+  Caption='xSignals Do file'
+   Description='Export xSignals'
+End
+
+
+PL
+  PLSwRI_Tools:VarFootprintSelect
+  Command='SwRI_Tools:VarFootprintSelect'
+  Caption='Select Variant Footprints'
+   Description='Will allow user to select footprints based on the variant and package they are.'
+End
+
+PL
+  PLSwRI_Tools:VariantBOM
+  Command='SwRI_Tools:VariantBOM'
+  Caption='Variant Partnumber Compare'
+   Description='Creates a BOM of variant PNs'
+End
+
+PL
+  PLSwRI_Tools:OpenDesignNotes
+  Command='SwRI_Tools:OpenDesignNotes'
+  Caption='Open Design Notes'
+  Params='FileName=.\Design_Notes\Open Notebook.onetoc2,Relative=true,Template=N:\00000_Default_Project\Designs\AltiumStartupProject_Flat\sch-_pwb-\Design_Notes\,Ref=DesignNotes'
+  Description='Opens the design notes OneNote file.'
+End
+
+PL
+  PLSwRI_Tools:NewProjectWiz
+  Command='SwRI_Tools:OpenExtFile'
+  Caption='Launch New Project Wizard'
+  Params='filename=G:\CADTOOLS\Software\Altium\SwRI Software\Project Wizard\Project Wizard.exe,argument=NewProject,relative=false,Ref=NewProjWiz'
+  Description='Launches the New Project Wizard.'
+End
+
+PL
+  PLSwRI_Tools:RevProjectWiz
+  Command='SwRI_Tools:OpenExtFile'
+  Caption='Launch Rev Project Wizard'
+  Params='filename=G:\CADTOOLS\Software\Altium\SwRI Software\Project Wizard\Project Wizard.exe,argument=RevProject,relative=false,Ref=RevProjWiz'
+  Description='Launches the Rev Project Wizard.'
+End
+
+PL
+  PLSwRI_Tools:Help
+  Command='SwRI_Tools:OpenExtFile'
+  Caption='Help'
+  Params='Ref=Help'
+  Description='Opens SeRI Tools Extension Documantation.'
+End
+
+PL
+  PLSwRI_Tools:ToggleDesignRuleFlt
+  Command='SwRI_Tools:ToggleDesignRule'
+  Caption='Flight Pads Hidden'
+  Params='PasteMask_Hide_Flt_Pads'
+  Description='Toggle pastemask rule for flight parts.'
+End
+
+PL
+  PLSwRI_Tools:ToggleDesignRuleEng
+  Command='SwRI_Tools:ToggleDesignRule'
+  Caption='Engineering Pads Hidden'
+  Params='PasteMask_Hide_Eng_Pads'
+  Description='Toggle pastemask rule for flight parts.'
+End
+
+PL
+  PLSwRI_Tools:ToggleDesignRuleLeg
+  Command='SwRI_Tools:ToggleDesignRule'
+  Caption='Legacy Eng Pads Hidden'
+  Params='PasteMask-100'
+  Description='Toggle pastemask rule for legacy parts.'
+End
+
+PL
+  PLSwRI_Tools:Test
+  Command='SwRI_Tools:Test'
+  Caption='Test'
+  Params='param=test'
+  Description='test'
+End
+
+PL
+  PLSwRI_Tools:ToggleLockedObjects
+  Command='SwRI_Tools:ToggleLockedObjects'
+  Caption='Locked Objects Selectable'
+  Description='Toggles DXP>Preferences>Protect Locked Objects'
+End
+
+PL
+  PLSwRI_Tools:ToggleLoopRemoval
+  Command='SwRI_Tools:ToggleLoopRemoval'
+  Caption='Toggle Loop Removal'
+  Description='Toggles DXP>Preferences>Loop Removal'
+End
+
+PL
+  PLSwRI_Tools:ShowAllRefDes
+  Command='SwRI_Tools:ShowHideRefDes'
+  Caption='Show All Reference Designators'
+  Params='showAll'
+  Description='Turns on reference designators for all components.'
+End
+
+PL
+  PLSwRI_Tools:HideAllRefDes
+  Command='SwRI_Tools:ShowHideRefDes'
+  Caption='Hide All Reference Designators'
+  Params='hideAll'
+  Description='Turns off reference designators for all components.'
+End
+
+PL
+  PLSwRI_Tools:ShowDiscreteRefDes
+  Command='SwRI_Tools:ShowHideRefDes'
+  Caption='Show Discrete Reference Designators'
+  Params='showDiscrete'
+  Description='Turns on reference designators for all components.'
+End
+
+PL
+  PLSwRI_Tools:HideDiscreteRefDes
+  Command='SwRI_Tools:ShowHideRefDes'
+  Caption='Hide Discrete Reference Designators'
+  Params='hideDiscrete'
+  Description='Turns off reference designators for all components.'
+End
+
+PL
+  PLSwRI_Tools:FixEmbededResistors 
+  Command='SwRI_Tools:FixEmbededResistors'
+  Caption='Update Embedded Resistors'
+  Description='Moves the mechanical layers of embeded resistors to the appropriate layer.'
+End
+
+PL
+  PLSwRI_Tools:BatchOutjob 
+  Command='SwRI_Tools:BatchOutjob'
+  Caption='Batch Outjob Generator'
+  Description= 'Allows the user to generate all outjobs in one process.'
+End
+
+PL
+  PLSwRI_Tools:50MilGrid
+  Command='SwRI_Tools:AdjustGridSnap'
+  Caption='50 Mil Grid'
+  Params='size=50'
+  Description='Changes the grid snap for all schematic pages.'
+End
+
+PL
+  PLSwRI_Tools:100MilGrid
+  Command='SwRI_Tools:AdjustGridSnap'
+  Caption='100 Mil Grid'
+  Params='size=100'
+  Description='Changes the grid snap for all schematic pages.'
+End
+
+PL
+  PLSwRI_Tools:200MilGrid
+  Command='SwRI_Tools:AdjustGridSnap'
+  Caption='200 Mil Grid'
+  Params='size=200'
+  Description='Changes the grid snap for all schematic pages.'
+End
+
+PL
+  PLSwRI_Tools:50MilGridAlign
+  Command='SwRI_Tools:AdjustGridSnap'
+  Caption='50 Mil Grid'
+  Params='size=50,align=true'
+  Description='Changes the grid snap for all schematic pages and aligns parts to grid.'
+End
+
+PL
+  PLSwRI_Tools:100MilGridAlign
+  Command='SwRI_Tools:AdjustGridSnap'
+  Caption='100 Mil Grid'
+  Params='size=100,align=true'
+  Description='Changes the grid snap for all schematic pages and aligns parts to grid.'
+End
+
+PL
+  PLSwRI_Tools:200MilGridAlign
+  Command='SwRI_Tools:AdjustGridSnap'
+  Caption='200 Mil Grid'
+  Params='size=200,align=true'
+  Description='Changes the grid snap for all schematic pages and aligns parts to grid.'
+End
+
+PL
+  PLSwRI_Tools:TrackUtil 
+  Command='SwRI_Tools:TrackUtil'
+  Caption='Track Utility'
+  Description='Provides a utility for creating tracks from coordinate spacing with changing reference.'
+  Params='Action=Toggle | ObjectKind=Panel | ID=TrackUtil'
+End
+
+PL
+  PLSwRI_Tools:DoReport 
+  Command='SwRI_Tools:DoReport'
+  Caption='DO File Gen'
+  Description='Generate DO file report.'
+  Params='Action=Toggle | ObjectKind=Panel | ID=DoReport'
+End
+
+PL
+  PLSwRI_Tools:HeightReport
+  Command='SwRI_Tools:HeightReport'
+  Caption='Generate Height Report'
+  Description='Generates a report comparing library height vs footprint height.'
+End
+
+PL
+  PLSwRI_Tools:SetActiveLayer
+  Command='SwRI_Tools:SetActiveLayer'
+  Caption='Set Active Layer'
+  Description='Sets the current active layer to that of the selected object.'
+End
+
+PL
+  PLSwRI_Tools:SyncVariant
+  Command='SwRI_Tools:SyncVariant'
+  Caption='Sync Variants'
+  Description='Will sync variants and base design.'
+End
+
+PL
+  PLSwRI_Tools:ResetPartRefDesOnPaste
+  Command='SwRI_Tools:ResetPartRefDesOnPaste'
+  Caption='Reset Parts Designators on Paste'
+  Description='Toggles DXP>Preferences>Reset Parts Designators on Paste'
+End
+
+PL
+  PLSwRI_Tools:ImportVariant
+  Command='SwRI_Tools:ImportVariant'
+  Caption='Import ModBOM'
+  Description='Will import a ModBOM into Var_PE'
+End
+
+PL
+  PLSwRI_Tools:ExportVariant
+  Command='SwRI_Tools:ExportVariant'
+  Caption='Export ModBOM (Var_PE)'
+  Description='Will export a ModBOM from Var_PE'
+End
+
+PL
+  PLSwRI_Tools:CSEnable
+  Command='SwRI_Tools:CSEnable'
+  Caption='Enable'
+  Description='Toggle Cross Select'
+End
+
+PL
+  PLSwRI_Tools:CSMasking
+  Command='SwRI_Tools:CSMasking'
+  Caption='Masking'
+  Description='Toggle Cross Select Masking'
+End
+
+PL
+  PLSwRI_Tools:CSZoom
+  Command='SwRI_Tools:CSZoom'
+  Caption='Zoom'
+  Description='Toggle Cross Select Zoom'
+End
+
+PL
+  PLSwRI_Tools:CSReposistion
+  Command='SwRI_Tools:CSReposistion'
+  Caption='Reposition'
+  Description='Toggle Cross Select Reposition selected component in PCB.'
+End
+
+PL
+  PLSwRI_Tools:CSFocus
+  Command='SwRI_Tools:CSFocus'
+  Caption='Focus'
+  Description='Toggle Cross Select Focus document containing selection if visible.'
+End
+
+PL
+  PLSwRI_Tools:CSComponents
+  Command='SwRI_Tools:CSComponents'
+  Caption='Select Components'
+  Description='Toggle component cross select.'
+End
+
+PL
+  PLSwRI_Tools:CSNets
+  Command='SwRI_Tools:CSNets'
+  Caption='Select Nets'
+  Description='Toggle net cross select.'
+End
+
+PL
+  PLSwRI_Tools:CSPins
+  Command='SwRI_Tools:CSPins'
+  Caption='Select Pins'
+  Description='Toggle pin cross select.'
+End
+
+Insertion MNSwRIPCBMenu10 TargetID='MNPCBMenu' InsertType='After' RefID0='MNPCB_Help10' 
+  Tree MNSwRIPCBMenuTree10 Caption='SwRI PCB' Popup='1'
+    Link SwRI_ToolsMenu1 PLID='PLSwRI_Tools:NewProjectWiz' End
+    Link SwRI_ToolsMenu2 PLID='PLSwRI_Tools:RevProjectWiz' End
+    Link SwRI_ToolsMenu21 PLID='PLSwRI_Tools:ComponentDensity' End
+    Link SwRI_ToolsMenu3 PLID='PLSwRI_Tools:OpenDesignNotes' End
+    Link SwRI_ToolsMenu5 PLID='PLSwRI_Tools:BatchOutjob' End
+    Link SwRI_ToolsMenu40 PLID='PLSwRI_Tools:DownloadDatasheets' End
+    Link SwRI_ToolsMenu6 PLID='PLSwRI_Tools:TrackUtil' End
+    Link SwRI_ToolsMenu6 PLID='PLSwRI_Tools:DoReport' End
+    //Link SwRI_ToolsMenu7 PLID='PLSwRI_Tools:VarFootprintSelect' End
+    Separator SwRI_ToolsSep1 End
+    //Link SwRI_ToolsMenu71 PLID='PLSwRI_Tools:HeightReport' End
+    Link SwRI_ToolsMenu72 PLID='PLSwRI_Tools:LayerStackup' End
+    Tree MNSwRIExportTree Caption='Export' Popup='1'
+      Link SwRI_ToolsMenu8 PLID='PLSwRI_Tools:ExportRules' End
+      Link SwRI_ToolsMenu11 PLID='PLSwRI_Tools:ExportxSignal' End
+    End
+    Separator SwRI_ToolsSep2 End
+    Link SwRI_ToolsMenu10 PLID='PLSwRI_Tools:ToggleDesignRuleFlt' End
+    Link SwRI_ToolsMenu20 PLID='PLSwRI_Tools:ToggleDesignRuleEng' End
+    Link SwRI_ToolsMenu30 PLID='PLSwRI_Tools:ToggleDesignRuleLeg' End
+    Separator SwRI_ToolsSep10 End
+    Link SwRI_ToolsMenu40 PLID='PLSwRI_Tools:ToggleLockedObjects' End
+    Link SwRI_ToolsMenu41 PLID='PLSwRI_Tools:ToggleLoopRemoval' End
+    Separator SwRI_ToolsSep20 End
+    Tree MNSwRIGridTree Caption='RefDes Tools' Popup='1'
+      Tree MNSwRIGridTree Caption='Show/Hide RefDes' Popup='1'
+        Link SwRI_ToolsMenu50 PLID='PLSwRI_Tools:ShowAllRefDes' End
+        Link SwRI_ToolsMenu60 PLID='PLSwRI_Tools:HideAllRefDes' End
+        Link SwRI_ToolsMenu50 PLID='PLSwRI_Tools:ShowDiscreteRefDes' End
+        Link SwRI_ToolsMenu60 PLID='PLSwRI_Tools:HideDiscreteRefDes' End
+      End
+      Link SwRI_ToolsMenu70 PLID='PLSwRI_Tools:FixRefDesRotation' End
+    End
+    Separator SwRI_ToolsSep30 End
+    Link SwRI_ToolsMenu70 PLID='PLSwRI_Tools:FixEmbededResistors' End
+    Link SwRI_ToolsMenu100 PLID='PLSwRI_Tools:Test' End
+    Separator SwRI_ToolsSep40 End
+    Tree MNSwRICrossTree Caption='Cross Select' Popup='1'
+        Link SwRI_GridCSMenu10 PLID='PLSwRI_Tools:CSEnable' End
+        Link SwRI_GridCSMenu20 PLID='PLSwRI_Tools:CSMasking' End
+        Link SwRI_GridCSMenu30 PLID='PLSwRI_Tools:CSZoom' End
+        Link SwRI_GridCSMenu40 PLID='PLSwRI_Tools:CSReposistion' End
+        Link SwRI_GridCSMenu50 PLID='PLSwRI_Tools:CSFocus' End
+        Separator SwRI_ToolsSep10 End
+        Link SwRI_GridCSMenu90 PLID='PLSwRI_Tools:CSComponents' End
+        Link SwRI_GridCSMenu100 PLID='PLSwRI_Tools:CSNets' End
+        Link SwRI_GridCSMenu110 PLID='PLSwRI_Tools:CSPins' End
+    End
+    Tree MNSwRIDocGroupTree Caption='Doc Grouping' Popup='1'
+      Link SwRI_ToolsMenu100 PLID='PLSwRI_Tools:DisableDocGrouping' End
+      Link SwRI_ToolsMenu101 PLID='PLSwRI_Tools:ProjDocGrouping' End
+      Link SwRI_ToolsMenu102 PLID='PLSwRI_Tools:TypeDocGrouping' End
+    End
+    Separator SwRI_ToolsSep10 End
+    Link SwRI_ToolsMenu100 PLID='PLSwRI_Tools:Help' End
+  End
+End
+
+Insertion MNSwRIMenu20 TargetID='MNSchematicMenu' InsertType='After' RefID0='MNSchematic_Help10' 
+  Tree MNSwRIMenuTree20 Caption='SwRI SCH' Popup='1'
+    Link SwRI_ToolsMenu20 PLID='PLSwRI_Tools:NewProjectWiz' End
+    Link SwRI_ToolsMenu21 PLID='PLSwRI_Tools:RevProjectWiz' End
+    Link SwRI_ToolsMenu22 PLID='PLSwRI_Tools:PIMS' End
+    Link SwRI_ToolsMenu10 PLID='PLSwRI_Tools:OpenDesignNotes' End
+    Link SwRI_ToolsMenu30 PLID='PLSwRI_Tools:BatchOutjob' End
+    Link SwRI_ToolsMenu40 PLID='PLSwRI_Tools:DownloadDatasheets' End
+    Separator SwRI_ToolsSep10 End
+    //Link SwRI_ToolsMenu11 PLID='PLSwRI_Tools:HeightReport' End
+    Tree MNSwRIVarTree Caption='Variant Tools' Popup='1'
+      Link SwRI_ToolsMenu14 PLID='PLSwRI_Tools:ImportVariant' End
+      Link SwRI_ToolsMenu12 PLID='PLSwRI_Tools:SyncVariant' End
+      Link SwRI_ToolsMenu14 PLID='PLSwRI_Tools:ExportVariant' End
+      Link SwRI_ToolsMenu15 PLID='PLSwRI_Tools:VariantBOM' End
+      Link SwRI_ToolsMenu15 PLID='PLSwRI_Tools:FootprintCompare' End
+    End
+    Separator SwRI_ToolsSep20 End
+    Link SwRI_ToolsMenu13 PLID='PLSwRI_Tools:ResetPartRefDesOnPaste' End
+    Link SwRI_ToolsMenu50 PLID='PLSwRI_Tools:RefdesReport' End
+    Separator SwRI_ToolsSep30 End
+    Tree MNSwRIGridTree Caption='Project Grid Snap' Popup='1'
+        Link SwRI_GridMenu10 PLID='PLSwRI_Tools:50MilGrid' End
+        Link SwRI_GridMenu20 PLID='PLSwRI_Tools:100MilGrid' End
+        Link SwRI_GridMenu30 PLID='PLSwRI_Tools:200MilGrid' End
+    End
+    Tree MNSwRIAlignTree Caption='Project Grid Snap && Align Parts' Popup='1'
+        Link SwRI_GridAlignMenu10 PLID='PLSwRI_Tools:50MilGridAlign' End
+        Link SwRI_GridAlignMenu20 PLID='PLSwRI_Tools:100MilGridAlign' End
+        Link SwRI_GridAlignMenu30 PLID='PLSwRI_Tools:200MilGridAlign' End
+    End
+    Link SwRI_ToolsMenu100 PLID='PLSwRI_Tools:Test' End
+    Separator SwRI_ToolsSep10 End
+    Tree MNSwRICrossTree Caption='Cross Select' Popup='1'
+        Link SwRI_GridCSMenu10 PLID='PLSwRI_Tools:CSEnable' End
+        Link SwRI_GridCSMenu20 PLID='PLSwRI_Tools:CSMasking' End
+        Link SwRI_GridCSMenu30 PLID='PLSwRI_Tools:CSZoom' End
+        Link SwRI_GridCSMenu40 PLID='PLSwRI_Tools:CSReposistion' End
+        Link SwRI_GridCSMenu50 PLID='PLSwRI_Tools:CSFocus' End
+        Separator SwRI_ToolsSep10 End
+        Link SwRI_GridCSMenu90 PLID='PLSwRI_Tools:CSComponents' End
+        Link SwRI_GridCSMenu100 PLID='PLSwRI_Tools:CSNets' End
+        Link SwRI_GridCSMenu110 PLID='PLSwRI_Tools:CSPins' End
+    End
+    Tree MNSwRIDocGroupTree Caption='Doc Grouping' Popup='1'
+      Link SwRI_ToolsMenu100 PLID='PLSwRI_Tools:DisableDocGrouping' End
+      Link SwRI_ToolsMenu101 PLID='PLSwRI_Tools:ProjDocGrouping' End
+      Link SwRI_ToolsMenu102 PLID='PLSwRI_Tools:TypeDocGrouping' End
+    End
+    Separator SwRI_ToolsSep10 End
+    Link SwRI_ToolsMenu100 PLID='PLSwRI_Tools:Help' End
+  End
+End
+
+Insertion MNSwRIMenu30 TargetID='MNNoDocument' InsertType='After' RefID0='MNNoDocument_Help' 
+  Tree MNSwRIPCBMenuTree10 Caption='SwRI' Popup='1'
+    Link SwRI_ToolsMenu20 PLID='PLSwRI_Tools:NewProjectWiz' End
+    Link SwRI_ToolsMenu21 PLID='PLSwRI_Tools:RevProjectWiz' End
+    Separator SwRI_ToolsSep10 End
+    Link SwRI_ToolsMenu100 PLID='PLSwRI_Tools:Help' End
+  End
+End
+
+Insertion MNSwRIMenu40 TargetID='MNPCBLibMenu' InsertType='After' RefID0='MNPCBLib_Help10' 
+  Tree MNSwRIPCBMenuTree10 Caption='SwRI' Popup='1'
+    Link SwRI_ToolsMenu22 PLID='PLSwRI_Tools:NewProjectWiz' End
+    Link SwRI_ToolsMenu21 PLID='PLSwRI_Tools:RevProjectWiz' End
+    Separator SwRI_ToolsSep30 End
+    Link SwRI_ToolsMenu20 PLID='PLSwRI_Tools:TrackUtil' End
+    Separator SwRI_ToolsSep10 End
+    Link SwRI_ToolsMenu100 PLID='PLSwRI_Tools:Help' End
+  End
+End
+
+Insertion MNSwRIMenu50 TargetID='MNSCHLibMenu' InsertType='After' RefID0='MNSchematic_SchLibMenuHelp10'
+  Tree MNSwRISCHMenuTree10 Caption='SwRI' Popup='1'
+    Link SwRI_ToolsMenu22 PLID='PLSwRI_Tools:NewProjectWiz' End
+    Link SwRI_ToolsMenu21 PLID='PLSwRI_Tools:RevProjectWiz' End
+    Separator SwRI_ToolsSep10 End
+    Link SwRI_ToolsMenu100 PLID='PLSwRI_Tools:Help' End
+  End
+End
+
+
+Insertion MNSwRIMenu500 TargetID='MNPCB_Primitive' InsertType='After' RefID0='MNPCB_Primitive710' 
+    Link SwRI_ToolsMenu100 PLID='PLSwRI_Tools:SetActiveLayer' End
+End
+
+//Insertion MNSwRIMenu500 TargetID='MNPCB_Primitive' InsertType='After' RefID0='MNPCB_Primitive710' 
+//    Link SwRI_ToolsMenu110 PLID='PLSwRI_Tools:AssignNet' End
+//End
+
+Insertion MNSwRIMenu500 TargetID='MNPCB_Primitive' InsertType='After' RefID0='MNPCB_Primitive710' 
+    Link SwRI_ToolsMenu110 PLID='PLSwRI_Tools:ShowSelectedNets' End
+End
+
+Insertion MNSwRIMenu500 TargetID='MNPCB_Primitive' InsertType='After' RefID0='MNPCB_Primitive710' 
+  Separator SwRI_ToolsSep100 End
+End
+
+Insertion MNSwRIMenu600 TargetID='MNWorkspaceManagerMenu_Category' InsertType='After' RefID0='MNWorkspaceManager_Category010' 
+    Link SwRI_ToolsMenu1000 PLID='PLSwRI_Tools:OpenSchematics' End
+End

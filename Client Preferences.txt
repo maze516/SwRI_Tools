@@ -1,0 +1,67 @@
+?optionsReader = Utils.ServerOptionsReader("Client");
+?optionsReader.ReadSection("Client Preferences")
+"Status Bar Visible
+Command Status Bar Visible
+Suppress Startup Screen
+Auto Transparent Toolbars
+Dynamic Auto Transparency
+Autosave Tools Layout
+Animated Panels
+Highest Transparency
+Lowest Transparency
+Transparency Force
+Animation Speed
+Popup delay
+Hide delay
+Path In Title Bar
+Hide floating panels
+Restore open documents
+Open tasks if nothing open
+Hide binder view tabs
+Remember form for kin
+Auto Show Component Symbols
+Use external web browser
+Built-In Navigation Bar
+Always Show NavBar In Tasks
+Favorites Thumbnail X-Size
+Favorites Thumbnail Y-Size
+Grouping In Documents Bar
+Grouping In Documents Bar Ex
+Equal Buttons In Documents Bar
+Auto-Hide Documents Bar
+Multiline Documents Bar
+Middle Click Closes Document Tab
+Integrated Help System
+Use System Locale Language
+Use Localized Dialogs
+Use Localized Resources
+HelpTrace
+RequireCtrlToWheelZoom
+DXPStyleVerticalWheelScroll
+VSStyleCtrlTab
+ActivateLastActiv
+eOnClose
+ReloadDocumentsModifiedOutside
+Win7TaskbarProgress
+Win7TaskbarJumpLists
+Win7TaskbarThumbnails
+AllowedNetworkActivity
+Bug Report Includes Settings
+Bug Report Includes Screenshot
+LookAndFeel
+DocumnetInsight
+ProjectInsight
+ConnectivityInsight
+SupplyChainInsight
+HyperlinkInsight
+ConnectivityInsightHoverDelay
+ConnectivityInsightHoverTree
+ConnectivityInsightHoverPreview
+ConnectivityInsightHoverTextHint
+ConnectivityInsightClickTree
+ConnectivityInsightClickPreview
+ConnectivityInsightClickTextHint
+HyperlinkInsightHoverEnabled
+HyperlinkInsightClickEnabled
+Borrow Duration in hours
+"

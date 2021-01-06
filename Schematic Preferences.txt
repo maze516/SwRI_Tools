@@ -1,0 +1,201 @@
+optionsReader = Utils.ServerOptionsReader("SCH");
+?optionsReader.ReadSection("Schematic Preferences")
+"Selection Color
+MultiSelectionColor
+Resize Color
+TranslateRotate Color
+Grid Color
+Cursor Style
+Document Scope
+Library Scope
+ConfirmSelectionMemoryClear
+Grid Style
+Undo Stack Size
+Group Undo
+ExpandComponentDesignators
+ExpandNetLabelsText
+ExpandPortsName
+ExpandSheetNumber
+ExpandDocumentNumber
+SuperscriptDesignator
+SuperscriptNetLabel
+SuperscriptPort
+SuperscriptSheetNumber
+SuperscriptDocumentNumber
+PhysicalViewDimLevel
+Snap To Center
+Orcad Port Width
+Selection Reference
+Convert Special Strings
+Maintain Orthoganal
+Display Printer Fonts
+Auto-Zoom
+Snap To Hot Spot
+BreakWiresAtAutojunctions
+OptimizePolylines
+ComponentsCutWires
+AddTemplateToClipboard
+Copy OrCAD Footprint From/To
+AutoPanStyle
+AutoPanJumpDistanceExt
+AutoPanJumpDistanceExt_Frac
+AutoPanShiftJumpDistanceExt
+AutoPanShiftJumpDistanceExt_Frac
+Pin Names Margin
+Pin Names Margin_Frac
+Pin Numbers Margin
+Pin Numbers Margin_Frac
+ShowPinDirection
+ShowPortDirection
+UnconnectedLeft2Right
+RenderTextUsingGDIP
+SheetEntryDirection
+AutoSheetEntries
+Default Primitives Permanent
+IgnoreSelection
+ClickClearsSelection
+DoubleClickRunsInspector
+DefaultPowerGndName
+DefaultSignalGndName
+DefaultEarthName
+StringIncA
+StringIncB
+StringIncRemoveLeadingZero
+MarkManualParameters
+CtrlDbleClickGoesDown
+Sensitivity
+MultiPartNamingMethod
+MultiPartSeparator
+SingleSlashNegation
+RunInPlaceEditing
+BufferedPainting
+Metafile_NoERCMarkers
+Metafile_ParameterSets
+Metafile_Probes
+Metafile_Blankets
+Metafile_NoERCSymbolsToShow
+Metafile_Notes
+Metafile_NotesCollapsed
+Metafile_OpenEnds
+LastModelType
+ProtectGraphicallyLockedObjects
+AllowDeviceSheetEditing
+WatermarkDeviceSheet
+WatermarkReadOnlySheet
+UseHarnessColor
+ResetPartsDesignatorsOnPaste
+RefactorNormalSymbolPath
+RefactorNormalSymbolTarget
+RefactorNormalSymbolCompile
+RefactorDeviceSymbolTarget
+RefactorDeviceSymbolCompile
+PolylineCutterMode
+CutterGridSizeMultiple
+ShowCutterBoxMode
+ShowCutterMarkersMode
+CutterFixedLength
+CutterFixedLength_Frac
+HoldShiftToSelectObjectId
+MustHoldShiftToSelect
+AF_PlacementDim
+AF_PlacementZoom
+AF_PlacementThicken
+AF_EditLocationDim
+AF_EditLocationZoom
+AF_EditLocationThicken
+AF_EditPropertyDim
+AF_EditPropertyZoom
+AF_EditPropertyThicken
+AF_EditInPlaceDim
+AF_EditInPlaceZoomText
+AF_EditInPlaceZoomConnection
+AF_DimLevel
+AF_ThickenDelay
+ConvertCrossJunctions
+DisplayCrossOvers
+ShowHints
+WireAutoJunctionsSize
+WireAutoJunctionsColor
+WireAutoJunctionsDisplay
+BusAutoJunctionsSize
+BusAutoJunctionsColor
+BusAutoJunctionsDisplay
+ManualJunctionsSize
+ManualJunctionsColor
+DragStepSize
+WireDragJunctionsColor
+BusDragJunctionsColor
+SpatialAnalysisDuringDragging
+ManualJunctionsDisplay
+AlwaysDrag
+DocMenuID
+LibMenuID
+OpenBusMenuID
+FSMMenuID
+DiagramMenuID
+DefaultUnit
+DisplayStringAsRotated
+UseIntelligentWirer
+Display_No Report
+Color_No Report
+Display_Warning
+Color_Warning
+Display_Error
+Color_Error
+Display_Fatal Error
+Color_Fatal Error
+DefaultSheetStyle
+ImperialGridPresets
+ImperialPresetSnapOn0
+ImperialPresetHotspotOn0
+ImperialPresetVisibleOn0
+ImperialPresetSnapSize0
+ImperialPresetHotSpotSize0
+ImperialPresetVisibleSize0
+ImperialPresetSnapOn1
+ImperialPresetHotspotOn1
+ImperialPresetVisibleOn1
+ImperialPresetSnapSize1
+ImperialPresetHotSpotSize1
+ImperialPresetVisibleSize1
+ImperialPresetSnapOn2
+ImperialPresetHotspotOn2
+ImperialPresetVisibleOn2
+ImperialPresetSnapSize2
+ImperialPresetHotSpotSize2
+ImperialPresetVisibleSize2
+ImperialPresetSnapOn3
+ImperialPresetHotspotOn3
+ImperialPresetVisibleOn3
+ImperialPresetSnapSize3
+ImperialPresetHotSpotSize3
+ImperialPresetVisibleSize3
+MetricGridPresets
+MetricPresetSnapOn0
+MetricPresetHotspotOn0
+MetricPresetVisibleOn0
+MetricPresetSnapSize0
+MetricPresetHotSpotSize0
+MetricPresetVisibleSize0
+MetricPresetSnapOn1
+MetricPresetHotspotOn1
+MetricPresetVisibleOn1
+MetricPresetSnapSize1
+MetricPresetHotSpotSize1
+MetricPresetVisibleSize1
+MetricPresetSnapOn2
+MetricPresetHotspotOn2
+MetricPresetVisibleOn2
+MetricPresetSnapSize2
+MetricPresetHotSpotSize2
+MetricPresetVisibleSize2
+LibraryAutoZoom
+LibraryAutoZoomPrecision
+CrossRefSheetStyle
+CrossRefLocationStyle
+DefaultPrimOverridesLibraryComment
+DefaultPrimOverridesLibraryDesignator
+NetColorOverride
+DisplayOpenEnds
+OpenEndsColor
+"

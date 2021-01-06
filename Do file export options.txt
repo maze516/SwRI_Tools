@@ -1,0 +1,6 @@
+xSignals			-----
+Rules				-----
+Layer Select		-----
+Layer Orientation	-----
+Same Net Checking	-----
+Diff Pair (included in rules)

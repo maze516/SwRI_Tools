@@ -1,0 +1,37 @@
+ClientInsFile 1.0
+
+Server
+    EditorName        = 'SwRI_Tools'                                                                
+    EditorExePath     = 'SwRI_Tools.DLL'                                                            
+    EditorDescription = 'Server SwRI_Tools that you can reuse for your projects'                    
+    Version           = 'Version 0.1.0.15'                                                      
+    Date              = '7/20/2015 2:26:16 PM'                                                             
+    HelpAboutInfo     = 'This software is protected by copyright law and international treaties.' 
+    Copyright         = 'Copyright Southwest Research Institute' 
+    Updates           = 'ADVPCB'
+    Updates           = 'ADVSCH'
+    SystemExtension = True
+    Updates           = 'Dxp'
+
+    //ResourceDependencies
+    //    'WorkspaceManager'
+    //End
+End
+
+
+//Here you can define commands
+//EditorWindowKind
+    //Name                  = 'Pcb'
+    //EditorBar Name = 'TLSwRI_Tools'   BarType = Toolbar     End
+//End
+
+
+Command Name = 'Test' LongSummary = 'Test' End
+Command Name = 'ToggleDesignRule'      LongSummary = 'Toggle Design Rule' End
+Command Name = 'ToggleLockedObjects' LongSummary='Toggle Locked Objects' End
+Command Name = 'ShowHideRefDes' LongSummary='Show or Hide reference designators.' End
+Command Name = 'FixEmbededResistors' LongSummary='Moves the mechanical layers of embeded resistors to the appropriate layer.' End
+Command Name = 'OpenExtFile' LongSummary = 'Opens and external file' End
+Command Name = 'BatchOutjob' LongSummary = 'Runs th batch outjob tool.' End
+Command Name = 'AdjustGridSnap' LongSummary = 'Changes the component grid snap on all schematic pages with the ability to align parts to grid as well.' End
+Command Name = 'TrackUtil' LongSummary = 'Provides a utility for creating tracks from coordinate spacing with changing reference.' End

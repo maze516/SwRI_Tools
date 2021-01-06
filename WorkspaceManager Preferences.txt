@@ -1,0 +1,116 @@
+optionsReader = Utils.ServerOptionsReader("WorkspaceManager");
+?optionsReader.ReadSection("Workspace Preferences")
+"Enable Version Control
+Create backups
+Backup is stored with project
+Create recovery
+Number of backups
+Number of autosave versions
+Recovery interval
+Reopen Workspace
+Default Open Path
+Default Library Path
+Default OutputJob Path
+Template Path
+Default Recovery Path
+Default Backup Path
+Last Workspace
+Path Information
+PRP Group None
+PRP Group By Type
+PRP Group By Class
+PRP Sort By Name
+PRP Sort By Order
+PRP Sort By Status
+PRP Sort By VCS Status
+PRP Sort Ascending
+PRP Show Status
+PRP Show Position
+PRP Show Grid
+PRP Show VCS Status
+PRP One Click Open
+PRP One Click Activate
+Show All Parameter Changes
+PRP Expand None
+PRP Expand One Level
+PRP Expand Source
+PRP Expand All
+PRP Show Project Structure
+PRP Show Document Structure
+PRP Show Schematic Documents
+PRP Show Sheet Symbols
+PRP Show Components
+Monitor Clipboard For DXP Only
+Enable Debug Memory Manager
+Default Pcb Initialised
+Default Protel PCB
+Default P-CAD PCB
+Default PCB Prompt User
+Template Files
+FileOwnership_Enabled
+FileOwnership_EnabledOutputDirectory
+FileOwnership_WarningLevelSave
+FileOwnership_WarningLevelOpen
+LibrarySplit_OverwriteFile
+LibrarySplit_RemoveParameter
+LibrarySplit_RemoveModel
+LibToSVN_SVNMethod
+LibToSVN_SVNLocation
+LibToSVN_SVNServer
+LibToSVN_SVNPortDefault
+LibToSVN_SVNPortNumber
+LibToSVN_SVNBaseRepository
+LibToSVN_SVNSCHFolder
+LibToSVN_SVNPCBFolder
+LibToSVN_OverwriteFile
+LibToSVN_RemoveParameter
+LibToSVN_RemoveModel
+LibToSVN_OutputFilePath
+IntLibMaker_OutputDirPath
+Variant_SCHUseGraphics
+Variant_SCHGraphics
+Variant_SCHUseText
+Variant_SCHText
+Variant_SCHTextFontName
+Variant_SCHTextSize
+Variant_SCHTextItalic
+Variant_SCHTextBold
+Variant_SCHTextUnderline
+Variant_SCHTextStrikeOut
+Variant_SCHTextColor
+Variant_SCHParamModifyText
+Varient_SCHParamSuffix
+Variant_SCHParamFontName
+Variant_SCHParamSize
+Variant_SCHParamItalic
+Variant_SCHParamBold
+Variant_SCHParamUnderline
+Variant_SCHParamStrikeOut
+Variant_SCHParamColor
+Variant_PCBShowComponent
+Variant_PCBStrikeThroughDesignator
+Variant_PCBUseGraphics
+Variant_PCBGraphics
+Variant_PCBGraphicsColor
+Variant_PCBUseText
+Variant_PCBText
+Variant_PCBTextColor
+Variant_PCBTextHeight
+Variant_PCBTextUseTTFont
+Variant_PCBTextStrokeFontName
+Variant_PCBTextStrokeWidth
+Variant_PCBTextTTFontName
+Variant_PCBTextTTBold
+Variant_PCBTextTTItalic
+Variant_PCBTextTTInverted
+Variant_PCBTextTTInvertedBorder
+Release_StoreReleasesInRepository
+Release_ReleasesRepositoryPath
+Release_ReleasesVersionControlRepositoryPath
+Release_ReleasesTempFolder
+Release_ReleasesTempFolderCleanup
+Release_MarkReleaseFilesReadOnly
+OpenFromRepository_ExpandedNodes
+OpenFromRepository_Repository
+OpenFromRepository_DestinationFolder
+"

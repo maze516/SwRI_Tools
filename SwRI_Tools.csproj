@@ -1,0 +1,337 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7BF48F81-97DF-4759-B64A-3E7535000976}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SwRI_Tools</RootNamespace>
+    <AssemblyName>SwRI_Tools</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug %2817%29|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>C:\ProgramData\Altium\Altium Designer {79470B0F-1EE6-4B58-AB70-5E368B162241}\Extensions\SwRI_Tools</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release %2817%29|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>C:\ProgramData\Altium\Altium Designer {79470B0F-1EE6-4B58-AB70-5E368B162241}\Extensions\SwRI_Tools</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug %2817%29|x64' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>C:\ProgramData\Altium\Altium Designer {79470B0F-1EE6-4B58-AB70-5E368B162241}\Extensions\SwRI_Tools</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release %2817%29|x64' ">
+    <OutputPath>C:\ProgramData\Altium\Altium Designer {79470B0F-1EE6-4B58-AB70-5E368B162241}\Extensions\SwRI_Tools</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug %2818%29|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>C:\ProgramData\Altium\Altium Designer {79470B0F-1EE6-4B58-AB70-5E368B162241}\Extensions\SwRI_Tools</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug %2818%29|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>C:\ProgramData\Altium\Altium Designer {79470B0F-1EE6-4B58-AB70-5E368B162241}\Extensions\SwRI_Tools</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release %2818%29|AnyCPU'">
+    <OutputPath>C:\ProgramData\Altium\Altium Designer {79470B0F-1EE6-4B58-AB70-5E368B162241}\Extensions\SwRI_Tools</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release %2818%29|x64'">
+    <OutputPath>C:\ProgramData\Altium\Altium Designer {79470B0F-1EE6-4B58-AB70-5E368B162241}\Extensions\SwRI_Tools</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <OutputPath>C:\ProgramData\Altium\Altium Designer {79470B0F-1EE6-4B58-AB70-5E368B162241}\Extensions\SwRI_Tools</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <OutputPath>C:\ProgramData\Altium\Altium Designer {79470B0F-1EE6-4B58-AB70-5E368B162241}\Extensions\SwRI_Tools</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Altium.SDK, Version=1.0.6542.30251, Culture=neutral, PublicKeyToken=51600b9dd346ed18, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\ProgramData\Altium\Altium Designer {385F16AE-6326-44BD-A82C-E0D406F9CFB0}\Extensions\Altium Developer\SDK3.1\CSharp\Altium.SDK.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Altium.SDK.Interfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=51600b9dd346ed18, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\ProgramData\Altium\Altium Designer {73DE4726-AC28-488B-AE7B-DD63DF731DD0}\Extensions\SwRI_Tools\Altium.SDK.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip.Reduced">
+      <HintPath>.\Ionic.Zip.Reduced.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Microsoft Office\Office16\DCF\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include=".\Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Source Code\General\Compression.cs" />
+    <Compile Include="Source Code\General\frmResFinder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\General\frmResFinder.Designer.cs">
+      <DependentUpon>frmResFinder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source Code\General\OpenDesignNotes.cs" />
+    <Compile Include="Source Code\General\UI.cs" />
+    <Compile Include="Source Code\Options\GenericOptions.cs" />
+    <Compile Include="Source Code\PCB\AssignNet.cs" />
+    <Compile Include="Source Code\PCB\DoFileGen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\PCB\DoFileGen.Designer.cs">
+      <DependentUpon>DoFileGen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source Code\PCB\Export.cs" />
+    <Compile Include="Source Code\PCB\FixRefdesOrientation.cs" />
+    <Compile Include="Source Code\PCB\frmPlaceReplicate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\PCB\frmPlaceReplicate.Designer.cs">
+      <DependentUpon>frmPlaceReplicate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source Code\PCB\LayerStack.cs" />
+    <Compile Include="Source Code\PCB\PlaceReplicate.cs" />
+    <Compile Include="Source Code\PCB\CrossSection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\PCB\CrossSection.Designer.cs">
+      <DependentUpon>CrossSection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source Code\PCB\ResistorSwap.cs" />
+    <Compile Include="Source Code\PCB\frmViaReplace.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\PCB\frmViaReplace.Designer.cs">
+      <DependentUpon>frmViaReplace.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source Code\PCB\ShowSelectedComponentNets.cs" />
+    <Compile Include="Source Code\PCB\xSignals.cs" />
+    <Compile Include="Source Code\SCH\DatasheetDownload.cs" />
+    <Compile Include="Source Code\SCH\DuplicateRefDes.cs" />
+    <Compile Include="Source Code\SCH\RenameNets.cs" />
+    <Compile Include="Source Code\Variants\AlignVariants.cs" />
+    <Compile Include="Source Code\Variants\FootprintCompare.cs" />
+    <Compile Include="Source Code\Variants\FootprintSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\Variants\FootprintSelect.Designer.cs">
+      <DependentUpon>FootprintSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source Code\SCH\ToggleResetPartsDesignatorsOnPaste.cs" />
+    <Compile Include="Source Code\TestClass.cs" />
+    <Compile Include="Source Code\Commands.cs" />
+    <Compile Include="Source Code\General\frmHeightReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\General\frmHeightReport.Designer.cs">
+      <DependentUpon>frmHeightReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source Code\Main.cs" />
+    <Compile Include="Source Code\General\BatchOutjob.cs" />
+    <Compile Include="Source Code\Options\General_Options.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\Options\General_Options.Designer.cs">
+      <DependentUpon>General_Options.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source Code\Options\PCB_Options.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\Options\PCB_Options.Designer.cs">
+      <DependentUpon>PCB_Options.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source Code\Options\SCH_Options.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\Options\SCH_Options.Designer.cs">
+      <DependentUpon>SCH_Options.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source Code\Options\ToolsPreferences.cs" />
+    <Compile Include="Source Code\PCB\frmEmbededResistorRpt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\PCB\frmEmbededResistorRpt.Designer.cs">
+      <DependentUpon>frmEmbededResistorRpt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source Code\Utilities\ErrorMail.cs" />
+    <Compile Include="Source Code\PCB\FixEmbededResistors.cs" />
+    <Compile Include="Source Code\General\frmBatchOutjob.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\General\frmBatchOutjob.Designer.cs">
+      <DependentUpon>frmBatchOutjob.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source Code\PCB\frmTracks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\PCB\frmTracks.Designer.cs">
+      <DependentUpon>frmTracks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source Code\General\HeightReport.cs" />
+    <Compile Include="Source Code\General\OpenExtFile.cs" />
+    <Compile Include="Source Code\SCH\SCH_GridChange.cs" />
+    <Compile Include="Source Code\PCB\ShowHideRefDes.cs" />
+    <Compile Include="Source Code\PCB\ToggleDesignRules.cs" />
+    <Compile Include="Source Code\PCB\ToggleLockedObjects.cs" />
+    <Compile Include="Source Code\General\ServerPanel.cs" />
+    <Compile Include="Source Code\Utilities\INI.cs" />
+    <Compile Include="Source Code\Utilities\Util.cs" />
+    <Compile Include="Source Code\Variants\ModBom_IO.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\Variants\ModBom_IO.Designer.cs">
+      <DependentUpon>ModBom_IO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source Code\Variants\Variant BOM.cs" />
+    <Compile Include="Source Code\Variants\VariantSync.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source Code\Variants\VariantSync.Designer.cs">
+      <DependentUpon>VariantSync.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source Code\Variants\Vatiants.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\General\frmBatchOutjob.resx">
+      <DependentUpon>frmBatchOutjob.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\General\frmHeightReport.resx">
+      <DependentUpon>frmHeightReport.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\General\frmResFinder.resx">
+      <DependentUpon>frmResFinder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\Options\General_Options.resx">
+      <DependentUpon>General_Options.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\PCB\DoFileGen.resx">
+      <DependentUpon>DoFileGen.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\PCB\CrossSection.resx">
+      <DependentUpon>CrossSection.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\PCB\frmPlaceReplicate.resx">
+      <DependentUpon>frmPlaceReplicate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\PCB\frmViaReplace.resx">
+      <DependentUpon>frmViaReplace.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\Variants\FootprintSelect.resx">
+      <DependentUpon>FootprintSelect.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\PCB\frmEmbededResistorRpt.resx">
+      <DependentUpon>frmEmbededResistorRpt.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\PCB\frmTracks.resx">
+      <DependentUpon>frmTracks.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\Variants\ModBom_IO.resx">
+      <DependentUpon>ModBom_IO.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source Code\Variants\VariantSync.resx">
+      <DependentUpon>VariantSync.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Installation\SwRI_Tools.ins" />
+    <None Include="Installation\SwRI_Tools.rcs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if $(ConfigurationName) == Release2 call "C:\Users\rlyne\Dropbox\Altium Extensions\Nexus_SwRI_Tools\Builder.bat"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

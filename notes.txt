@@ -1,0 +1,119 @@
+if $(ConfigurationName) == Release call "C:\Users\rlyne\Dropbox\Altium Extensions\Nexus_SwRI_Tools\Builder.bat"
+
+Open schematics only
+Tree MNWorkspaceManagerMenu_Category Caption = 'Category'
+     Link      MNWorkspaceManager_Category010  PLID='PLWorkspaceManager:OpenFocusedCategory'             End
+	 INSERT HERE
+     Link      MNWorkspaceManager_Category020  PLID='PLWorkspaceManager:HideFocusedCategory'             End
+     Link      MNWorkspaceManager_Category030  PLID='PLWorkspaceManager:CloseFocusedCategory'            End
+     Separator MNWorkspaceManager_Category040                                                            End
+     Link      MNWorkspaceManager_Category050  PLID='PLWorkspaceManager:SaveFocusedCategory'             End
+     Link      MNWorkspaceManager_Category060  PLID='PLWorkspaceManager:RemoveFocusedCategory'           End
+End
+
+
+
+
+
+
+
+
+Place Replicate Notes:
+//Component.GetState_ObjectID().ToString()
+//Component.GetState_ObjectIDString()
+//Component.GetState_Selected()
+//Component.GetState_UserRouted(): set to false when placed with "place replicate"
+//Component.FlipComponent()
+
+Need to track (component):  *: used to match components
+rotation: ?Component.GetState_Rotation()
+location - offset: ?Component.GetState_XLocation() & ?Component.GetState_YLocation()
+*reference: ?Component.GetState_SourceDesignator()
+?library id
+*value
+*net info
+layer (top, bottom) : ?Component.GetState_Layer()
+
+
+
+
+
+
+
+?Body.GetState_DescriptorString()
+"3D Extruded  (Mechanical 2, Bot Assy)  Standoff=0mil  Overall=163mil  (26522.112mil, 20350.482mil)"
+?Body.GetState_DescriptorString()
+"3D STEP SW3dPS-74VHC32 - 14lead IC SOIC (Mechanical 2, Bot Assy)  Standoff=-0.5mil  Overall=68.5mil  (26522.107mil, 20347.985mil)"
+
+		argComponent.GetState_Name().GetState_ConvertedString()	"U18EM"	string
+		Body.GetModel().GetFileName()	"SW3dPS-74VHC32 - 14lead IC SOIC.STEP"	string
+
+
+
+
+
+
+
+in ObtainParamHeight()
+?argComponent.GetState_DatabaseLibraryName()
+"Div15Components.DbLib"
+?argComponent.GetState_DatabaseTableName()
+"Query Capacitor"
+?argComponent.GetState_LibraryIdentifier()
+"Div15Components.DbLib/Query Capacitor"
+?argComponent.GetState_LibReference()
+"CAP1.1"
+?argComponent.GetState_SchDesignator().GetState_Text()
+"C17"
+?argComponent.GetState_DesignItemId()
+"CAP00548"
+
+
+PCB.IPCB_LibraryIterator
+PCB.IPCB_Library
+string DM_DatabaseTableName()
+    Member of EDP.IComponentLibraryLink
+
+Attributes:
+[System.Runtime.InteropServices.DispIdAttribute(510097)]
+
+EDP.EDP.IDatabaseLibDocument
+
+
+pcbBoard.ChooseLocation(ref x1, ref y1, "Select position!");
+IPCB_Primitive prim = pcbBoard.GetObjectAtXYAskUserIfAmbiguous(
+    x1,
+    y1,
+    new PCB.TObjectSet(PCB.TObjectId.eTrackObject, PCB.TObjectId.eNetObject),
+    PCB.PCBConstant.V6AllLayersSet,
+    TEditingAction.eEditAction_Select
+);
+
+
+
+
+<<<<<<<<<<<<<<<<<<<<<<<OPTIONS>>>>>>>>>>>>>>>>>>>>>>>>>
+IOptionsReader optionsReader = DXP.Utils.ServerOptionsReader("SCH");
+optionsReader.ReadSection("Schematic Preferences")
+		
+		
+		PCB
+		
+		
+		
+		public const string SERVERNAME = "GraphicViewer";
+		
+		DXP.IOptionsStorage
+		DXP.IOptionsStorage.GetSectionText(string)
+		EDP.IExternalParameter.DM_GetSection()
+		
+		
+		
+		
+		
+IPCB_Rule
+
+
+<<<<<<<<<<<<<<<<NET CLASS>>>>>>>>>>>>>>>>>>>>>>
+
+

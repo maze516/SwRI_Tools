@@ -1,0 +1,202 @@
+PL
+  PLSwRI_Tools:OpenSCHNotes
+  Command='SwRI_Tools:OpenExtFile'
+  Caption='Open SCH Notes'
+  Params='FileName=.\misc\SCH_Notes.doc,Relative=true,Template=G:\partdata\Released\Altium\Configuration\Project notes templates\SCH_Notes.doc'
+  Description='Toggle pastemask rule for flight parts.'
+End
+
+PL
+  PLSwRI_Tools:OpenPCBNotes
+  Command='SwRI_Tools:OpenExtFile'
+  Caption='Open PCB Notes'
+  Params='FileName=.\misc\PCB_Notes.doc,Relative=true,Template=G:\partdata\Released\Altium\Configuration\Project notes templates\PCB_Notes.doc'
+  Description='Toggle pastemask rule for flight parts.'
+End
+
+PL
+  PLSwRI_Tools:NewProjectWiz
+  Command='SwRI_Tools:OpenExtFile'
+  Caption='Launch New Project Wizard'
+  Params='filename=G:\Randy_Lyne_Temp\New Project Wizard 1.4.exe,relative=false'
+  Description='Launches the Project Wizard.'
+End
+
+PL
+  PLSwRI_Tools:ToggleDesignRuleFlt
+  Command='SwRI_Tools:ToggleDesignRule'
+  Caption='Flight Pads Hidden'
+  Params='PasteMask_Hide_Flt_Pads'
+  Description='Toggle pastemask rule for flight parts.'
+End
+
+PL
+  PLSwRI_Tools:ToggleDesignRuleEng
+  Command='SwRI_Tools:ToggleDesignRule'
+  Caption='Engineering Pads Hidden'
+  Params='PasteMask_Hide_Eng_Pads'
+  Description='Toggle pastemask rule for flight parts.'
+End
+
+PL
+  PLSwRI_Tools:ToggleDesignRuleLeg
+  Command='SwRI_Tools:ToggleDesignRule'
+  Caption='Legacy Eng Pads Hidden'
+  Params='PasteMask-100'
+  Description='Toggle pastemask rule for legacy parts.'
+End
+
+PL
+  PLSwRI_Tools:Test
+  Command='SwRI_Tools:Test'
+  Caption='Test'
+  Params='param=test'
+  Description='test'
+End
+
+PL
+  PLSwRI_Tools:ToggleLockedObjects
+  Command='SwRI_Tools:ToggleLockedObjects'
+  Caption='Locked Objects Selectable'
+  Description='Toggles DXP>Preferences>Protect Locked Objects'
+End
+
+PL
+  PLSwRI_Tools:ShowRefDes
+  Command='SwRI_Tools:ShowHideRefDes'
+  Caption='Show reference designators.'
+  Params='show'
+  Description='Turns on reference designators for all components.'
+End
+
+PL
+  PLSwRI_Tools:HideRefDes
+  Command='SwRI_Tools:ShowHideRefDes'
+  Caption='Hide reference designators.'
+  Params='hide'
+  Description='Turns off reference designators for all components.'
+End
+
+PL
+  PLSwRI_Tools:FixEmbededResistors 
+  Command='SwRI_Tools:FixEmbededResistors'
+  Caption='Fix Embeded Resistors'
+  Description='Moves the mechanical layers of embeded resistors to the appropriate layer.'
+End
+
+PL
+  PLSwRI_Tools:BatchOutjob 
+  Command='SwRI_Tools:BatchOutjob'
+  Caption='Batch Outjob Generator'
+  Description= 'Allows the user to generate all outjobs in one process.'
+End
+
+PL
+  PLSwRI_Tools:50MilGrid
+  Command='SwRI_Tools:AdjustGridSnap'
+  Caption='50 Mil Grid'
+  Params='size=50'
+  Description='Changes the grid snap for all schematic pages.'
+End
+
+PL
+  PLSwRI_Tools:100MilGrid
+  Command='SwRI_Tools:AdjustGridSnap'
+  Caption='100 Mil Grid'
+  Params='size=100'
+  Description='Changes the grid snap for all schematic pages.'
+End
+
+PL
+  PLSwRI_Tools:200MilGrid
+  Command='SwRI_Tools:AdjustGridSnap'
+  Caption='200 Mil Grid'
+  Params='size=200'
+  Description='Changes the grid snap for all schematic pages.'
+End
+
+PL
+  PLSwRI_Tools:50MilGridAlign
+  Command='SwRI_Tools:AdjustGridSnap'
+  Caption='50 Mil Grid'
+  Params='size=50,align=true'
+  Description='Changes the grid snap for all schematic pages and aligns parts to grid.'
+End
+
+PL
+  PLSwRI_Tools:100MilGridAlign
+  Command='SwRI_Tools:AdjustGridSnap'
+  Caption='100 Mil Grid'
+  Params='size=100,align=true'
+  Description='Changes the grid snap for all schematic pages and aligns parts to grid.'
+End
+
+PL
+  PLSwRI_Tools:200MilGridAlign
+  Command='SwRI_Tools:AdjustGridSnap'
+  Caption='200 Mil Grid'
+  Params='size=200,align=true'
+  Description='Changes the grid snap for all schematic pages and aligns parts to grid.'
+End
+
+PL
+  PLSwRI_Tools:TrackUtil 
+  Command='SwRI_Tools:TrackUtil'
+  Caption='Track Utility'
+  Description='Provides a utility for creating tracks from coordinate spacing with changing reference.'
+End
+
+Insertion MNSwRIPCBMenu10 TargetID='MNPCBMenu' InsertType='After' RefID0='MNPCB_Help10' 
+  Tree MNSwRIPCBMenuTree10 Caption='SwRI' Popup='1'
+      Link SwRI_ToolsMenu1 PLID='PLSwRI_Tools:NewProjectWiz' End
+      Separator SwRI_ToolsSep1 End
+      Link SwRI_ToolsMenu10 PLID='PLSwRI_Tools:ToggleDesignRuleFlt' End
+      Link SwRI_ToolsMenu20 PLID='PLSwRI_Tools:ToggleDesignRuleEng' End
+      Link SwRI_ToolsMenu30 PLID='PLSwRI_Tools:ToggleDesignRuleLeg' End
+      Separator SwRI_ToolsSep10 End
+      Link SwRI_ToolsMenu40 PLID='PLSwRI_Tools:ToggleLockedObjects' End
+      Separator SwRI_ToolsSep20 End
+      Link SwRI_ToolsMenu50 PLID='PLSwRI_Tools:ShowRefDes' End
+      Link SwRI_ToolsMenu60 PLID='PLSwRI_Tools:HideRefDes' End
+      Separator SwRI_ToolsSep30 End
+      Link SwRI_ToolsMenu70 PLID='PLSwRI_Tools:FixEmbededResistors' End
+      Separator SwRI_ToolsSep40 End
+      Link SwRI_ToolsMenu80 PLID='PLSwRI_Tools:OpenPCBNotes' End
+      Separator SwRI_ToolsSep100 End
+      Link SwRI_ToolsMenu100 PLID='PLSwRI_Tools:Test' End
+      
+  End
+End
+
+Insertion MNSwRIMenu20 TargetID='MNSchematicMenu' InsertType='After' RefID0='MNSchematic_Help10' 
+  Tree MNSwRIMenuTree20 Caption='SwRI' Popup='1'
+    Link SwRI_ToolsMenu10 PLID='PLSwRI_Tools:OpenSCHNotes' End
+    Separator SwRI_ToolsSep10 End
+    Link SwRI_ToolsMenu20 PLID='PLSwRI_Tools:NewProjectWiz' End
+    Link SwRI_ToolsMenu30 PLID='PLSwRI_Tools:BatchOutjob' End
+	Separator SwRI_ToolsSep20 End
+	Tree MNSwRIGridTree Caption='Project Grid Snap' Popup='1'
+		Link SwRI_GridMenu10 PLID='PLSwRI_Tools:50MilGrid' End
+		Link SwRI_GridMenu20 PLID='PLSwRI_Tools:100MilGrid' End
+		Link SwRI_GridMenu30 PLID='PLSwRI_Tools:200MilGrid' End
+	End
+	Tree MNSwRIAlignTree Caption='Project Grid Snap && Align Parts' Popup='1'
+		Link SwRI_GridAlignMenu10 PLID='PLSwRI_Tools:50MilGridAlign' End
+		Link SwRI_GridAlignMenu20 PLID='PLSwRI_Tools:100MilGridAlign' End
+		Link SwRI_GridAlignMenu30 PLID='PLSwRI_Tools:200MilGridAlign' End
+	End
+    Separator SwRI_ToolsSep100 End
+    Link SwRI_ToolsMenu100 PLID='PLSwRI_Tools:Test' End
+  End
+End
+Insertion MNSwRIMenu30 TargetID='MNNoDocument' InsertType='After' RefID0='MNNoDocument_Help' 
+  Tree MNSwRIPCBMenuTree10 Caption='SwRI' Popup='1'
+    Link SwRI_ToolsMenu20 PLID='PLSwRI_Tools:NewProjectWiz' End
+  End
+End
+
+Insertion MNSwRIMenu40 TargetID='MNPCBLibMenu' InsertType='After' RefID0='MNPCBLib_Help10' 
+  Tree MNSwRIPCBMenuTree10 Caption='SwRI' Popup='1'
+    Link SwRI_ToolsMenu20 PLID='PLSwRI_Tools:TrackUtil' End
+  End
+End
