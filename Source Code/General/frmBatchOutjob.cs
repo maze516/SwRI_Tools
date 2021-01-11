@@ -217,7 +217,7 @@ namespace SwRI_Tools.Source_Code
                         lstTreeNode.Add(new TreeNode(OutJobDoc.GetState_OutputMedium(i).GetState_Name()));//Build list of nodes for form tree view
                     }
                     else
-                    {//Dont remember why this is exluded.
+                    {//Dont remember why this is excluded.
                         //throw new  NotImplementedException("Batchoutjob \"print\" medium type");
                     }
                 }

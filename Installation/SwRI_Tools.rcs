@@ -104,13 +104,6 @@ End
 //End
 
 PL
-  PLSwRI_Tools:ExportDoDiffPair
-  Command='SwRI_Tools:ExportDoDiffPair'
-  Caption='Diff Pairs Do File'
-   Description='Export diff pair do file.'
-End
-
-PL
   PLSwRI_Tools:FixRefDesRotation
   Command='SwRI_Tools:FixRefDesRotation'
   Caption='Fix Rotation'
@@ -137,21 +130,6 @@ PL
   Caption='xSignals Report'
    Description='Export xSignals'
 End
-
-PL
-  PLSwRI_Tools:ExportDoRules
-  Command='SwRI_Tools:ExportDoRules'
-  Caption='Design Rules Do file'
-   Description='Export design rules.'
-End
-
-PL
-  PLSwRI_Tools:ExportDoxSignal
-  Command='SwRI_Tools:ExportDoxSignal'
-  Caption='xSignals Do file'
-   Description='Export xSignals'
-End
-
 
 PL
   PLSwRI_Tools:VarFootprintSelect
