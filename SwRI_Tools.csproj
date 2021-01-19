@@ -143,6 +143,7 @@
       <DependentUpon>frmResFinder.cs</DependentUpon>
     </Compile>
     <Compile Include="Source Code\General\OpenDesignNotes.cs" />
+    <Compile Include="Source Code\General\PDF_Update.cs" />
     <Compile Include="Source Code\General\UI.cs" />
     <Compile Include="Source Code\Options\GenericOptions.cs" />
     <Compile Include="Source Code\PCB\AssignNet.cs" />

@@ -1,5 +1,12 @@
 
 PL
+  PLSwRI_Tools:FixPDF
+  Command='SwRI_Tools:FixPDF'
+  Caption='Fix Schematic PDFs'
+  Description='Fixes the schematic PDF so datasheet links with drive letters will work.'
+End
+
+PL
   PLSwRI_Tools:ResFinder
   Command='SwRI_Tools:ResFinder'
   Caption='Resistor Finder'
@@ -439,6 +446,7 @@ Insertion MNSwRIPCBMenu10 TargetID='MNPCBMenu' InsertType='After' RefID0='MNPCB_
     Link SwRI_ToolsMenu3 PLID='PLSwRI_Tools:OpenDesignNotes' End
     Link SwRI_ToolsMenu5 PLID='PLSwRI_Tools:BatchOutjob' End
     Link SwRI_ToolsMenu40 PLID='PLSwRI_Tools:DownloadDatasheets' End
+    Link SwRI_ToolsMenu41 PLID='PLSwRI_Tools:FixPDF' End
     Link SwRI_ToolsMenu6 PLID='PLSwRI_Tools:TrackUtil' End
     Link SwRI_ToolsMenu6 PLID='PLSwRI_Tools:DoReport' End
     //Link SwRI_ToolsMenu7 PLID='PLSwRI_Tools:VarFootprintSelect' End
@@ -499,6 +507,7 @@ Insertion MNSwRIMenu20 TargetID='MNSchematicMenu' InsertType='After' RefID0='MNS
     Link SwRI_ToolsMenu10 PLID='PLSwRI_Tools:OpenDesignNotes' End
     Link SwRI_ToolsMenu30 PLID='PLSwRI_Tools:BatchOutjob' End
     Link SwRI_ToolsMenu40 PLID='PLSwRI_Tools:DownloadDatasheets' End
+    Link SwRI_ToolsMenu41 PLID='PLSwRI_Tools:FixPDF' End
     Separator SwRI_ToolsSep10 End
     //Link SwRI_ToolsMenu11 PLID='PLSwRI_Tools:HeightReport' End
     Tree MNSwRIVarTree Caption='Variant Tools' Popup='1'

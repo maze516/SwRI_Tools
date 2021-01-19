@@ -114,6 +114,7 @@ public class Util
 
     /// <summary>
     /// Get the path of the project for the selected document.
+    /// "T:\\users\\RLYNE\\test projects\\OMAP_L138_SOM (2-17-2020 9-04-00 AM)\\"
     /// </summary>
     /// <returns>Path of project.</returns>
     public static string ProjPath()
@@ -124,7 +125,7 @@ public class Util
 
             IDXPProject CurrentProject;
             CurrentProject = CurrentWorkspace.DM_FocusedProject();
-
+            if (CurrentProject == null) return "";
             return System.IO.Path.GetDirectoryName(CurrentProject.DM_ProjectFullPath()) + "\\";
         }
         catch (Exception ex)
@@ -427,6 +428,16 @@ public class Util
     public static void Log(List<string> output, string Path)
     {
         StreamWriter sw = new StreamWriter(Path);
+        foreach (string item in output)
+        {
+            sw.WriteLine(item);
+
+        }
+        sw.Close();
+    }
+    public static void AppendLog(List<string> output, string Path)
+    {
+        StreamWriter sw = new StreamWriter(Path, true);
         foreach (string item in output)
         {
             sw.WriteLine(item);
