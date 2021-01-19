@@ -12,6 +12,8 @@ public class PDF_Update
 
     public void Update_PDF_Sch_Links()
     {
+        DXP.Utils.StatusBarSetState(2, "Fixing PDFs");
+
         string ProjPath = Util.ProjPath();
 
 
@@ -52,6 +54,9 @@ public class PDF_Update
         }
         bool errors = false;
         int count = 0;
+
+        DXP.Utils.PercentInit("Fixing PDFs", Directory.GetFiles(SchFolder).Length);
+
         foreach (string path in Directory.GetFiles(SchFolder))
         {
             if (path.ToLower().EndsWith("pdf"))
@@ -59,7 +64,10 @@ public class PDF_Update
                 if (UpdatePDF(path) == false) errors = true;
                 count++;
             }
+            Utils.PercentUpdate();
         }
+
+        DXP.Utils.PercentFinish();
 
         if (errors) MessageBox.Show("Something went wrong. A PDF may have been open.\r\nPlease close the PDF and try again.");
         MessageBox.Show("Process complete.\r\n" + count + " file(s) processed");
