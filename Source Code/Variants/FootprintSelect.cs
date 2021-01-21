@@ -89,8 +89,13 @@ public partial class FootprintSelect : ServerPanelForm
                     else
                         Varriant = "EM/FM";
                     Footprint = Component.GetState_Pattern(); //Get footprint name.
-                    VarrCompLayers.Add(RefDes, Component); //Collecting layer data for later comparison.
-
+                    if (!VarrCompLayers.ContainsKey(RefDes))
+                        VarrCompLayers.Add(RefDes, Component); //Collecting layer data for later comparison.
+                    else
+                    {
+                        MessageBox.Show("There are duplicate " + RefDes + ". Please fix and try again.");
+                        return;
+                    }
                     if (!tvList.Nodes.ContainsKey(Varriant)) //Creates variant node if it doesnt already exist.
                         tvList.Nodes.Add(Varriant, Varriant);
                     if (!tvList.Nodes[Varriant].Nodes.ContainsKey(Footprint))//Creates footprint node if it doesnt already exist.
@@ -106,7 +111,7 @@ public partial class FootprintSelect : ServerPanelForm
             #endregion
 
             #region Second Pass
-            
+
             //Iterate theough all components on the board.
             BoardIterator = Board.BoardIterator_Create();
             FilterSet = new PCB.TObjectSet();
@@ -125,7 +130,7 @@ public partial class FootprintSelect : ServerPanelForm
             while (Component != null)
             {
                 RefDes = Component.GetState_Name().GetState_Text();
-                if (VarrCompLayers.ContainsKey(RefDes)|| VarrCompLayers.ContainsKey(RefDes.Replace("FM","EM")))
+                if (VarrCompLayers.ContainsKey(RefDes) || VarrCompLayers.ContainsKey(RefDes.Replace("FM", "EM")))
                 {
                     //Determines if component is a variant.
                     if (Component.GetState_SourceUniqueId() == null)
@@ -137,7 +142,7 @@ public partial class FootprintSelect : ServerPanelForm
                     {
                         varr = Component.GetState_SourceUniqueId().Contains("@");
                         if (!varr)
-                            varr = RefDes.Contains("FM")|| RefDes.Contains("EM");
+                            varr = RefDes.Contains("FM") || RefDes.Contains("EM");
                     }
 
                     if (!varr)
@@ -315,7 +320,7 @@ public partial class FootprintSelect : ServerPanelForm
             switch (cbSelectBase.Checked)
             {
                 case true:
-                    if (varr == false & Components.Contains(RefDes.Replace("FM","EM")))
+                    if (varr == false & Components.Contains(RefDes.Replace("FM", "EM")))
                     {
                         Component.SetState_Selected(true);
                         if (chkMask.Checked) //Add component to list of masked items.
