@@ -50,9 +50,6 @@ public class ErrorMail
             if (project != null)
                 ProjPath = Path.GetDirectoryName(project.DM_ProjectFullPath()) + "\\";
 
-            if (ProjPath != "")
-                if (MessageBox.Show("Do you wish to include a copy of the active project?", "Include Project", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    Helpers.Compression.SimpleZip(ProjPath, ZipPath + User + " " + Date.Replace(":",".") + ".zip");
 
 
             if (ToolsPreferences.SMTP_Enable)
@@ -60,6 +57,9 @@ public class ErrorMail
             else
                 MessageBox.Show("An Error has occured. The error has been logged.\nContact tech support if this error continues.");
 
+            if (ProjPath != "")
+                if (MessageBox.Show("Do you wish to include a copy of the active project?", "Include Project", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    Helpers.Compression.SimpleZip(ProjPath, ZipPath + User + " " + Date.Replace(":",".") + ".zip");
 
         }
         catch

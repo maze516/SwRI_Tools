@@ -101,7 +101,7 @@ class DuplicateRefDes
             DXP.Utils.PercentInit("Checking for Similar", lstRefDes.Count);
             for (int i = 1; i < lstRefDes.Count; i++)
             {
-                if (lstRefDes[i].Length > 3)
+                if (lstRefDes[i].Length > 3) //TODO: break open refdes stuff and compare numbers first.
                     if (lstRefDes[i].Contains(lstRefDes[i - 1]))
                         Output.Add("Similar, " + lstRefDes[i] + ", " + lstRefDes[i - 1]);
                 DXP.Utils.PercentUpdate();

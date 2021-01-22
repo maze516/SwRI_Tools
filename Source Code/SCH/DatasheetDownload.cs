@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+//TODO: add option to copy over the schematic with datasheet paths redirected to new "downloads"
 
 class DatasheetDownload
 {
