@@ -9,6 +9,7 @@ using System.Windows.Forms;
 
 public static class UI
 {
+    //UI.ApplyADUITheme(this);
     public static void ApplyADUITheme(Form form)
     {
         form.BackColor = DxpThemeManager.ColorPanelBody;

@@ -2,8 +2,7 @@
 using SCH;
 using System;
 using System.Collections.Generic;
-
-
+using System.Text.RegularExpressions;
 
 class DuplicateRefDes
 {
@@ -99,13 +98,31 @@ class DuplicateRefDes
             DXP.Utils.PercentFinish();
 
             DXP.Utils.PercentInit("Checking for Similar", lstRefDes.Count);
+            string[] First, Second;
             for (int i = 1; i < lstRefDes.Count; i++)
             {
-                if (lstRefDes[i].Length > 3) //TODO: break open refdes stuff and compare numbers first.
-                    if (lstRefDes[i].Contains(lstRefDes[i - 1]))
-                        Output.Add("Similar, " + lstRefDes[i] + ", " + lstRefDes[i - 1]);
+                //if (lstRefDes[i].Length > 3)
+                First = SplitString(lstRefDes[i]);
+
+                if (First.Length >= 2)
+                    for (int j = 1; j < lstRefDes.Count; j++)
+                    {
+                        //if (lstRefDes[i-1].Length > 3)
+                        Second = SplitString(lstRefDes[j]);
+                        if (First.Length != Second.Length)
+                            if (First.Length != 3 || Second.Length != 3)
+                                if (Second.Length > 2)
+                                {
+                                    if (First[0] == Second[0] && First[1] == Second[1] && i != j)
+                                        Output.Add("Similar, " + lstRefDes[i] + ", " + lstRefDes[j]);
+                                }
+
+                    }
+                //if (lstRefDes[i].Contains(lstRefDes[i - 1]))
+                //Output.Add("Similar, " + lstRefDes[i] + ", " + lstRefDes[i - 1]);
                 DXP.Utils.PercentUpdate();
             }
+            //Output.Add("");
             DXP.Utils.PercentFinish();
 
             bool match = false;
@@ -149,5 +166,27 @@ class DuplicateRefDes
 
     }
 
+    string[] SplitString(string input)
+    {
+
+        Regex re = new Regex(@"([a-zA-Z]+)(\d+)");
+        Match result = re.Match(input);
+        string remainder = input.Replace(result.Groups[0].Value, null);
+        string[] output;
+
+        if (remainder != "")
+            output = new string[result.Groups.Count];
+        else
+            output = new string[result.Groups.Count - 1];
+
+        output[0] = result.Groups[1].Value;
+        output[1] = result.Groups[2].Value;
+
+        if (remainder != "")
+            output[output.Length - 1] = remainder;
+
+
+        return output;
+    }
 }
 
