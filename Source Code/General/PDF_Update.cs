@@ -57,6 +57,19 @@ public class PDF_Update
 
         DXP.Utils.PercentInit("Fixing PDFs", Directory.GetFiles(SchFolder).Length);
 
+        //string[] PDFs;
+        //PDFs = Directory.GetFiles(PDFPath, "*.pdf");
+        //DateTime LatestDT = new DateTime();
+        //foreach (string item in PDFs)
+        //{
+        //    if (File.GetCreationTime(item).Date == DateTime.Today.Date)
+        //        if (File.GetCreationTime(item) > LatestDT)
+        //        {
+        //            LatestDT = File.GetCreationTime(item);
+        //            LatestPDF = item;
+        //        }
+        //}
+
         foreach (string path in Directory.GetFiles(SchFolder))
         {
             if (path.ToLower().EndsWith("pdf"))
@@ -79,7 +92,7 @@ public class PDF_Update
             if (!path.ToLower().EndsWith("pdf")) return true;
             Encoding encode = Encoding.Default;
             string text = File.ReadAllText(path, encode);
-            text = text.Replace(@"/:\\s\(\(\\/\)|\(\\\\\\\\\)\).+/", @"/:\\s[a-z]:.+/i");
+            text = text.Replace(@"/:\\s\(\(\\/\)|\(\\\\\\\\\)\).+/", @"/:\\s[a-z]:.+/i"); // @"/:.+\\.+\(pdf\)/i"
             File.WriteAllText(path, text, encode);
             return true;
         }

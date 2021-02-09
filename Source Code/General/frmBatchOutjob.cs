@@ -5,8 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace SwRI_Tools.Source_Code
-{
+
     public partial class frmBatchOutjob : Form
     {
         public Dictionary<string, clsOutJob> dictOutputMedium = new Dictionary<string, clsOutJob>();
@@ -99,7 +98,17 @@ namespace SwRI_Tools.Source_Code
                                             OutJobDoc.SetState_VariantName(cboVariant.Text);
                                     }
                                 }
-                                
+//#if DEBUG
+//                                string files="";
+//                                OutJobDoc = (IWSM_OutputJobDocument)dictOutputMedium[_node.FullPath].ServerDoc;
+//                                OutJobDoc.GetState_MediumOutputer(OutputMedium, 0).DM_Generate_OutputFilesTo(@"T:\users\RLYNE\test projects\SchB_PwbA\Datasheets", OutJobDoc.GetState_MediumOutputer(OutputMedium, 0).DM_Parameters(0).DM_Value());
+
+//                                for (int i = 0; i < OutJobDoc.GetState_OutputerCount(); i++)
+//                                {
+//                                    System.Diagnostics.Debug.WriteLine(OutJobDoc.GetState_Outputer(i).DM_GeneratorName());
+//                                }
+
+//#endif
                                 //Generate outjob outputs.
                                 switch (OutputMedium.GetState_TypeString())
                                 {
@@ -158,7 +167,7 @@ namespace SwRI_Tools.Source_Code
             }
         }
 
-        private void frmBatchOutjob_Load(object sender, System.EventArgs e)
+        public void frmBatchOutjob_Load(object sender, System.EventArgs e)
         {
             IDXPProject Project = DXP.GlobalVars.DXPWorkSpace.DM_FocusedProject();
 
@@ -382,4 +391,4 @@ namespace SwRI_Tools.Source_Code
             this.Close();
         }
     }
-}
+

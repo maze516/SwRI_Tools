@@ -17,7 +17,7 @@ public class BatchOutjob
         try
         {
             //Initialize the form.
-            SwRI_Tools.Source_Code.frmBatchOutjob frmOutjobForm = new SwRI_Tools.Source_Code.frmBatchOutjob();
+            frmBatchOutjob frmOutjobForm = new frmBatchOutjob();
             frmOutjobForm.Show();
         }
         catch (Exception ex)

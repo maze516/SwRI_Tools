@@ -101,13 +101,11 @@ class DuplicateRefDes
             string[] First, Second;
             for (int i = 1; i < lstRefDes.Count; i++)
             {
-                //if (lstRefDes[i].Length > 3)
                 First = SplitString(lstRefDes[i]);
 
                 if (First.Length >= 2)
                     for (int j = 1; j < lstRefDes.Count; j++)
                     {
-                        //if (lstRefDes[i-1].Length > 3)
                         Second = SplitString(lstRefDes[j]);
                         if (First.Length != Second.Length)
                             if (First.Length != 3 || Second.Length != 3)
@@ -118,8 +116,7 @@ class DuplicateRefDes
                                 }
 
                     }
-                //if (lstRefDes[i].Contains(lstRefDes[i - 1]))
-                //Output.Add("Similar, " + lstRefDes[i] + ", " + lstRefDes[i - 1]);
+
                 DXP.Utils.PercentUpdate();
             }
             //Output.Add("");

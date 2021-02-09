@@ -666,7 +666,7 @@ public partial class ModBom_IO : Form
 
             IProject project = DXP.GlobalVars.DXPWorkSpace.DM_FocusedProject() as IProject;
 
-            List<string> lstOutjobDocPaths = new SwRI_Tools.Source_Code.frmBatchOutjob().GetOutputJobPath(); //Get a list of all outjob docs in the project
+            List<string> lstOutjobDocPaths = new frmBatchOutjob().GetOutputJobPath(); //Get a list of all outjob docs in the project
 
             if (lstOutjobDocPaths == null)
                 return;

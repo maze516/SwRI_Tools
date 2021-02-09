@@ -117,3 +117,7 @@ IPCB_Rule
 <<<<<<<<<<<<<<<<NET CLASS>>>>>>>>>>>>>>>>>>>>>>
 
 
+
+REGEX
+(?<=ComponentLink1URL:)(.*?)(\\\\\\\\\w+\.(pdf|docx|doc|xlsx|xls))
+

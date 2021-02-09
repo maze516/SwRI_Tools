@@ -1,5 +1,4 @@
-﻿namespace SwRI_Tools.Source_Code
-{
+﻿
     partial class frmBatchOutjob
     {
         /// <summary>
@@ -153,4 +152,3 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox cbClose;
     }
-}
