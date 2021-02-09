@@ -127,7 +127,7 @@ class DatasheetDownload
                     else
                     {
                         ServerDoc = Client.OpenDocument("SCH", DocPath);
-                        
+
                     }
 
                     if (ServerDoc == null)
@@ -252,19 +252,26 @@ class DatasheetDownload
                         //foreach (IServerDocument tmpServerDoc in lstServerDocs)
                         //    Client.CloseDocument(tmpServerDoc);
 
-                        string[] PDFs;
-                        PDFs = Directory.GetFiles(PDFPath, "*.pdf");
-                        DateTime LatestDT = new DateTime();
-                        foreach (string item in PDFs)
+                        //MessageBox.Show(PDFPath);
+                        if (PDFPath.ToLower().EndsWith(".pdf"))
                         {
-                            if (File.GetCreationTime(item).Date == DateTime.Today.Date)
-                                if (File.GetCreationTime(item) > LatestDT)
-                                {
-                                    LatestDT = File.GetCreationTime(item);
-                                    LatestPDF = item;
-                                }
+                            LatestPDF = PDFPath;
                         }
-
+                        else
+                        {
+                            string[] PDFs;
+                            PDFs = Directory.GetFiles(PDFPath, "*.pdf");
+                            DateTime LatestDT = new DateTime();
+                            foreach (string item in PDFs)
+                            {
+                                if (File.GetCreationTime(item).Date == DateTime.Today.Date)
+                                    if (File.GetCreationTime(item) > LatestDT)
+                                    {
+                                        LatestDT = File.GetCreationTime(item);
+                                        LatestPDF = item;
+                                    }
+                            }
+                        }
                         //return;
                     }
 
