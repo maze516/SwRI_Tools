@@ -77,14 +77,15 @@ public partial class frmPlaceReplicate : ServerPanelForm
         {
             string selectedSource, selectedDest;
 
-            selectedSource = lstSource.SelectedItem.ToString();
-            selectedDest = lstDest.SelectedItem.ToString();
-            if (selectedDest == "" || selectedSource == "")
+            if (lstSource.SelectedItem == null || lstDest.SelectedItem == null)
             {
                 MessageBox.Show("Please select a source and destination component");
                 return;
 
             }
+            selectedSource = lstSource.SelectedItem.ToString();
+            selectedDest = lstDest.SelectedItem.ToString();
+
             AddMatch(selectedSource, selectedDest);
         }
         catch (Exception ex)
@@ -621,6 +622,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
             return;
         }
     }
+
 }
 
 //PCB.IPCB_DocumentPainterListenerHelper.OnEndDrag(this PCB.IPCB_DocumentPainterListener, PCB.IPCB_Primitive)

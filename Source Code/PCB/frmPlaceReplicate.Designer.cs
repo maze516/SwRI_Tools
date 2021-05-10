@@ -160,6 +160,8 @@
             // chkAutoMatch
             // 
             this.chkAutoMatch.AutoSize = true;
+            this.chkAutoMatch.Checked = true;
+            this.chkAutoMatch.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkAutoMatch.Location = new System.Drawing.Point(14, 353);
             this.chkAutoMatch.Name = "chkAutoMatch";
             this.chkAutoMatch.Size = new System.Drawing.Size(120, 17);
