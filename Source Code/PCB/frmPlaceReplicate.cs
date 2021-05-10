@@ -17,9 +17,9 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
         InitializeComponent();
 
-        UI.ApplyADUITheme(this); 
+        UI.ApplyADUITheme(this);
 
-    }  
+    }
 
     private void btnSource_Click(object sender, EventArgs e)
     {
@@ -79,7 +79,12 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
             selectedSource = lstSource.SelectedItem.ToString();
             selectedDest = lstDest.SelectedItem.ToString();
+            if (selectedDest == "" || selectedSource == "")
+            {
+                MessageBox.Show("Please select a source and destination component");
+                return;
 
+            }
             AddMatch(selectedSource, selectedDest);
         }
         catch (Exception ex)
@@ -139,8 +144,8 @@ public partial class frmPlaceReplicate : ServerPanelForm
             foreach (IPCB_Primitive item in PR.selectedSourceObjects.arcObjects)
             {
                 temp = item.Replicate();
-                 brd.AddPCBObject(temp);
-               temp.BeginModify();
+                brd.AddPCBObject(temp);
+                temp.BeginModify();
                 temp.MoveByXY(OffsetX, OffsetY);
 
                 if (temp.GetState_Net() != null)
