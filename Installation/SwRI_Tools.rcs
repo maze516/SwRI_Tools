@@ -96,12 +96,12 @@ PL
   Description='Compare footprints between base and variants. Set Class Name based on results.'
 End
 
-//PL
-//  PLSwRI_Tools:AssignNet
-//  Command='SwRI_Tools:AssignNet'
-//  Caption='Assign Net'
-//  Description='Assign net of selected object to that of new object.'
-//End
+PL
+  PLSwRI_Tools:AssignNet
+  Command='SwRI_Tools:AssignNet'
+  Caption='Assign Net'
+  Description='Assign net of selected object to that of new object.'
+End
 
 //PL
 //  PLSwRI_Tools:OpenSchematics
@@ -588,9 +588,9 @@ Insertion MNSwRIMenu500 TargetID='MNPCB_Primitive' InsertType='After' RefID0='MN
     Link SwRI_ToolsMenu100 PLID='PLSwRI_Tools:SetActiveLayer' End
 End
 
-//Insertion MNSwRIMenu500 TargetID='MNPCB_Primitive' InsertType='After' RefID0='MNPCB_Primitive710' 
-//    Link SwRI_ToolsMenu110 PLID='PLSwRI_Tools:AssignNet' End
-//End
+Insertion MNSwRIMenu500 TargetID='MNPCB_Primitive' InsertType='After' RefID0='MNPCB_Primitive710' 
+    Link SwRI_ToolsMenu110 PLID='PLSwRI_Tools:AssignNet' End
+End
 
 Insertion MNSwRIMenu500 TargetID='MNPCB_Primitive' InsertType='After' RefID0='MNPCB_Primitive710' 
     Link SwRI_ToolsMenu110 PLID='PLSwRI_Tools:ShowSelectedNets' End

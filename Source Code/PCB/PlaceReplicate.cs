@@ -498,8 +498,8 @@ public class PlaceReplicate
                         while (pad != null)
                         {
                             if (pad.GetState_Net() != null)
-                                if(!newComp.Nets.ContainsKey(pad.GetState_Name()))
-                                newComp.Nets.Add(pad.GetState_Name(), pad.GetState_Net().GetState_Name());
+                                if (!newComp.Nets.ContainsKey(pad.GetState_Name()))
+                                    newComp.Nets.Add(pad.GetState_Name(), pad.GetState_Net().GetState_Name());
 
                             pinCount++;
                             pad = compIterator.NextPCBObject() as IPCB_Pad;
@@ -526,9 +526,13 @@ public class PlaceReplicate
                         newComp.Footprint = componentObject.GetState_Pattern();
                         newComp.PinCount = pinCount;
 
-                        Destination.Components.Add(newComp.RefDes, newComp);
+                        if (!Destination.Components.ContainsKey(newComp.RefDes) && !SelectedDestRef.Contains(newComp.RefDes))
+                        {
+                            Destination.Components.Add(newComp.RefDes, newComp);
 
-                        SelectedDestRef.Add(newComp.RefDes);
+                            SelectedDestRef.Add(newComp.RefDes);
+                        }
+                        else { MessageBox.Show("Multiple " + newComp.RefDes + " refdes found. Only one was added. Please look into this issue."); }
 
                         //?componentObject.GetState_DescriptorString()
                         //"SOIC Component U5FM-QT#94L9#-20.000MHz (5528.098mil,6358.425mil) on Top Layer"

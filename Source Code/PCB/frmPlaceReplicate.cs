@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
+//todo: add sch/pcb part selection when selecting stuff on the src/dst lists.
 
 public partial class frmPlaceReplicate : ServerPanelForm
 {
@@ -47,7 +48,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
     }
 
     private void btnDest_Click(object sender, EventArgs e)
-    {
+    {//TODO: allow adding dest from sch
         try
         {
             PR.GetDestinationParts();
@@ -87,6 +88,9 @@ public partial class frmPlaceReplicate : ServerPanelForm
             selectedDest = lstDest.SelectedItem.ToString();
 
             AddMatch(selectedSource, selectedDest);
+
+            lstSource.Update();
+            lstDest.Update();
         }
         catch (Exception ex)
         {
@@ -390,17 +394,17 @@ public partial class frmPlaceReplicate : ServerPanelForm
         {
             src = item.Split('>')[0];
             dst = item.Split('>')[1];
-
-            foreach (string pin in PR.Source.Components[src].Nets.Keys)
-            {
-                if (!tempOut.ContainsKey(PR.Source.Components[src].Nets[pin]))
-                    tempOut.Add(PR.Source.Components[src].Nets[pin], PR.Destination.Components[dst].Nets[pin]);
-                else
+            if (PR.Source.Components.ContainsKey(src))
+                foreach (string pin in PR.Source.Components[src].Nets.Keys)
                 {
-                    if (tempOut[PR.Source.Components[src].Nets[pin]] != PR.Destination.Components[dst].Nets[pin])
-                        tempOut[PR.Source.Components[src].Nets[pin]] = "dupe";
+                    if (!tempOut.ContainsKey(PR.Source.Components[src].Nets[pin]))
+                        tempOut.Add(PR.Source.Components[src].Nets[pin], PR.Destination.Components[dst].Nets[pin]);
+                    else
+                    {
+                        if (tempOut[PR.Source.Components[src].Nets[pin]] != PR.Destination.Components[dst].Nets[pin])
+                            tempOut[PR.Source.Components[src].Nets[pin]] = "dupe";
+                    }
                 }
-            }
         }
         return tempOut;
     }

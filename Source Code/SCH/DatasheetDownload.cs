@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using EDP;
-//TODO: add option to copy over the schematic with datasheet paths redirected to new "downloads"
+
 
 class DatasheetDownload
 {
@@ -216,7 +216,7 @@ class DatasheetDownload
             if (lstOutjobDocPaths == null)
                 return;
 
-            //TODO: new regex \w+\.(pdf|docx|doc|xlsx|xls)
+            //TODO: new regex \w+\.(pdf|docx|doc|xlsx|xls)  ???huh???
             //Open the outjob docs
             foreach (string strPath in lstOutjobDocPaths)
                 lstServerDocs.Add(Client.OpenDocument("OUTPUTJOB", strPath));
