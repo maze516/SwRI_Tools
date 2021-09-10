@@ -55,9 +55,10 @@
             this.chkReportList.Location = new System.Drawing.Point(3, 28);
             this.chkReportList.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chkReportList.Name = "chkReportList";
-            this.chkReportList.Size = new System.Drawing.Size(712, 123);
+            this.chkReportList.Size = new System.Drawing.Size(712, 109);
             this.chkReportList.Sorted = true;
             this.chkReportList.TabIndex = 0;
+            this.chkReportList.SelectedIndexChanged += new System.EventHandler(this.chkReportList_SelectedIndexChanged);
             this.chkReportList.MouseUp += new System.Windows.Forms.MouseEventHandler(this.chkReportList_MouseUp);
             // 
             // label1
@@ -65,7 +66,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(3, 11);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(222, 17);
+            this.label1.Size = new System.Drawing.Size(167, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Report Options (Check to include)";
             // 
@@ -115,7 +116,7 @@
             // 
             // DoFileGen
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(719, 693);
             this.Controls.Add(this.splitContainer1);

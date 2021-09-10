@@ -650,7 +650,8 @@ class Export
                         //Loop through each net and add to report.
                         //DO file format:
                         //circuit class DAC_DB (match_net_length on(tolerance 100))
-                        foreach (Match item in nets)
+                        if (nets != null)
+                            foreach (Match item in nets)
                         {
                             Output += String.Format("circuit class {0} (match_net_length on (tolerance {1}))",
                                 item.Value.Replace("'", ""), value);
@@ -664,7 +665,8 @@ class Export
                         //Loop through each net and add to report.
                         //DO file format:
                         //circuit group_set ADC(match_group_length on (tolerance 100))
-                        foreach (Match item in nets)
+                        if (nets != null)
+                            foreach (Match item in nets)
                         {
                             Output += String.Format("circuit group_set {0} (match_group_length on (tolerance {1}))",
                                 item.Value.Replace("'", ""), value);
@@ -683,6 +685,7 @@ class Export
                         //circuit net DAC_DB0_N(length 4200(type actual))
                         MatchCollection nets = Regex.Matches(Rule.GetState_DescriptorString(), @"InNet\('([A-Z]+)");//.Value.Replace("'", "");
                         Output = "";
+                        if(nets!=null)
                         foreach (Match item in nets)
                         {
                             Output += String.Format("circuit net {0} (length {1}(type actual))",
@@ -701,11 +704,12 @@ class Export
                         foreach (Match item in Xsignals)
                         {
                             Result = GetxSignalNets(item.Value.Replace("InxSignalClass('", ""), Board);
-                            foreach (string item2 in Result)
-                            {
-                                Output += String.Format("circuit group {0} (max_total_length {1})",
-                                item2, MaxValue);
-                            }
+                            if (Result != null)
+                                foreach (string item2 in Result)
+                                {
+                                    Output += String.Format("circuit group {0} (max_total_length {1})",
+                                    item2, MaxValue);
+                                }
 
                         }
 

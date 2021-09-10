@@ -15,6 +15,8 @@ public class ErrorMail
     /// <param name="ex">Exception raised.</param>
     public static void LogError(string ErrorMsg, Exception ex, string ProjPath = "")
     {
+#if !DEBUG
+
         try
         {
 
@@ -70,6 +72,7 @@ public class ErrorMail
         {
             DXP.Utils.PercentFinish();
         }
+#endif
     }
 
     /// <summary>
@@ -104,7 +107,7 @@ public class ErrorMail
     private void LogReport(string ErrorMsg)
     {
 
-        string strPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\"+ Util.SERVERNAME+" Logs\\";
+        string strPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\" + Util.SERVERNAME + " Logs\\";
         //"C:\\Users\\rlyne\\AppData\\Local"
         if (!Directory.Exists(strPath))
             Directory.CreateDirectory(strPath);

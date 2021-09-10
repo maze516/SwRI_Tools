@@ -83,6 +83,10 @@ public partial class DoFileGen : ServerPanelForm
         }
     }
 
+    private void chkReportList_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
 }
 
 //public class ListBoxItem

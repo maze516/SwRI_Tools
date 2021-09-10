@@ -77,7 +77,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
         try
         {
             string selectedSource, selectedDest;
-
+            DXP.Utils.PercentBeginComplexOperation("Adding matches.");
             if (lstSource.SelectedItem == null || lstDest.SelectedItem == null)
             {
                 MessageBox.Show("Please select a source and destination component");
@@ -91,6 +91,9 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
             lstSource.Update();
             lstDest.Update();
+
+            DXP.Utils.PercentEndComplexOperation();
+            DXP.Utils.PercentFinish();
         }
         catch (Exception ex)
         {
@@ -440,16 +443,18 @@ public partial class frmPlaceReplicate : ServerPanelForm
         }
     }
 
-    bool matching = false;
+    bool matching = false, matching2 = false, matching3 = false;
     private void AddMatch(string Source, string Dest)
     {
+        if (Matched(Source)) return;
+
         lstDest.Items.Remove(Dest);
         lstSource.Items.Remove(Source);
 
         lstMatched.Items.Add(Source + ">" + Dest);
 
         if (chkAutoMatch.Checked & !matching)
-            AttemptAutoMatch(Dest, Source);
+            AttemptAutoMatch(Dest, Source, lstSource.Items.OfType<string>().ToList<string>(), lstDest.Items.OfType<string>().ToList<string>());
 
     }
     private void lstMatched_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -460,41 +465,55 @@ public partial class frmPlaceReplicate : ServerPanelForm
     private void lstDest_MouseDoubleClick(object sender, MouseEventArgs e)
     {
         string selectedSource, selectedDest;
-
+        DXP.Utils.PercentBeginComplexOperation("Adding matches.");
         selectedSource = lstSource.SelectedItem.ToString();
         selectedDest = lstDest.SelectedItem.ToString();
 
         AddMatch(selectedSource, selectedDest);
+
+        lstSource.Update();
+        lstDest.Update();
+
+        DXP.Utils.PercentEndComplexOperation();
+        DXP.Utils.PercentFinish();
     }
 
     private void lstSource_MouseDoubleClick(object sender, MouseEventArgs e)
     {
         string selectedSource, selectedDest;
-
+        DXP.Utils.PercentBeginComplexOperation("Adding matches.");
         selectedSource = lstSource.SelectedItem.ToString();
         selectedDest = lstDest.SelectedItem.ToString();
 
         AddMatch(selectedSource, selectedDest);
+
+        lstSource.Update();
+        lstDest.Update();
+
+        DXP.Utils.PercentEndComplexOperation();
+        DXP.Utils.PercentFinish();
     }
 
 
 
-    void AttemptAutoMatch(string Dest, string Source)
+    void AttemptAutoMatch(string Dest, string Source, List<string> SrcList, List<string> DstList)
     {
         try
         {
 
+            System.Diagnostics.Debug.WriteLine(Dest);
+            System.Diagnostics.Debug.WriteLine(Source);
 
             matching = true;
             Dictionary<string, string> Matches = new Dictionary<string, string>();
-
+            System.Diagnostics.Debug.WriteLine("Match channels");
             #region Match Channels
 
             if (Source.Contains("U") & Source.Contains("_") & !Source.Contains("EM") & !Source.Contains("FM"))
             {
-                foreach (string src in lstSource.Items)
+                foreach (string src in SrcList)
                     if (src.Contains("_"))
-                        foreach (string dest in lstDest.Items)
+                        foreach (string dest in DstList)
                             if (src.Split('_').Length > 1 && dest.Split('_').Length > 1)
                                 if (Dest.Split('_').Length > 1)
                                     if (src.Split('_')[0] == dest.Split('_')[0])
@@ -511,25 +530,26 @@ public partial class frmPlaceReplicate : ServerPanelForm
             }
 
             #endregion
-
+            System.Diagnostics.Debug.WriteLine("Match Part Numbers");
             #region Match Part Numbers
 
             Matches = new Dictionary<string, string>();
 
-            foreach (string src in lstSource.Items)
+            foreach (string src in SrcList)
             {
 
-                foreach (string dest in lstDest.Items)
+                foreach (string dest in DstList)
                 {
                     if (src.StartsWith(dest.First().ToString()))
                         //if (PR.Source.Components[src].Footprint == PR.Destination.Components[dest].Footprint)
                         //{
                         if (PR.Source.Components[src].Parameters.ContainsKey("PartNumber") & PR.Destination.Components[dest].Parameters.ContainsKey("PartNumber"))
                             if (PR.Source.Components[src].Parameters["PartNumber"] == PR.Destination.Components[dest].Parameters["PartNumber"])
-                                if (Matches.ContainsKey(src))
-                                    Matches[src] = "multi";
-                                else
-                                    Matches.Add(src, dest);
+                                if (!Matched(src))
+                                    if (Matches.ContainsKey(src))
+                                        Matches[src] = "multi";
+                                    else
+                                        Matches.Add(src, dest);
                     //}
                     //else
                     //{
@@ -548,7 +568,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
             }
 
             #endregion
-
+            System.Diagnostics.Debug.WriteLine("Match Nets");
             #region Match Nets
 
             Matches = new Dictionary<string, string>();
@@ -568,6 +588,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
                         {
                             if (firstNet.Value == secondNet.Value)
                             {
+                                //if (!Matched(Source))
                                 if (srcMatches.ContainsKey(Source + "," + firstNet.Key + "," + firstNet.Value))
                                     srcMatches[Source + "," + firstNet.Key + "," + firstNet.Value] = "multi";
                                 else
@@ -579,7 +600,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
 
 
-            foreach (string destSecond in lstDest.Items)
+            foreach (string destSecond in DstList)
             {
                 if (destSecond != Dest)
                     foreach (KeyValuePair<string, string> firstNet in PR.Destination.Components[Dest].Nets)
@@ -588,6 +609,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
                         {
                             if (firstNet.Value == secondNet.Value)
                             {
+                                //if (!Matched(Dest))
                                 if (dstMatches.ContainsKey(Dest + "," + firstNet.Key + "," + firstNet.Value))
                                     dstMatches[Dest + "," + firstNet.Key + "," + firstNet.Value] = "multi";
                                 else
@@ -610,22 +632,229 @@ public partial class frmPlaceReplicate : ServerPanelForm
                 }
             }
 
-            //foreach (KeyValuePair<string, string> item in Matches)
-            //{
-            //    if (item.Value != "multi")
-            //        AddMatch(item.Key, item.Value);
-            //}
             #endregion
 
             matching = false;
+            System.Diagnostics.Debug.WriteLine("Smart Net Matching");
+            #region Smart Net Matching
+
+            Matches = new Dictionary<string, string>();
+            Dictionary<string, string> SNets = PR.Source.Components[Source].Nets;
+            Dictionary<string, string> DNets = PR.Destination.Components[Dest].Nets;
+
+            if (SNets.Count == DNets.Count)
+                foreach (KeyValuePair<string, string> srcItem in SNets)
+                {
+
+                    List<string> lstSrc = new List<string>();
+                    List<string> lstDst = new List<string>();
+
+                    foreach (structNet item2 in PR.SourceNets[srcItem.Value])
+                        lstSrc.Add(item2.RefDes);
+
+                    foreach (structNet item3 in PR.DestNets[DNets[srcItem.Key]])
+                        lstDst.Add(item3.RefDes);
+
+                    System.Diagnostics.Debug.WriteLine("Only one other component on net");
+                    #region Only one other component on net
+                    if (PR.SourceNets[srcItem.Value].Count == 2)
+                    {
+                        foreach (structNet item2 in PR.SourceNets[srcItem.Value])
+                        {
+                            if (!Matched(item2.RefDes))
+                            {
+                                foreach (structNet item3 in PR.DestNets[DNets[srcItem.Key]])
+                                {
+                                    if (item3.Pin == item2.Pin)
+                                    {
+                                        //if (!Matched(item2.RefDes))
+                                        if (Matches.ContainsKey(item2.RefDes))
+                                            Matches[item2.RefDes] = "multi";
+                                        else
+                                            Matches.Add(item2.RefDes, item3.RefDes);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    #endregion                   
+
+                    #region Only one component unmatched
+                    else if (Unmatched(lstSrc) == 1)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Only one component unmatched");
+                        string Ref1 = "", Ref2 = "";
+                        foreach (string item in lstSrc)
+                            if (!Matched(item)) { Ref1 = item; break; }
+
+                        foreach (string item in lstDst)
+                            if (!Matched(item)) { Ref2 = item; break; }
+
+                        if (Ref1 != "" && Ref2 != "")
+                            if (!Matches.ContainsKey(Ref1))
+                                Matches.Add(Ref1, Ref2);
+
+                    }
+                    #endregion
+                    else
+                    {
+                        if (!matching3)
+                        {
+                            matching3 = true;
+
+
+                            AttemptAutoMatch(Dest, Source, lstSrc, lstDst);
+                            matching3 = false;
+                        }
+                    }
+
+                    foreach (KeyValuePair<string, string> item in Matches)
+                    {
+                        if (item.Value != "multi")
+                            AddMatch(item.Key, item.Value);
+                    }
+                    #endregion
+                    System.Diagnostics.Debug.WriteLine("Only one of each refdes type (R,C,U ...)");
+                    #region Only one of each refdes type (R,C,U ...)
+
+                    Matches = new Dictionary<string, string>();
+                    Dictionary<string, string> SourceCount = new Dictionary<string, string>();
+                    Dictionary<string, string> DestCount = new Dictionary<string, string>();
+                    var digits = new[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+
+                    foreach (structNet structNet in PR.SourceNets[srcItem.Value])
+                    {
+                        if (structNet.RefDes != Source) // && structNet.RefDes != Dest)
+                        {
+                            string refType = structNet.RefDes.TrimEnd(digits);
+                            if (!Matched(structNet.RefDes))
+                                if (!SourceCount.ContainsKey(refType))
+                                    SourceCount.Add(refType, structNet.RefDes);
+                                else
+                                    SourceCount[refType] = "multi";
+                        }
+                    }
+
+                    foreach (structNet structNet in PR.DestNets[DNets[srcItem.Key]])
+                    {
+                        if (structNet.RefDes != Dest) // && structNet.RefDes != Dest)
+                        {
+                            string refType = structNet.RefDes.TrimEnd(digits);
+                            if (!Matched(structNet.RefDes))
+                                if (!DestCount.ContainsKey(refType))
+                                    DestCount.Add(refType, structNet.RefDes);
+                                else
+                                    DestCount[refType] = "multi";
+                        }
+                    }
+
+                    foreach (KeyValuePair<string, string> cnt in SourceCount)
+                    {
+                        if (cnt.Value != "multi")
+                        {
+                            if (DestCount.Count > 0)
+                                if (!Matched(cnt.Value))
+                                    if (!Matches.ContainsKey(cnt.Value))
+                                        Matches.Add(cnt.Value, DestCount[cnt.Key]);
+                            //AddMatch(cnt.Value, DestCount[cnt.Key]);
+                        }
+                    }
+
+                    foreach (KeyValuePair<string, string> item in Matches)
+                    {
+                        if (item.Value != "multi")
+                            if (!Matched(item.Key))
+                                AddMatch(item.Key, item.Value);
+                    }
+                    #endregion
+                    System.Diagnostics.Debug.WriteLine("Rerun Matched");
+                    #region Rerun Matched
+                    if (!matching2)
+                    {
+                        matching2 = true;
+
+                        lstSrc = new List<string>();
+                        lstDst = new List<string>();
+
+                        foreach (string item in lstMatched.Items)
+                        {
+                            lstSrc.Add(item.Split('>')[0]);
+                            lstDst.Add(item.Split('>')[1]);
+                        }
+
+                        while (lstSrc.Count > 0)
+                        {
+
+                            AttemptAutoMatch(lstDst[0], lstSrc[0], lstSrc.GetRange(1, lstSrc.Count - 1), lstDst.GetRange(1, lstDst.Count - 1));//lstSource.Items.OfType<string>().ToList<string>(), lstDest.Items.OfType<string>().ToList<string>());//
+                            lstSrc.RemoveAt(0);
+                            lstDst.RemoveAt(0);
+                        }
+                        matching2 = false;
+                    }
+                    #endregion
+
+
+                    matching = false;
+                }
+            //else
+            //    throw new Exception("Net counts dont match");
+
+
         }
         catch (Exception ex)
         {
             matching = false;
+            matching2 = false;
+            matching3 = false;
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return;
         }
     }
+
+    int Unmatched(List<string> RefDes)
+    {
+        int output = 0;
+        foreach (string match in lstMatched.Items)
+        {
+            foreach (string refdes in RefDes)
+            {
+                if (match.Contains(refdes + ">")) { output++; break; }
+                else if (match.Contains(">" + refdes)) { output++; break; }
+            }
+        }
+        return RefDes.Count - output;
+    }
+
+    private void btnFullReset_Click(object sender, EventArgs e)
+    {
+        PR = new PlaceReplicate();
+
+        lstDest.Items.Clear();
+        lstSource.Items.Clear();
+        lstMatched.Items.Clear();
+
+        matching = false;
+        matching2 = false;
+        matching3 = false;
+
+    }
+
+    /// <summary>
+    /// Check if supplied refdes has already been matched.
+    /// </summary>
+    /// <param name="RefDes"></param>
+    /// <returns>Refdes has been matched.</returns>
+    bool Matched(string RefDes)
+    {
+        //throw new Exception("tell diff between R133 and R13. fixed??");
+        foreach (string item in lstMatched.Items)
+        {
+            if (item.Split('>')[0] == RefDes) return true;
+            if (item.Split('>')[1]== RefDes) return true;
+        }
+        return false;
+    }
+
 
 }
 

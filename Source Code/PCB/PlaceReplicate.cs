@@ -17,10 +17,8 @@ public class PlaceReplicate
     public clsSelectedObjects selectedSourceObjects, selectedDestinationObjects;
     public clsOutput Source, Destination;
     public Dictionary<string, IPCB_Net> BoardNets;
+    public Dictionary<string, List<structNet>> SourceNets, DestNets;
 
-    //[XmlArray("SelectedObjects")]
-    //[XmlArrayItem("Object")]
-    //List<PCBObject> SelectedObjects = new List<PCBObject>();
 
 
     public PlaceReplicate()
@@ -29,14 +27,20 @@ public class PlaceReplicate
         Source = new clsOutput();
         Destination = new clsOutput();
         BoardNets = new Dictionary<string, IPCB_Net>();
+        SourceNets = new Dictionary<string, List<structNet>>();
+        DestNets = new Dictionary<string, List<structNet>>();
     }
 
+    /// <summary>
+    /// Collect all the selected source objects.
+    /// </summary>
     public void GetInitialParts()
     {
         try
         {
             SelectedSourceRef = new List<string>();
             selectedSourceObjects = new clsSelectedObjects();
+            SourceNets = new Dictionary<string, List<structNet>>();
             Source = new clsOutput();
 
             IPCB_BoardIterator BoardIterator;
@@ -57,13 +61,16 @@ public class PlaceReplicate
 
             Primitive = BoardIterator.FirstPCBObject();
 
+            ///Collect selected object info
+            ///Add these objects to the Source var.
             while (Primitive != null)
             {
                 if (Primitive.GetState_Selected())
                 {
                     switch (Primitive.GetState_ObjectID())
                     {
-                        case TObjectId.eArcObject:
+                        #region Arcs
+                        case TObjectId.eArcObject:  //Arcs
                             IPCB_Arc arcObject = Primitive as IPCB_Arc;
                             selectedSourceObjects.arcObjects.Add(arcObject);
                             clsOutput.st_IPCB_Arc newArc = new clsOutput.st_IPCB_Arc();
@@ -95,11 +102,15 @@ public class PlaceReplicate
 
                             System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
                             break;
+                        #endregion
+                        #region Pads
                         case TObjectId.ePadObject:
                             IPCB_Pad padObject = Primitive as IPCB_Pad;
                             selectedSourceObjects.padObjects.Add(padObject);
                             System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
                             break;
+                        #endregion
+                        #region Vias
                         case TObjectId.eViaObject:
                             System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
                             IPCB_Via ViaObject = Primitive as IPCB_Via;
@@ -128,6 +139,8 @@ public class PlaceReplicate
 
                             selectedSourceObjects.ViaObjects.Add(ViaObject);
                             break;
+                        #endregion
+                        #region Tracks
                         case TObjectId.eTrackObject:
                             IPCB_Track trackObject = Primitive as IPCB_Track;
                             System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
@@ -152,12 +165,15 @@ public class PlaceReplicate
                             Source.Tracks.Add(newTrack);
 
                             break;
+                        #endregion
+                        #region Text
                         case TObjectId.eTextObject:
                             IPCB_Text textObject = Primitive as IPCB_Text;
                             selectedSourceObjects.textObjects.Add(textObject);
                             System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
                             break;
-
+                        #endregion
+                        #region Fills
                         case TObjectId.eFillObject:
                             IPCB_Fill fillObject = Primitive as IPCB_Fill;
                             selectedSourceObjects.fillObjects.Add(fillObject);
@@ -189,12 +205,14 @@ public class PlaceReplicate
 
                             System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
                             break;
+                        #endregion
                         //case TObjectId.eConnectionObject:
                         //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
                         //    break;
                         //case TObjectId.eNetObject:
                         //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
                         //    break;
+                        #region Components
                         case TObjectId.eComponentObject:
                             IPCB_Component componentObject = Primitive as IPCB_Component;
                             selectedSourceObjects.componentObjects.Add(componentObject);
@@ -210,13 +228,37 @@ public class PlaceReplicate
 
                             IPCB_Pad pad = compIterator.FirstPCBObject() as IPCB_Pad;
                             int pinCount = 0;
-                            newComp.Nets = new SerializableDictionary<string, string>();
+                            //Collecting nets
+                            newComp.Nets = new Dictionary<string, string>();
                             while (pad != null)
                             {
                                 if (pad.GetState_Net() != null)
+                                {
                                     if (!newComp.Nets.ContainsKey(pad.GetState_Name()))
                                         newComp.Nets.Add(pad.GetState_Name(), pad.GetState_Net().GetState_Name());
+                                    if (SourceNets.ContainsKey(pad.GetState_Net().GetState_Name()))
+                                    {
+                                        string tmp = componentObject.GetState_Name().GetState_Text();
+                                        structNet tmpNet = new structNet
+                                        {
+                                            Pin = pad.GetState_Name(),
+                                            RefDes = componentObject.GetState_Name().GetState_Text()
+                                        };
 
+                                        if (!SourceNets[pad.GetState_Net().GetState_Name()].Contains(tmpNet))
+                                            SourceNets[pad.GetState_Net().GetState_Name()].Add(tmpNet);
+                                    }
+                                    else
+                                    {
+                                        SourceNets.Add(pad.GetState_Net().GetState_Name(), new List<structNet>
+                                        {
+                                            new structNet {
+                                                Pin = pad.GetState_Name(),
+                                                RefDes = componentObject.GetState_Name().GetState_Text()
+                                            }
+                                        });
+                                    }
+                                }
                                 pinCount++;
                                 pad = compIterator.NextPCBObject() as IPCB_Pad;
                             }
@@ -224,7 +266,7 @@ public class PlaceReplicate
                             componentObject.GroupIterator_Destroy(ref compIterator);
 
 
-                            newComp.Parameters = new SerializableDictionary<string, string>();
+                            newComp.Parameters = new Dictionary<string, string>();
 
                             IPCB_PrimitiveParameters componentParameters = componentObject as IPCB_PrimitiveParameters;
                             for (int i = 0; i < componentParameters.Count(); i++)
@@ -255,6 +297,8 @@ public class PlaceReplicate
                             //componentObject.GetState_YLocation()
                             System.Diagnostics.Debug.WriteLine(componentObject.GetState_DescriptorString());
                             break;
+                        #endregion
+                        #region Polygons
                         case TObjectId.ePolyObject:
                             IPCB_Polygon polygonObject = Primitive as IPCB_Polygon;
                             selectedSourceObjects.polygonObjects.Add(polygonObject);
@@ -288,6 +332,8 @@ public class PlaceReplicate
                             Source.Polygons.Add(newPoly);
                             System.Diagnostics.Debug.WriteLine(polygonObject.GetState_DescriptorString());
                             break;
+                        #endregion
+                        #region Regions
                         case TObjectId.eRegionObject:
 
                             IPCB_Region regionObject = Primitive as IPCB_Region;
@@ -338,6 +384,7 @@ public class PlaceReplicate
                             System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
 
                             break;
+                        #endregion
                         //case TObjectId.eComponentBodyObject:
                         //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
                         //    break;
@@ -383,10 +430,12 @@ public class PlaceReplicate
                         //case TObjectId.eBoardOutlineObject:
                         //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
                         //    break;
+                        #region Default
                         default:
                             selectedSourceObjects.primitiveObjects.Add(Primitive);
                             System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
                             break;
+                            #endregion
                     }
 
 
@@ -413,6 +462,10 @@ public class PlaceReplicate
         }
     }
 
+    /// <summary>
+    /// Collect all net objects on the board so they can be 
+    /// applied to objects during placement process.
+    /// </summary>
     public void GetNets()
     {
         IPCB_BoardIterator BoardIterator;
@@ -445,10 +498,15 @@ public class PlaceReplicate
         Board.BoardIterator_Destroy(ref BoardIterator);
 
     }
+
+    /// <summary>
+    /// Collect all the selected destination components.
+    /// </summary>
     public void GetDestinationParts()
     {
 
         SelectedDestRef = new List<string>();
+        DestNets = new Dictionary<string, List<structNet>>();
         selectedDestinationObjects = new clsSelectedObjects();
         Destination = new clsOutput();
 
@@ -478,7 +536,7 @@ public class PlaceReplicate
             {
                 switch (Primitive.GetState_ObjectID())
                 {
-
+                    #region Components
                     case TObjectId.eComponentObject:
                         IPCB_Component componentObject = Primitive as IPCB_Component;
                         selectedDestinationObjects.componentObjects.Add(componentObject);
@@ -494,13 +552,36 @@ public class PlaceReplicate
 
                         IPCB_Pad pad = compIterator.FirstPCBObject() as IPCB_Pad;
                         int pinCount = 0;
-                        newComp.Nets = new SerializableDictionary<string, string>();
+                        newComp.Nets = new Dictionary<string, string>();
                         while (pad != null)
                         {
                             if (pad.GetState_Net() != null)
+                            {
                                 if (!newComp.Nets.ContainsKey(pad.GetState_Name()))
                                     newComp.Nets.Add(pad.GetState_Name(), pad.GetState_Net().GetState_Name());
+                                if (DestNets.ContainsKey(pad.GetState_Net().GetState_Name()))
+                                {
+                                    //string tmp = componentObject.GetState_Name().GetState_Text();
+                                    structNet tmpNet = new structNet
+                                    {
+                                        Pin = pad.GetState_Name(),
+                                        RefDes = componentObject.GetState_Name().GetState_Text()
+                                    };
 
+                                    if (!DestNets[pad.GetState_Net().GetState_Name()].Contains(tmpNet))
+                                        DestNets[pad.GetState_Net().GetState_Name()].Add(tmpNet);
+                                }
+                                else
+                                {
+                                    DestNets.Add(pad.GetState_Net().GetState_Name(), new List<structNet>
+                                        {
+                                            new structNet {
+                                                Pin = pad.GetState_Name(),
+                                                RefDes = componentObject.GetState_Name().GetState_Text()
+                                            }
+                                        });
+                                }
+                            }
                             pinCount++;
                             pad = compIterator.NextPCBObject() as IPCB_Pad;
                         }
@@ -508,7 +589,7 @@ public class PlaceReplicate
                         componentObject.GroupIterator_Destroy(ref compIterator);
 
                         IPCB_PrimitiveParameters componentParameters = componentObject as IPCB_PrimitiveParameters;
-                        newComp.Parameters = new SerializableDictionary<string, string>();
+                        newComp.Parameters = new Dictionary<string, string>();
                         for (int i = 0; i < componentParameters.Count(); i++)
                         {
                             parameter = componentParameters.GetParameterByIndex(i);
@@ -547,11 +628,13 @@ public class PlaceReplicate
                         //componentObject.GetState_YLocation()
                         System.Diagnostics.Debug.WriteLine(componentObject.GetState_DescriptorString());
                         break;
-
+                    #endregion
+                    #region Default
                     default:
                         //selectedSourceObjects.primitiveObjects.Add(Primitive);
                         System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
                         break;
+                        #endregion
                 }
 
                 //Primitive.Export_ToParameters(ref RefDes);
@@ -562,92 +645,24 @@ public class PlaceReplicate
         //Iterator clean-up
         Board.BoardIterator_Destroy(ref BoardIterator);
 
-        //clsOutput outputb;
-        //outputb = new clsOutput();
-        //XmlSerialization.WriteToXmlFile<clsOutput>(@"S:\Dropbox\Altium Extensions\test.xml", Output);
-
-        //outputb = XmlSerialization.ReadFromXmlFile<clsOutput>(@"S:\Dropbox\Altium Extensions\test.xml");
-        //@"S:\Dropbox\Altium Extensions\test.xml"
-        //"C:\\Users\\rlyne\\Dropbox\\Altium Extensions\\SwRI_Tools\\bin\\test.xml"
-
-    }
-
-    public void SavePlacement()
-    {
-        XmlSerializer x = new XmlSerializer(selectedSourceObjects.GetType());
-        TextWriter writer = new StreamWriter("C:\\Users\\rlyne\\Dropbox\\Altium Extensions\\SwRI_Tools\\bin\\test.txt");
-        x.Serialize(writer, selectedSourceObjects);
-    }
-
-    /// <summary>
-    /// Functions for performing common XML Serialization operations.
-    /// <para>Only public properties and variables will be serialized.</para>
-    /// <para>Use the [XmlIgnore] attribute to prevent a property/variable from being serialized.</para>
-    /// <para>Object to be serialized must have a parameterless constructor.</para>
-    /// </summary>
-    public static class XmlSerialization
-    {
-        /// <summary>
-        /// Writes the given object instance to an XML file.
-        /// <para>Only Public properties and variables will be written to the file. These can be any type though, even other classes.</para>
-        /// <para>If there are public properties/variables that you do not want written to the file, decorate them with the [XmlIgnore] attribute.</para>
-        /// <para>Object type must have a parameterless constructor.</para>
-        /// </summary>
-        /// <typeparam name="T">The type of object being written to the file.</typeparam>
-        /// <param name="filePath">The file path to write the object instance to.</param>
-        /// <param name="objectToWrite">The object instance to write to the file.</param>
-        /// <param name="append">If false the file will be overwritten if it already exists. If true the contents will be appended to the file.</param>
-        public static void WriteToXmlFile<T>(string filePath, T objectToWrite, bool append = false) where T : new()
-        {
-            TextWriter writer = null;
-            try
-            {
-                var serializer = new XmlSerializer(typeof(T));
-                writer = new StreamWriter(filePath, append);
-                serializer.Serialize(writer, objectToWrite);
-            }
-            finally
-            {
-                if (writer != null)
-                    writer.Close();
-            }
-        }
-
-        /// <summary>
-        /// Reads an object instance from an XML file.
-        /// <para>Object type must have a parameterless constructor.</para>
-        /// </summary>
-        /// <typeparam name="T">The type of object to read from the file.</typeparam>
-        /// <param name="filePath">The file path to read the object instance from.</param>
-        /// <returns>Returns a new instance of the object read from the XML file.</returns>
-        public static T ReadFromXmlFile<T>(string filePath) where T : new()
-        {
-            TextReader reader = null;
-            try
-            {
-                var serializer = new XmlSerializer(typeof(T));
-                reader = new StreamReader(filePath);
-                return (T)serializer.Deserialize(reader);
-            }
-            finally
-            {
-                if (reader != null)
-                    reader.Close();
-            }
-        }
     }
 
 }
 
 
+public struct structNet
+{
+    public string RefDes;
+    public string Pin;
 
+}
 
 
 public class clsOutput
 {
 
     public List<st_IPCB_Arc> Arcs = new List<st_IPCB_Arc>();
-    public SerializableDictionary<string, st_IPCB_Component> Components = new SerializableDictionary<string, st_IPCB_Component>();
+    public Dictionary<string, st_IPCB_Component> Components = new Dictionary<string, st_IPCB_Component>();
     public List<st_IPCB_Fill> Fills = new List<st_IPCB_Fill>();
     public List<st_IPCB_Pad> Pads = new List<st_IPCB_Pad>();
     public List<st_IPCB_Polygon> Polygons = new List<st_IPCB_Polygon>();
@@ -661,9 +676,9 @@ public class clsOutput
     {
         public string RefDes;
         public string Footprint;
-        public SerializableDictionary<string, string> Parameters;
+        public Dictionary<string, string> Parameters;
 
-        public SerializableDictionary<string, string> Nets;
+        public Dictionary<string, string> Nets;
 
         public int PinCount;
 
@@ -928,55 +943,3 @@ public class clsSelectedObjects
         return null;
     }
 }
-
-[XmlRoot("Dictionary")]
-public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IXmlSerializable
-{
-    #region IXmlSerializable Members
-    public System.Xml.Schema.XmlSchema GetSchema()
-    {
-        return null;
-    }
-    public void ReadXml(System.Xml.XmlReader reader)
-    {
-        XmlSerializer keySerializer = new XmlSerializer(typeof(TKey));
-        XmlSerializer valueSerializer = new XmlSerializer(typeof(TValue));
-        bool wasEmpty = reader.IsEmptyElement;
-        reader.Read();
-        if (wasEmpty)
-            return;
-        while (reader.NodeType != System.Xml.XmlNodeType.EndElement)
-        {
-            reader.ReadStartElement("item");
-            reader.ReadStartElement("key");
-            TKey key = (TKey)keySerializer.Deserialize(reader);
-            reader.ReadEndElement();
-            reader.ReadStartElement("value");
-            TValue value = (TValue)valueSerializer.Deserialize(reader);
-            reader.ReadEndElement();
-            this.Add(key, value);
-            reader.ReadEndElement();
-            reader.MoveToContent();
-        }
-        reader.ReadEndElement();
-    }
-    public void WriteXml(System.Xml.XmlWriter writer)
-    {
-        XmlSerializer keySerializer = new XmlSerializer(typeof(TKey));
-        XmlSerializer valueSerializer = new XmlSerializer(typeof(TValue));
-        foreach (TKey key in this.Keys)
-        {
-            writer.WriteStartElement("item");
-            writer.WriteStartElement("key");
-            keySerializer.Serialize(writer, key);
-            writer.WriteEndElement();
-            writer.WriteStartElement("value");
-            TValue value = this[key];
-            valueSerializer.Serialize(writer, value);
-            writer.WriteEndElement();
-            writer.WriteEndElement();
-        }
-    }
-    #endregion
-}
-

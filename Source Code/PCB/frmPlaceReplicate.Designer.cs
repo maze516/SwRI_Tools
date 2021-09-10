@@ -40,6 +40,7 @@
             this.btnSource = new System.Windows.Forms.Button();
             this.txtMessage = new System.Windows.Forms.TextBox();
             this.chkAutoMatch = new System.Windows.Forms.CheckBox();
+            this.btnFullReset = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lstSource
@@ -169,11 +170,22 @@
             this.chkAutoMatch.Text = "Attempt Auto-Match";
             this.chkAutoMatch.UseVisualStyleBackColor = true;
             // 
+            // btnFullReset
+            // 
+            this.btnFullReset.Location = new System.Drawing.Point(113, 489);
+            this.btnFullReset.Name = "btnFullReset";
+            this.btnFullReset.Size = new System.Drawing.Size(75, 23);
+            this.btnFullReset.TabIndex = 5;
+            this.btnFullReset.Text = "Full Reset";
+            this.btnFullReset.UseVisualStyleBackColor = true;
+            this.btnFullReset.Click += new System.EventHandler(this.btnFullReset_Click);
+            // 
             // frmPlaceReplicate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(305, 497);
+            this.ClientSize = new System.Drawing.Size(305, 519);
+            this.Controls.Add(this.btnFullReset);
             this.Controls.Add(this.chkAutoMatch);
             this.Controls.Add(this.txtMessage);
             this.Controls.Add(this.label3);
@@ -210,4 +222,5 @@
     private System.Windows.Forms.Button btnSource;
     private System.Windows.Forms.TextBox txtMessage;
     private System.Windows.Forms.CheckBox chkAutoMatch;
+    private System.Windows.Forms.Button btnFullReset;
 }
