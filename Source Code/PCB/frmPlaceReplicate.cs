@@ -655,10 +655,10 @@ public partial class frmPlaceReplicate : ServerPanelForm
                     foreach (structNet item3 in PR.DestNets[DNets[srcItem.Key]])
                         lstDst.Add(item3.RefDes);
 
-                    System.Diagnostics.Debug.WriteLine("Only one other component on net");
                     #region Only one other component on net
                     if (PR.SourceNets[srcItem.Value].Count == 2)
                     {
+                        System.Diagnostics.Debug.WriteLine("Only one other component on net");
                         foreach (structNet item2 in PR.SourceNets[srcItem.Value])
                         {
                             if (!Matched(item2.RefDes))
@@ -701,8 +701,6 @@ public partial class frmPlaceReplicate : ServerPanelForm
                         if (!matching3)
                         {
                             matching3 = true;
-
-
                             AttemptAutoMatch(Dest, Source, lstSrc, lstDst);
                             matching3 = false;
                         }
@@ -769,28 +767,29 @@ public partial class frmPlaceReplicate : ServerPanelForm
                     #endregion
                     System.Diagnostics.Debug.WriteLine("Rerun Matched");
                     #region Rerun Matched
-                    if (!matching2)
-                    {
-                        matching2 = true;
-
-                        lstSrc = new List<string>();
-                        lstDst = new List<string>();
-
-                        foreach (string item in lstMatched.Items)
+                    if (chkInDepth.Checked)
+                        if (!matching2)
                         {
-                            lstSrc.Add(item.Split('>')[0]);
-                            lstDst.Add(item.Split('>')[1]);
-                        }
+                            matching2 = true;
 
-                        while (lstSrc.Count > 0)
-                        {
+                            lstSrc = new List<string>();
+                            lstDst = new List<string>();
 
-                            AttemptAutoMatch(lstDst[0], lstSrc[0], lstSrc.GetRange(1, lstSrc.Count - 1), lstDst.GetRange(1, lstDst.Count - 1));//lstSource.Items.OfType<string>().ToList<string>(), lstDest.Items.OfType<string>().ToList<string>());//
-                            lstSrc.RemoveAt(0);
-                            lstDst.RemoveAt(0);
+                            foreach (string item in lstMatched.Items)
+                            {
+                                lstSrc.Add(item.Split('>')[0]);
+                                lstDst.Add(item.Split('>')[1]);
+                            }
+
+                            while (lstSrc.Count > 0)
+                            {
+
+                                AttemptAutoMatch(lstDst[0], lstSrc[0], lstSrc.GetRange(1, lstSrc.Count - 1), lstDst.GetRange(1, lstDst.Count - 1));//lstSource.Items.OfType<string>().ToList<string>(), lstDest.Items.OfType<string>().ToList<string>());//
+                                lstSrc.RemoveAt(0);
+                                lstDst.RemoveAt(0);
+                            }
+                            matching2 = false;
                         }
-                        matching2 = false;
-                    }
                     #endregion
 
 
@@ -825,6 +824,12 @@ public partial class frmPlaceReplicate : ServerPanelForm
         return RefDes.Count - output;
     }
 
+    private void chkAutoMatch_CheckedChanged(object sender, EventArgs e)
+    {
+        chkInDepth.Enabled = chkAutoMatch.Checked;
+        if (!chkAutoMatch.Checked) chkInDepth.Checked = false;
+    }
+
     private void btnFullReset_Click(object sender, EventArgs e)
     {
         PR = new PlaceReplicate();
@@ -850,7 +855,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
         foreach (string item in lstMatched.Items)
         {
             if (item.Split('>')[0] == RefDes) return true;
-            if (item.Split('>')[1]== RefDes) return true;
+            if (item.Split('>')[1] == RefDes) return true;
         }
         return false;
     }

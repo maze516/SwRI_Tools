@@ -41,6 +41,7 @@
             this.txtMessage = new System.Windows.Forms.TextBox();
             this.chkAutoMatch = new System.Windows.Forms.CheckBox();
             this.btnFullReset = new System.Windows.Forms.Button();
+            this.chkInDepth = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // lstSource
@@ -151,7 +152,7 @@
             // 
             // txtMessage
             // 
-            this.txtMessage.Location = new System.Drawing.Point(12, 382);
+            this.txtMessage.Location = new System.Drawing.Point(12, 405);
             this.txtMessage.Multiline = true;
             this.txtMessage.Name = "txtMessage";
             this.txtMessage.ReadOnly = true;
@@ -169,10 +170,11 @@
             this.chkAutoMatch.TabIndex = 4;
             this.chkAutoMatch.Text = "Attempt Auto-Match";
             this.chkAutoMatch.UseVisualStyleBackColor = true;
+            this.chkAutoMatch.CheckedChanged += new System.EventHandler(this.chkAutoMatch_CheckedChanged);
             // 
             // btnFullReset
             // 
-            this.btnFullReset.Location = new System.Drawing.Point(113, 489);
+            this.btnFullReset.Location = new System.Drawing.Point(113, 512);
             this.btnFullReset.Name = "btnFullReset";
             this.btnFullReset.Size = new System.Drawing.Size(75, 23);
             this.btnFullReset.TabIndex = 5;
@@ -180,11 +182,22 @@
             this.btnFullReset.UseVisualStyleBackColor = true;
             this.btnFullReset.Click += new System.EventHandler(this.btnFullReset_Click);
             // 
+            // chkInDepth
+            // 
+            this.chkInDepth.AutoSize = true;
+            this.chkInDepth.Location = new System.Drawing.Point(28, 375);
+            this.chkInDepth.Name = "chkInDepth";
+            this.chkInDepth.Size = new System.Drawing.Size(125, 17);
+            this.chkInDepth.TabIndex = 6;
+            this.chkInDepth.Text = "In Depth Auto-Match";
+            this.chkInDepth.UseVisualStyleBackColor = true;
+            // 
             // frmPlaceReplicate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(305, 519);
+            this.ClientSize = new System.Drawing.Size(305, 542);
+            this.Controls.Add(this.chkInDepth);
             this.Controls.Add(this.btnFullReset);
             this.Controls.Add(this.chkAutoMatch);
             this.Controls.Add(this.txtMessage);
@@ -223,4 +236,5 @@
     private System.Windows.Forms.TextBox txtMessage;
     private System.Windows.Forms.CheckBox chkAutoMatch;
     private System.Windows.Forms.Button btnFullReset;
+    private System.Windows.Forms.CheckBox chkInDepth;
 }
