@@ -459,7 +459,7 @@ class TestClass
 
 
         IPCB_ComponentBody STEPmodel = (IPCB_ComponentBody)PCBServer.PCBObjectFactory(PCB.TObjectId.eComponentBodyObject, TDimensionKind.eNoDimension, PCB.TObjectCreationMode.eCreate_Default);
-        
+
         IPCB_Model Model = STEPmodel.ModelFactory_FromFilename("C:\\test.step", false);
 
         STEPmodel.SetState_FromModel();
@@ -651,7 +651,137 @@ class TestClass
         return;
     }
 
+    public void RegionBuilder()
+    {
 
+
+        var pcbServer = PCB.GlobalVars.PCBServer;
+        if (pcbServer == null)
+        {
+            return;
+        }
+
+        var pcbBoard = pcbServer.GetCurrentPCBBoard();
+        if (pcbBoard == null)
+        {
+            return;
+        }
+
+        int OffsetX = 0, OffsetY = 0;
+        if (!pcbBoard.ChooseLocation(ref OffsetX, ref OffsetY, "Select placement location"))
+            return;
+
+        //    OffsetX = OffsetX - PR.selectedSourceObjects.componentObjects[0].GetState_XLocation();
+        //    OffsetY = OffsetY - PR.selectedSourceObjects.componentObjects[0].GetState_YLocation();
+
+        var layer = new V7_Layer(TV6_Layer.eV6_Mechanical1);
+
+        GenerateRegion(pcbServer, pcbBoard, layer, OffsetX, OffsetY);
+
+        //var polygonObject = (IPCB_Polygon)pcbServer.PCBObjectFactory(PCB.TObjectId.ePolyObject,
+        //    TDimensionKind.eNoDimension, PCB.TObjectCreationMode.eCreate_Default);
+        //IPCB_GeometricPolygon tmpGeoPoly;
+        //IPCB_Contour tmpContour;
+        //// TODO: Set polygon to a square.
+        //for (int i = 0; i < 4; i++)
+        //{
+        //    tmpGeoPoly
+
+        //    //tmpContour=new
+        //    polygonObject.AddContour(tmpContour);
+        //}
+
+
+        //var region = (IPCB_Region)pcbServer.PCBObjectFactory(PCB.TObjectId.eRegionObject,
+        //    TDimensionKind.eNoDimension, PCB.TObjectCreationMode.eCreate_Default);
+
+        //region.SetState_V7Layer(layer);
+        //region.SetState_Kind(TRegionKind.eRegionKind_Copper);
+        //// Is this how you set the Region's outline?
+        //region.SetGeometricPolygon(polygonObject);
+
+
+
+        //IPCB_Polygon polygonObject = Primitive as IPCB_Polygon;
+        //selectedSourceObjects.polygonObjects.Add(polygonObject);
+
+        //clsOutput.st_IPCB_Polygon newPoly = new clsOutput.st_IPCB_Polygon();
+
+        ////polygonObject.GetState_BorderWidth();
+        ////polygonObject.GetState_Coordinate();
+        //newPoly.Keepout = polygonObject.GetState_IsKeepout();
+        //newPoly.Layer = Util.GetLayerName(polygonObject.GetState_Board(), polygonObject.GetState_V7Layer());
+        //newPoly.MitreCorners = polygonObject.GetState_MitreCorners();
+
+        //if (polygonObject.GetState_Net() != null)
+        //    newPoly.Net = polygonObject.GetState_Net().GetState_Name();
+
+        //newPoly.PasteMaskExpansion = polygonObject.GetState_PasteMaskExpansion();
+
+        //if (polygonObject.GetState_Polygon() != null)
+        //    MessageBox.Show("Polygon error. Please fix.");
+
+        //newPoly.PolySegments = new List<SPolySegment>();
+        //for (int i = 0; i < polygonObject.GetState_PointCount(); i++)
+        //    newPoly.PolySegments.Add(polygonObject.GetState_Segments(i).Data);
+
+        //newPoly.SolderMaskExpansion = polygonObject.GetState_SolderMaskExpansion();
+        //newPoly.TrackSize = polygonObject.GetState_TrackSize();//???
+        //newPoly.XLocation = polygonObject.GetState_XLocation();
+        //newPoly.YLocation = polygonObject.GetState_YLocation();
+        //newPoly.PolyType = polygonObject.GetState_PolygonType();
+
+        //Source.Polygons.Add(newPoly);
+        //System.Diagnostics.Debug.WriteLine(polygonObject.GetState_DescriptorString());
+    }
+
+
+    private static void GenerateRegion(IPCB_ServerInterface pcbServer, IPCB_Board pcbBoard, V7_Layer layer, int OffX, int OffY)
+    {
+        var segments = new List<IPolySegment> {
+        CreateLinearPolySegment(0+OffX, 0+OffY),
+        CreateLinearPolySegment(EDP.Utils.MilsToCoord(1000)+OffX, 0+OffY),
+        CreateLinearPolySegment(EDP.Utils.MilsToCoord(1000)+OffX, EDP.Utils.MilsToCoord(1000)+OffY),
+        CreateLinearPolySegment(0+OffX, EDP.Utils.MilsToCoord(1000)+OffY)
+        };
+
+        var polygonObject = (IPCB_Polygon)CreatePcbObject(pcbServer, PCB.TObjectId.ePolyObject);
+        polygonObject.SetState_V7Layer(layer);
+        polygonObject.SetState_PointCount(segments.Count);
+        for (var i = 0; i < segments.Count; i++)
+        {
+            polygonObject.SetState_Segments(i, segments[i]);
+        }
+
+        var GeoPoly = pcbServer.PCBContourMaker().MakeContour_8(polygonObject, 0, layer.SafeV6Layer());
+
+        var region = (IPCB_Region)CreatePcbObject(pcbServer, PCB.TObjectId.eRegionObject);
+        region.SetState_V7Layer(layer);
+        region.SetState_Kind(TRegionKind.eRegionKind_Copper);
+        region.SetGeometricPolygon(GeoPoly);  
+        pcbBoard.AddPCBObject(region);
+    }
+
+    private static PolySegment CreateLinearPolySegment(int vx, int vy)
+    {
+        return new PolySegment
+        {
+            Kind = TPolySegmentType.ePolySegmentLine,
+            Vx = vx,
+            Vy = vy,
+            Cx = 100,
+            Cy = 100,
+            Radius = 0,
+            Angle1 = 0.0,
+            Angle2 = 0.0
+        };
+    }
+
+    private static IPCB_Primitive CreatePcbObject(IPCB_ServerInterface pcbServer, PCB.TObjectId objectId, TDimensionKind dimensionKind = TDimensionKind.eNoDimension)
+    {
+        return pcbServer.PCBObjectFactory(objectId,
+            dimensionKind, PCB.TObjectCreationMode.eCreate_Default);
+    }
 }
 
 
