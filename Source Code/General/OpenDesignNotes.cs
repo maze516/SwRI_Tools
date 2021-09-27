@@ -175,7 +175,7 @@ class DesignNotes
     }
 
     /// <summary>
-    /// Decode parameters passed from Altiu.
+    /// Decode parameters passed from Altium.
     /// </summary>
     /// <returns>Dictionary of Altium passed parameters.</returns>
     private Dictionary<string, string> GetParams()

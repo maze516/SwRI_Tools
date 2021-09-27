@@ -4,14 +4,42 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using NLog;
+using System.Reflection;
 
 public class Util
 {
 
     public const string SERVERNAME = "SwRI_Tools";
     private static IPCB_ServerInterface PCBServer;
+    //    public static readonly Logger _Log= LogManager.GetCurrentClassLogger();
 
 
+    public static void UpdateLogger(LogLevel logLevel)
+    {
+
+        var config = new NLog.Config.LoggingConfiguration();
+        string logPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\" + Util.SERVERNAME + " Logs\\";
+
+        // Targets where to log to: File and Console
+        var logfile = new NLog.Targets.FileTarget("logfile")
+        {
+            FileName = logPath + "\\SwRI_Tools.log",
+            ArchiveNumbering = NLog.Targets.ArchiveNumberingMode.Rolling,
+            ArchiveEvery = NLog.Targets.FileArchivePeriod.Day,
+            ConcurrentWrites = true,
+            MaxArchiveFiles = 14,
+            Layout = "${longdate} ${callsite} ${uppercase:${level}} ${message} ${exception}"
+        };
+        //var logconsole = new NLog.Targets.ConsoleTarget("logconsole");
+
+        // Rules for mapping loggers to targets            
+        // config.AddRule(LogLevel.Info, LogLevel.Fatal, logconsole);
+        config.AddRule(logLevel, LogLevel.Fatal, logfile);
+
+        // Apply config           
+        NLog.LogManager.Configuration = config;
+    }
     /// <summary>
     /// Returns an Object set of all PCB primatives.
     /// </summary>

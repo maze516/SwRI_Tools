@@ -1,4 +1,5 @@
-﻿using DXP;
+﻿using NLog;
+using DXP;
 using EDP;
 using PCB;
 using SCH;
@@ -7,8 +8,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
+using System.Reflection;
+
 class TestClass
 {
+    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
+
     string[] LogFile = new string[100000];
     public void ScanDocuments()//ref Dictionary<string, Heights> report)
     {
@@ -671,68 +676,14 @@ class TestClass
         if (!pcbBoard.ChooseLocation(ref OffsetX, ref OffsetY, "Select placement location"))
             return;
 
-        //    OffsetX = OffsetX - PR.selectedSourceObjects.componentObjects[0].GetState_XLocation();
-        //    OffsetY = OffsetY - PR.selectedSourceObjects.componentObjects[0].GetState_YLocation();
-
         var layer = new V7_Layer(TV6_Layer.eV6_Mechanical1);
 
-        GenerateRegion(pcbServer, pcbBoard, layer, OffsetX, OffsetY);
-
-        //var polygonObject = (IPCB_Polygon)pcbServer.PCBObjectFactory(PCB.TObjectId.ePolyObject,
-        //    TDimensionKind.eNoDimension, PCB.TObjectCreationMode.eCreate_Default);
-        //IPCB_GeometricPolygon tmpGeoPoly;
-        //IPCB_Contour tmpContour;
-        //// TODO: Set polygon to a square.
-        //for (int i = 0; i < 4; i++)
-        //{
-        //    tmpGeoPoly
-
-        //    //tmpContour=new
-        //    polygonObject.AddContour(tmpContour);
-        //}
-
-
-        //var region = (IPCB_Region)pcbServer.PCBObjectFactory(PCB.TObjectId.eRegionObject,
-        //    TDimensionKind.eNoDimension, PCB.TObjectCreationMode.eCreate_Default);
-
-        //region.SetState_V7Layer(layer);
-        //region.SetState_Kind(TRegionKind.eRegionKind_Copper);
-        //// Is this how you set the Region's outline?
-        //region.SetGeometricPolygon(polygonObject);
+        //GenerateRegion(pcbServer, pcbBoard, layer, OffsetX, OffsetY);
+        CommandPlaceRectRegion();
 
 
 
-        //IPCB_Polygon polygonObject = Primitive as IPCB_Polygon;
-        //selectedSourceObjects.polygonObjects.Add(polygonObject);
 
-        //clsOutput.st_IPCB_Polygon newPoly = new clsOutput.st_IPCB_Polygon();
-
-        ////polygonObject.GetState_BorderWidth();
-        ////polygonObject.GetState_Coordinate();
-        //newPoly.Keepout = polygonObject.GetState_IsKeepout();
-        //newPoly.Layer = Util.GetLayerName(polygonObject.GetState_Board(), polygonObject.GetState_V7Layer());
-        //newPoly.MitreCorners = polygonObject.GetState_MitreCorners();
-
-        //if (polygonObject.GetState_Net() != null)
-        //    newPoly.Net = polygonObject.GetState_Net().GetState_Name();
-
-        //newPoly.PasteMaskExpansion = polygonObject.GetState_PasteMaskExpansion();
-
-        //if (polygonObject.GetState_Polygon() != null)
-        //    MessageBox.Show("Polygon error. Please fix.");
-
-        //newPoly.PolySegments = new List<SPolySegment>();
-        //for (int i = 0; i < polygonObject.GetState_PointCount(); i++)
-        //    newPoly.PolySegments.Add(polygonObject.GetState_Segments(i).Data);
-
-        //newPoly.SolderMaskExpansion = polygonObject.GetState_SolderMaskExpansion();
-        //newPoly.TrackSize = polygonObject.GetState_TrackSize();//???
-        //newPoly.XLocation = polygonObject.GetState_XLocation();
-        //newPoly.YLocation = polygonObject.GetState_YLocation();
-        //newPoly.PolyType = polygonObject.GetState_PolygonType();
-
-        //Source.Polygons.Add(newPoly);
-        //System.Diagnostics.Debug.WriteLine(polygonObject.GetState_DescriptorString());
     }
 
 
@@ -758,7 +709,7 @@ class TestClass
         var region = (IPCB_Region)CreatePcbObject(pcbServer, PCB.TObjectId.eRegionObject);
         region.SetState_V7Layer(layer);
         region.SetState_Kind(TRegionKind.eRegionKind_Copper);
-        region.SetGeometricPolygon(GeoPoly);  
+        region.SetGeometricPolygon(GeoPoly);
         pcbBoard.AddPCBObject(region);
     }
 
@@ -782,6 +733,71 @@ class TestClass
         return pcbServer.PCBObjectFactory(objectId,
             dimensionKind, PCB.TObjectCreationMode.eCreate_Default);
     }
+
+    public void CommandPlaceRectRegion()
+    {
+
+        IPCB_ServerInterface pcbServer = PCB.GlobalVars.PCBServer;
+        if (pcbServer == null)
+            return;
+
+        // retrieve the interface representing the PCB document
+        IPCB_Board board = pcbServer.GetCurrentPCBBoard();
+        if (board == null)
+            return;
+
+        IPCB_Primitive primitive = pcbServer.PCBObjectFactory(PCB.TObjectId.eRegionObject, TDimensionKind.eNoDimension, PCB.TObjectCreationMode.eCreate_Default);
+        if (primitive == null)
+            return;
+
+        IPCB_Region region = primitive as IPCB_Region;
+
+        region.SetState_Kind(TRegionKind.eRegionKind_Copper);
+        region.SetState_Layer(TV6_Layer.eV6_Mechanical1);
+
+        IPCB_Contour Contour = region.GetMainContour().Replicate();
+
+        Contour.SetState_Count(4);
+        Contour.SetState_PointX(1, EDP.Utils.MilsToCoord(1000));
+        Contour.SetState_PointY(1, EDP.Utils.MilsToCoord(1000));
+
+        Contour.SetState_PointX(2, EDP.Utils.MilsToCoord(1000));
+        Contour.SetState_PointY(2, EDP.Utils.MilsToCoord(2000));
+
+        Contour.SetState_PointX(3, EDP.Utils.MilsToCoord(2000));
+        Contour.SetState_PointY(3, EDP.Utils.MilsToCoord(2000));
+
+        Contour.SetState_PointX(4, EDP.Utils.MilsToCoord(2000));
+        Contour.SetState_PointY(4, EDP.Utils.MilsToCoord(1000));
+
+        region.SetOutlineContour(Contour);
+        board.AddPCBObject(region);
+
+    }
+
+
+    public void loggerTesting()
+    {
+        string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        NLog.LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(assemblyFolder + "\\NLog.config", true);
+
+        try
+        {
+            _Log.Trace("Trace");
+            _Log.Debug("Debug");
+            _Log.Info("Info");
+            _Log.Warn("Warn");
+            _Log.Error("Error");
+
+            System.Console.ReadKey();
+        }
+        catch (Exception ex)
+        {
+            _Log.Fatal(ex, "Fatal");
+        }
+    }
+
+
 }
 
 

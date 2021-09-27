@@ -912,28 +912,28 @@ namespace CSharpPlugin
         /// </summary>
         protected override void RegisterOptionsPages()
         {
-            RegisterOptionsPageCreator("PCB", CreateOptionsPage_PCB); //PCB options page
-            RegisterOptionsPageCreator("SCH", CreateOptionsPage_SCH); //SCH options page
+            //RegisterOptionsPageCreator("PCB", CreateOptionsPage_PCB); //PCB options page
+            //RegisterOptionsPageCreator("SCH", CreateOptionsPage_SCH); //SCH options page
             RegisterOptionsPageCreator("General", CreateOptionsPage_General); //General options page
         }
 
-        /// <summary>
-        /// Loads PCB options form.
-        /// </summary>
-        /// <returns></returns>
-        private IOptionsPage CreateOptionsPage_PCB()
-        {
-            return new OptionsPage(new PCB_Options());
-        }
+        ///// <summary>
+        ///// Loads PCB options form.
+        ///// </summary>
+        ///// <returns></returns>
+        //private IOptionsPage CreateOptionsPage_PCB()
+        //{
+        //    return new OptionsPage(new PCB_Options());
+        //}
 
-        /// <summary>
-        /// Loads SCH options form.
-        /// </summary>
-        /// <returns></returns>
-        private IOptionsPage CreateOptionsPage_SCH()
-        {
-            return new OptionsPage(new SCH_Options());
-        }
+        ///// <summary>
+        ///// Loads SCH options form.
+        ///// </summary>
+        ///// <returns></returns>
+        //private IOptionsPage CreateOptionsPage_SCH()
+        //{
+        //    return new OptionsPage(new SCH_Options());
+        //}
 
         /// <summary>
         /// Loads General options form.

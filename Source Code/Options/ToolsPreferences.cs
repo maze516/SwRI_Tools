@@ -21,6 +21,9 @@ public class ToolsPreferences
     //Open Ext File Config
     public static string ExtFileConfig = "G:\\CADTOOLS\\Software\\Altium\\SwRI Software\\Altium Extensions\\SwRI_Tools Paths.ini";
 
+    //Logger level
+    public static NLog.LogLevel LoggerLevel = NLog.LogLevel.Info;
+
     /// <summary>
     /// Load preference settings from Altium Designer.
     /// </summary>
@@ -46,6 +49,35 @@ public class ToolsPreferences
         ClientHost = optionsReader.ReadString(section, "ClientHost", "");
         ExtFileConfig = optionsReader.ReadString(section, "ExtFileConfig", "");
 
+        switch (optionsReader.ReadString(section, "LoggerLevel", "Info"))
+        {
+            case "Fatal":
+                LoggerLevel = NLog.LogLevel.Fatal;
+                break;
+
+            case "Error":
+                LoggerLevel = NLog.LogLevel.Error;
+                break;
+
+            case "Warn":
+                LoggerLevel = NLog.LogLevel.Warn;
+                break;
+
+            case "Info":
+                LoggerLevel = NLog.LogLevel.Info;
+                break;
+
+            case "Debug":
+                LoggerLevel = NLog.LogLevel.Debug;
+                break;
+
+            case "Trace":
+                LoggerLevel = NLog.LogLevel.Trace;
+                break;
+        }
+
+        Util.UpdateLogger(LoggerLevel);
+
     }
 
     /// <summary>
@@ -67,6 +99,8 @@ public class ToolsPreferences
         optionsWriter.WriteString(section, "ToAddress", ToAddress);
         optionsWriter.WriteString(section, "ClientHost", ClientHost);
         optionsWriter.WriteString(section, "ExtFileConfig", ExtFileConfig);
+        optionsWriter.WriteString(section, "LoggerLevel", LoggerLevel.Name);
+        Util.UpdateLogger(LoggerLevel);
 
     }
 

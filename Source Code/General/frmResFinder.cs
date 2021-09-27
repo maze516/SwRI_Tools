@@ -163,7 +163,7 @@ public partial class frmResFinder : ServerPanelForm
         public double Offset;
         public double R1;
         public double R2;
-        public double R3;
+        //public double R3;
 
     }
 

@@ -20,6 +20,9 @@ public partial class General_Options : OptionsForm
     //Open Ext File Config
     private string ExtFileConfig = "G:\\CADTOOLS\\Software\\Altium\\SwRI Software\\Altium Extensions\\SwRI_Tools Paths.ini";
 
+    //Logger level
+    public static NLog.LogLevel LoggerLevel = NLog.LogLevel.Info;
+
     public General_Options() : base()
     {
         InitializeComponent();
@@ -53,6 +56,33 @@ public partial class General_Options : OptionsForm
 
         ToolsPreferences.ExtFileConfig = txtExtFileConfig.Text;
 
+        switch (cboLogLevel.SelectedItem)
+        {
+            case "Fatal":
+                ToolsPreferences.LoggerLevel = NLog.LogLevel.Fatal;
+                break;
+
+            case "Error":
+                ToolsPreferences.LoggerLevel = NLog.LogLevel.Error;
+                break;
+
+            case "Warn":
+                ToolsPreferences.LoggerLevel = NLog.LogLevel.Warn;
+                break;
+
+            case "Info":
+                ToolsPreferences.LoggerLevel = NLog.LogLevel.Info;
+                break;
+
+            case "Debug":
+                ToolsPreferences.LoggerLevel = NLog.LogLevel.Debug;
+                break;
+
+            case "Trace":
+                ToolsPreferences.LoggerLevel = NLog.LogLevel.Trace;
+                break;
+        }
+
     }
 
     /// <summary>
@@ -80,6 +110,33 @@ public partial class General_Options : OptionsForm
         ODB_HideRefDes = chkBatchRefHide.Checked;
 
         ExtFileConfig = txtExtFileConfig.Text;
+
+        switch (cboLogLevel.SelectedItem)
+        {
+            case "Fatal":
+                LoggerLevel = NLog.LogLevel.Fatal;
+                break;
+
+            case "Error":
+                LoggerLevel = NLog.LogLevel.Error;
+                break;
+
+            case "Warn":
+                LoggerLevel = NLog.LogLevel.Warn;
+                break;
+
+            case "Info":
+                LoggerLevel = NLog.LogLevel.Info;
+                break;
+
+            case "Debug":
+                LoggerLevel = NLog.LogLevel.Debug;
+                break;
+
+            case "Trace":
+                LoggerLevel = NLog.LogLevel.Trace;
+                break;
+        }
     }
 
     /// <summary>
@@ -100,6 +157,8 @@ public partial class General_Options : OptionsForm
         chkBatchRefHide.Checked = ToolsPreferences.ODB_HideRefDes;
 
         txtExtFileConfig.Text = ToolsPreferences.ExtFileConfig;
+
+        cboLogLevel.Text = ToolsPreferences.LoggerLevel.Name;
 
         ClearModified();
     }
@@ -141,7 +200,8 @@ public partial class General_Options : OptionsForm
             (txtToAddress.Text != ToolsPreferences.ToAddress) ||
             (chkErrorEnable.Checked != ToolsPreferences.SMTP_Enable) ||
             (chkBatchRefHide.Checked != ToolsPreferences.ODB_HideRefDes) ||
-            (txtExtFileConfig.Text != ToolsPreferences.ExtFileConfig);
+            (txtExtFileConfig.Text != ToolsPreferences.ExtFileConfig) ||
+            (cboLogLevel.Text != ToolsPreferences.LoggerLevel.Name);
     }
 
     /// <summary>

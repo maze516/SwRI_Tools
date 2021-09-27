@@ -120,9 +120,17 @@
       <HintPath>..\..\..\..\..\Program Files (x86)\Microsoft Office\Office16\DCF\Microsoft.Office.Interop.Excel.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -205,18 +213,6 @@
     </Compile>
     <Compile Include="Source Code\Options\General_Options.Designer.cs">
       <DependentUpon>General_Options.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Source Code\Options\PCB_Options.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Source Code\Options\PCB_Options.Designer.cs">
-      <DependentUpon>PCB_Options.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Source Code\Options\SCH_Options.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Source Code\Options\SCH_Options.Designer.cs">
-      <DependentUpon>SCH_Options.cs</DependentUpon>
     </Compile>
     <Compile Include="Source Code\Options\ToolsPreferences.cs" />
     <Compile Include="Source Code\PCB\frmEmbededResistorRpt.cs">
@@ -318,8 +314,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="Installation\SwRI_Tools.ins" />
     <None Include="Installation\SwRI_Tools.rcs" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
