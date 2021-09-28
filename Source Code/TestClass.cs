@@ -779,7 +779,9 @@ class TestClass
     public void loggerTesting()
     {
         string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        NLog.LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(assemblyFolder + "\\NLog.config", true);
+        //NLog.LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(assemblyFolder + "\\NLog.config", true);
+
+        Util.UpdateLogger(ToolsPreferences.LoggerLevel);
 
         try
         {

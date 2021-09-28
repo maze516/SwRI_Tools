@@ -29,7 +29,7 @@ public class Util
             ArchiveEvery = NLog.Targets.FileArchivePeriod.Day,
             ConcurrentWrites = true,
             MaxArchiveFiles = 14,
-            Layout = "${longdate} ${callsite} ${uppercase:${level}} ${message} ${exception}"
+            Layout = "${longdate} ${callsite} ${uppercase:${level}} ${message} ${exception:format=toString}"
         };
         //var logconsole = new NLog.Targets.ConsoleTarget("logconsole");
 
