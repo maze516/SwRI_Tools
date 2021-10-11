@@ -1,9 +1,11 @@
-﻿using PCB;
+﻿using NLog;
+using PCB;
 using System;
 
 
 public class ToggleLockedObjects
 {
+    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
     IPCB_ServerInterface PCBServer = PCB.GlobalVars.PCBServer;
 
     /// <summary>
@@ -25,6 +27,10 @@ public class ToggleLockedObjects
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
         }
     }
@@ -45,6 +51,10 @@ public class ToggleLockedObjects
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
         }
     }

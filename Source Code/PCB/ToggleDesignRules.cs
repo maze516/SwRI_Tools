@@ -1,10 +1,12 @@
-﻿using PCB;
+﻿using NLog;
+using PCB;
 using System;
 using System.Windows.Forms;
 
 
 public class ToggleDesignRules
 {
+    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
     IPCB_ServerInterface PCBServer = PCB.GlobalVars.PCBServer;
 
     private string myRuleName = "";
@@ -92,6 +94,10 @@ public class ToggleDesignRules
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return null;
         }
@@ -130,6 +136,10 @@ public class ToggleDesignRules
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
 
         }

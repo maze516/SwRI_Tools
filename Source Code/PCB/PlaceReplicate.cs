@@ -10,9 +10,11 @@ using System.Runtime.Serialization;
 using System.Xml;
 using System.Xml.Schema;
 using System.Windows.Forms;
+using NLog;
 
 public class PlaceReplicate
 {
+    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
     public List<string> SelectedSourceRef, SelectedDestRef;
     public clsSelectedObjects selectedSourceObjects, selectedDestinationObjects;
     public clsOutput Source, Destination;
@@ -100,19 +102,19 @@ public class PlaceReplicate
 
                             Source.Arcs.Add(newArc);
 
-                            System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+                            _Log.Debug(Primitive.GetState_DescriptorString());
                             break;
                         #endregion
                         #region Pads
                         case TObjectId.ePadObject:
                             IPCB_Pad padObject = Primitive as IPCB_Pad;
                             selectedSourceObjects.padObjects.Add(padObject);
-                            System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+                            _Log.Debug(Primitive.GetState_DescriptorString());
                             break;
                         #endregion
                         #region Vias
                         case TObjectId.eViaObject:
-                            System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+                            _Log.Debug(Primitive.GetState_DescriptorString());
                             IPCB_Via ViaObject = Primitive as IPCB_Via;
 
                             clsOutput.st_IPCB_Via newVia = new clsOutput.st_IPCB_Via();
@@ -143,7 +145,7 @@ public class PlaceReplicate
                         #region Tracks
                         case TObjectId.eTrackObject:
                             IPCB_Track trackObject = Primitive as IPCB_Track;
-                            System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+                            _Log.Debug(Primitive.GetState_DescriptorString());
                             selectedSourceObjects.trackObjects.Add(trackObject);
 
                             clsOutput.st_IPCB_Track newTrack = new clsOutput.st_IPCB_Track();
@@ -170,7 +172,7 @@ public class PlaceReplicate
                         case TObjectId.eTextObject:
                             IPCB_Text textObject = Primitive as IPCB_Text;
                             selectedSourceObjects.textObjects.Add(textObject);
-                            System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+                            _Log.Debug(Primitive.GetState_DescriptorString());
                             break;
                         #endregion
                         #region Fills
@@ -203,14 +205,14 @@ public class PlaceReplicate
 
                             Source.Fills.Add(newFill);
 
-                            System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+                            _Log.Debug(Primitive.GetState_DescriptorString());
                             break;
                         #endregion
                         //case TObjectId.eConnectionObject:
-                        //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+                        //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
                         //case TObjectId.eNetObject:
-                        //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+                        //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
                         #region Components
                         case TObjectId.eComponentObject:
@@ -295,7 +297,7 @@ public class PlaceReplicate
                             //componentObject.GetState_SourceLibReference() corp number
                             //componentObject.GetState_XLocation()
                             //componentObject.GetState_YLocation()
-                            System.Diagnostics.Debug.WriteLine(componentObject.GetState_DescriptorString());
+                            _Log.Debug(componentObject.GetState_DescriptorString());
                             break;
                         #endregion
                         #region Polygons
@@ -330,7 +332,7 @@ public class PlaceReplicate
                             newPoly.PolyType = polygonObject.GetState_PolygonType();
 
                             Source.Polygons.Add(newPoly);
-                            System.Diagnostics.Debug.WriteLine(polygonObject.GetState_DescriptorString());
+                            _Log.Debug(polygonObject.GetState_DescriptorString());
                             break;
                         #endregion
                         #region Regions
@@ -381,59 +383,59 @@ public class PlaceReplicate
 
                             Source.Regions.Add(newRegion);
 
-                            System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+                            _Log.Debug(Primitive.GetState_DescriptorString());
 
                             break;
                         #endregion
                         //case TObjectId.eComponentBodyObject:
-                        //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+                        //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
                         //case TObjectId.eDimensionObject:
-                        //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+                        //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
                         //case TObjectId.eCoordinateObject:
-                        //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+                        //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
                         //case TObjectId.eClassObject:
-                        //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+                        //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
                         //case TObjectId.eRuleObject:
-                        //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+                        //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
                         //case TObjectId.eFromToObject:
-                        //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+                        //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
                         //case TObjectId.eDifferentialPairObject:
-                        //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+                        //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
                         //case TObjectId.eViolationObject:
-                        //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+                        //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
                         //case TObjectId.eEmbeddedObject:
-                        //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+                        //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
                         //case TObjectId.eEmbeddedBoardObject:
-                        //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+                        //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
                         //case TObjectId.eSplitPlaneObject:
-                        //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+                        //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
                         //case TObjectId.eTraceObject:
-                        //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+                        //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
                         //case TObjectId.eSpareViaObject:
-                        //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+                        //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
                         //case TObjectId.eBoardObject:
-                        //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+                        //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
                         //case TObjectId.eBoardOutlineObject:
-                        //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+                        //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
                         #region Default
                         default:
                             selectedSourceObjects.primitiveObjects.Add(Primitive);
-                            System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+                            _Log.Debug(Primitive.GetState_DescriptorString());
                             break;
                             #endregion
                     }
@@ -457,6 +459,10 @@ public class PlaceReplicate
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return;
         }
@@ -626,13 +632,13 @@ public class PlaceReplicate
                         //componentObject.GetState_SourceLibReference() corp number
                         //componentObject.GetState_XLocation()
                         //componentObject.GetState_YLocation()
-                        System.Diagnostics.Debug.WriteLine(componentObject.GetState_DescriptorString());
+                        _Log.Debug(componentObject.GetState_DescriptorString());
                         break;
                     #endregion
                     #region Default
                     default:
                         //selectedSourceObjects.primitiveObjects.Add(Primitive);
-                        System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+                        _Log.Debug(Primitive.GetState_DescriptorString());
                         break;
                         #endregion
                 }
@@ -766,18 +772,18 @@ public class clsOutput
 //switch (Primitive.GetState_ObjectID())
 //                {
 //                    case TObjectId.eNoObject:
-//                        System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+//                        _Log.Debug(Primitive.GetState_DescriptorString());
 //                        break;
 //                    case TObjectId.eArcObject:
 //                        IPCB_Arc arcObject = Primitive as IPCB_Arc;
-//System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+//_Log.Debug(Primitive.GetState_DescriptorString());
 //                        break;
 //                    case TObjectId.ePadObject:
 //                        IPCB_Pad padObject = Primitive as IPCB_Pad;
-//System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+//_Log.Debug(Primitive.GetState_DescriptorString());
 //                        break;
 //                    case TObjectId.eViaObject:
-//                        System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+//                        _Log.Debug(Primitive.GetState_DescriptorString());
 //                        IPCB_Via ViaObject = Primitive as IPCB_Via;
 //SelectedObjects.Add(new PCBObject()
 //{
@@ -798,21 +804,21 @@ public class clsOutput
 ////trackObject.GetState_Net()
 ////trackObject.GetState_Width()
 ////trackObject.GetState_X1(), X2, Y1, Y2
-//System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+//_Log.Debug(Primitive.GetState_DescriptorString());
 //                        break;
 //                    case TObjectId.eTextObject:
 //                        IPCB_Text textObject = Primitive as IPCB_Text;
-//System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+//_Log.Debug(Primitive.GetState_DescriptorString());
 //                        break;
 //                    case TObjectId.eFillObject:
 //                        IPCB_Fill fillObject = Primitive as IPCB_Fill;
-//System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+//_Log.Debug(Primitive.GetState_DescriptorString());
 //                        break;
 //                    //case TObjectId.eConnectionObject:
-//                    //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+//                    //    _Log.Debug(Primitive.GetState_DescriptorString());
 //                    //    break;
 //                    //case TObjectId.eNetObject:
-//                    //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+//                    //    _Log.Debug(Primitive.GetState_DescriptorString());
 //                    //    break;
 //                    case TObjectId.eComponentObject:
 //                        IPCB_Component componentObject = Primitive as IPCB_Component;
@@ -827,64 +833,64 @@ public class clsOutput
 ////componentObject.GetState_SourceLibReference() corp number
 ////componentObject.GetState_XLocation()
 ////componentObject.GetState_YLocation()
-//System.Diagnostics.Debug.WriteLine(componentObject.GetState_DescriptorString());
+//_Log.Debug(componentObject.GetState_DescriptorString());
 //                        break;
 //                    case TObjectId.ePolyObject:
 //                        IPCB_Polygon polygonObject = Primitive as IPCB_Polygon;
 ////?polygonObject.GetState_DetailString() Net
 ////?polygonObject.GetState_RemoveDead()
-//System.Diagnostics.Debug.WriteLine(polygonObject.GetState_DescriptorString());
+//_Log.Debug(polygonObject.GetState_DescriptorString());
 //                        break;
 //                    //case TObjectId.eRegionObject:
-//                    //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+//                    //    _Log.Debug(Primitive.GetState_DescriptorString());
 //                    //    break;
 //                    //case TObjectId.eComponentBodyObject:
-//                    //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+//                    //    _Log.Debug(Primitive.GetState_DescriptorString());
 //                    //    break;
 //                    //case TObjectId.eDimensionObject:
-//                    //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+//                    //    _Log.Debug(Primitive.GetState_DescriptorString());
 //                    //    break;
 //                    //case TObjectId.eCoordinateObject:
-//                    //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+//                    //    _Log.Debug(Primitive.GetState_DescriptorString());
 //                    //    break;
 //                    //case TObjectId.eClassObject:
-//                    //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+//                    //    _Log.Debug(Primitive.GetState_DescriptorString());
 //                    //    break;
 //                    //case TObjectId.eRuleObject:
-//                    //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+//                    //    _Log.Debug(Primitive.GetState_DescriptorString());
 //                    //    break;
 //                    //case TObjectId.eFromToObject:
-//                    //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+//                    //    _Log.Debug(Primitive.GetState_DescriptorString());
 //                    //    break;
 //                    //case TObjectId.eDifferentialPairObject:
-//                    //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+//                    //    _Log.Debug(Primitive.GetState_DescriptorString());
 //                    //    break;
 //                    //case TObjectId.eViolationObject:
-//                    //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+//                    //    _Log.Debug(Primitive.GetState_DescriptorString());
 //                    //    break;
 //                    case TObjectId.eEmbeddedObject:
-//                        System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+//                        _Log.Debug(Primitive.GetState_DescriptorString());
 //                        break;
 //                    case TObjectId.eEmbeddedBoardObject:
-//                        System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+//                        _Log.Debug(Primitive.GetState_DescriptorString());
 //                        break;
 //                    //case TObjectId.eSplitPlaneObject:
-//                    //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+//                    //    _Log.Debug(Primitive.GetState_DescriptorString());
 //                    //    break;
 //                    case TObjectId.eTraceObject:
-//                        System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+//                        _Log.Debug(Primitive.GetState_DescriptorString());
 //                        break;
 //                    case TObjectId.eSpareViaObject:
-//                        System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+//                        _Log.Debug(Primitive.GetState_DescriptorString());
 //                        break;
 //                    //case TObjectId.eBoardObject:
-//                    //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+//                    //    _Log.Debug(Primitive.GetState_DescriptorString());
 //                    //    break;
 //                    //case TObjectId.eBoardOutlineObject:
-//                    //    System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+//                    //    _Log.Debug(Primitive.GetState_DescriptorString());
 //                    //    break;
 //                    default:
-//                        System.Diagnostics.Debug.WriteLine(Primitive.GetState_DescriptorString());
+//                        _Log.Debug(Primitive.GetState_DescriptorString());
 //                        break;
 //                }
 

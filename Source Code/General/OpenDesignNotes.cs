@@ -1,5 +1,6 @@
 ﻿using DXP;
 using Ini;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,6 +11,7 @@ using System.Windows.Forms;
 
 class DesignNotes
 {
+    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
     /// <summary>
     /// 
     /// </summary>
@@ -116,6 +118,10 @@ class DesignNotes
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
 
         }

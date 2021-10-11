@@ -1,4 +1,5 @@
 ﻿using DXP;
+using NLog;
 using SCH;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 class RenameNets
 {
+    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
     ISch_ServerInterface SchServer = SCH.GlobalVars.SchServer;
     void LoadNets(string FilePath)
     {
@@ -17,6 +19,10 @@ class RenameNets
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return;
         }

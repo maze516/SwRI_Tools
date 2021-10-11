@@ -46,7 +46,7 @@ public class ErrorMail
                 Reporter.EmailReport(ErrorMsg);
 
             //Log error message locally.
-            Reporter.LogReport(ErrorMsg);
+            //Reporter.LogReport(ErrorMsg);
 
             IProject project = DXP.GlobalVars.DXPWorkSpace.DM_FocusedProject() as IProject;
             if (project != null)

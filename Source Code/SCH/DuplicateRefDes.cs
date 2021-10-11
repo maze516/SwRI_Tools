@@ -1,4 +1,5 @@
 ﻿using DXP;
+using NLog;
 using SCH;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Text.RegularExpressions;
 
 class DuplicateRefDes
 {
-
+    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
     public void CheckRefDes()
     {
         try
@@ -157,6 +158,10 @@ class DuplicateRefDes
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return;
         }

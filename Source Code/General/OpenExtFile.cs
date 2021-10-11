@@ -1,9 +1,11 @@
 ﻿using Ini;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.IO;
 public class OpenExtFile
 {
+    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
 
     /// <summary>
     /// Open external file.
@@ -47,6 +49,10 @@ public class OpenExtFile
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
 
         }

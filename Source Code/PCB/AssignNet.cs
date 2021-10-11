@@ -7,9 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NLog;
 
 class AssignNetClss
 {
+    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
     public void AssignNet()
     {
         IClient tmpClient = DXP.GlobalVars.Client;
@@ -54,6 +56,10 @@ class AssignNetClss
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
         }
     }

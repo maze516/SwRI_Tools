@@ -178,7 +178,7 @@ help");
         if (pcbBoard == null)
             return;
 
-        System.Diagnostics.Debug.WriteLine(pcbBoard.GetState_DisplayUnit().ToString());
+        _Log.Debug(pcbBoard.GetState_DisplayUnit().ToString());
 
 
 

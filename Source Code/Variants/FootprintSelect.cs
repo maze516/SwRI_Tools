@@ -1,4 +1,5 @@
 ﻿using DXP;
+using NLog;
 using PCB;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ using System.Windows.Forms;
 
 public partial class FootprintSelect : ServerPanelForm
 {
+    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
     public const string PanelName = "VarFootprintSelect";
     public const string PanelCaption = "Variant Footprint Select";
     List<string> Report;
@@ -192,6 +194,10 @@ public partial class FootprintSelect : ServerPanelForm
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
         }
     }

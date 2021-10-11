@@ -959,7 +959,7 @@ namespace CSharpPlugin
             //else if (NotificationType.DocumentNotification.Equals(argNotification.GetNotificationType(), StringComparison.OrdinalIgnoreCase)
             //    && argNotification.GetNotificationCode() == NotificationCode.DocumentNotificationCode.DocumentClosing)
             //{
-            //    System.Diagnostics.Debug.WriteLine(argNotification.GetNotificationCode());
+            //    _Log.Debug(argNotification.GetNotificationCode());
 
             //    //this.UpdateControlsFromNotification(argNotification);
             //}

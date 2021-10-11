@@ -9,10 +9,11 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
+using NLog;
 
 public partial class CrossSection : Form//ServerPanelForm
 {
+    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
     public const string PanelName = "CrossSection";
     public const string PanelCaption = "Cross Section Calc";
     Dictionary<string, LayerValues> Nets;
@@ -123,7 +124,10 @@ public partial class CrossSection : Form//ServerPanelForm
         }
         catch (Exception ex)
         {
-
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
         }
     }
@@ -175,6 +179,10 @@ public partial class CrossSection : Form//ServerPanelForm
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
         }
         finally

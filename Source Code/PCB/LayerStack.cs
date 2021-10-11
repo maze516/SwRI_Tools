@@ -62,10 +62,10 @@ public class LayerStackTable
         string Ext;
         foreach (IPCB_ElectricalLayer item in Layers)
         {
-            System.Diagnostics.Debug.WriteLine(item.GetState_CopperThickness());
-            System.Diagnostics.Debug.WriteLine(item.GetState_LayerDisplayName(0));
-            System.Diagnostics.Debug.WriteLine(item.GetState_LayerDisplayName(1));
-            System.Diagnostics.Debug.WriteLine(item.GetState_LayerDisplayName(2));
+            _Log.Debug(item.GetState_CopperThickness());
+            _Log.Debug(item.GetState_LayerDisplayName(0));
+            _Log.Debug(item.GetState_LayerDisplayName(1));
+            _Log.Debug(item.GetState_LayerDisplayName(2));
             //14000
             //7000
             switch (item.GetState_CopperThickness())
@@ -151,7 +151,7 @@ public class LayerStackTable
         pos = -1515;
         do
         {
-            System.Diagnostics.Debug.WriteLine((tmp as IPCB_DielectricLayer).GetState_DielectricType());
+            _Log.Debug((tmp as IPCB_DielectricLayer).GetState_DielectricType());
             if ((tmp as IPCB_DielectricLayer).GetState_DielectricType() != TDielectricType.eSurfaceMaterial)
             {
                 thickness = EDP.Utils.CoordToMils((tmp as IPCB_DielectricLayer).GetState_DielectricHeight()) / 1000;

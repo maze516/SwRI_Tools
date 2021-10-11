@@ -1,5 +1,6 @@
 ﻿using DXP;
 using EDP;
+using NLog;
 using PCB;
 using SCH;
 using System;
@@ -10,6 +11,7 @@ using System.Windows.Forms;
 
 public class HeightReport
 {
+    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
     /// <summary>
     /// Generates a report comparing schematic height parameter to footprint body height.
     /// </summary>
@@ -37,6 +39,10 @@ public class HeightReport
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return;
 
@@ -74,7 +80,10 @@ public class HeightReport
         }
         catch (Exception ex)
         {
-
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return;
         }
@@ -108,7 +117,7 @@ public class HeightReport
             while (Component != null)
             {
                 if (Component.GetState_SourceDesignator() == "U18")
-                    System.Diagnostics.Debug.WriteLine(Component.GetState_SourceDesignator());
+                    _Log.Debug(Component.GetState_SourceDesignator());
                 ObtainBodyHeight(ref argHeights, Component);
                 if (argHeights == null) return;
                 Component = (IPCB_Component)BoardIterator.NextPCBObject();
@@ -117,6 +126,10 @@ public class HeightReport
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return;
         }
@@ -175,6 +188,10 @@ public class HeightReport
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return;
 
@@ -238,6 +255,10 @@ public class HeightReport
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return;
 
@@ -268,6 +289,10 @@ public class HeightReport
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return;
         }
@@ -362,6 +387,10 @@ public class HeightReport
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return;
 
@@ -408,6 +437,10 @@ public class HeightReport
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return;
 
@@ -459,6 +492,10 @@ public class HeightReport
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return;
 
@@ -580,6 +617,10 @@ public class HeightReport
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return;
         }

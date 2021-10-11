@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using System.Reflection;
+using System.Text;
 
 class TestClass
 {
@@ -123,6 +124,10 @@ class TestClass
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return;
         }
@@ -264,6 +269,10 @@ class TestClass
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
 
         }
@@ -778,7 +787,7 @@ class TestClass
 
     public void loggerTesting()
     {
-        string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        //string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         //NLog.LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(assemblyFolder + "\\NLog.config", true);
 
         Util.UpdateLogger(ToolsPreferences.LoggerLevel);
@@ -796,7 +805,25 @@ class TestClass
         catch (Exception ex)
         {
             _Log.Fatal(ex, "Fatal");
+            var sb = new StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
         }
+
+        //var sb = new StringBuilder();
+        //sb.AppendLine("");
+        //sb.AppendLine(@"   ------------ [ ApiClientSettings ] -------------");
+        //sb.AppendLine(@"     ClientId            : " + "ClientId");
+        //sb.AppendLine(@"     ClientSecret        : " + "ClientSecret");
+        //sb.AppendLine(@"     RedirectUri         : " + "RedirectUri");
+        //sb.AppendLine(@"     AccessToken         : " + "AccessToken");
+        //sb.AppendLine(@"     RefreshToken        : " + "RefreshToken");
+        //sb.AppendLine(@"     ExpirationDateTime  : " + "ExpirationDateTime");
+        //sb.AppendLine(@"   ---------------------------------------------");
+        //_Log.Fatal(sb);
+        //return sb.ToString();
+
     }
 
 

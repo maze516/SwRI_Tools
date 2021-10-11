@@ -9,6 +9,7 @@ using System.Reflection;
 
 public class Util
 {
+    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
 
     public const string SERVERNAME = "SwRI_Tools";
     private static IPCB_ServerInterface PCBServer;
@@ -158,6 +159,10 @@ public class Util
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return "";
 
@@ -179,6 +184,10 @@ public class Util
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return "";
 
@@ -252,6 +261,10 @@ public class Util
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return null;
         }

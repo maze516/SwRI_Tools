@@ -1,5 +1,5 @@
 ﻿using DXP;
-
+using NLog;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,6 +14,8 @@ using System.Windows.Forms;
 
 public partial class DoFileGen : ServerPanelForm
 {
+    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
+
     public const string PanelName = "DoReport";
     public const string PanelCaption = "DO File Gen";
     public DoFileGen()
@@ -63,6 +65,10 @@ public partial class DoFileGen : ServerPanelForm
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
         }
     }

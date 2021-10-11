@@ -1,4 +1,5 @@
 ﻿using DXP;
+using NLog;
 using PCB;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Windows.Forms;
 
 public partial class frmPlaceReplicate : ServerPanelForm
 {
+    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
     public const string PanelName = "PlaceReplicate";
     public const string PanelCaption = "Place Replicate";
 
@@ -42,6 +44,10 @@ public partial class frmPlaceReplicate : ServerPanelForm
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return;
         }
@@ -67,6 +73,10 @@ public partial class frmPlaceReplicate : ServerPanelForm
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return;
         }
@@ -97,6 +107,10 @@ public partial class frmPlaceReplicate : ServerPanelForm
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return;
         }
@@ -384,6 +398,10 @@ public partial class frmPlaceReplicate : ServerPanelForm
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return;
         }
@@ -500,13 +518,13 @@ public partial class frmPlaceReplicate : ServerPanelForm
     {
         try
         {
-
-            System.Diagnostics.Debug.WriteLine(Dest);
-            System.Diagnostics.Debug.WriteLine(Source);
+            
+            _Log.Debug(Dest);
+            _Log.Debug(Source);
 
             matching = true;
             Dictionary<string, string> Matches = new Dictionary<string, string>();
-            System.Diagnostics.Debug.WriteLine("Match channels");
+            _Log.Debug("Match channels");
             #region Match Channels
 
             if (Source.Contains("U") & Source.Contains("_") & !Source.Contains("EM") & !Source.Contains("FM"))
@@ -530,7 +548,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
             }
 
             #endregion
-            System.Diagnostics.Debug.WriteLine("Match Part Numbers");
+            _Log.Debug("Match Part Numbers");
             #region Match Part Numbers
 
             Matches = new Dictionary<string, string>();
@@ -568,7 +586,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
             }
 
             #endregion
-            System.Diagnostics.Debug.WriteLine("Match Nets");
+            _Log.Debug("Match Nets");
             #region Match Nets
 
             Matches = new Dictionary<string, string>();
@@ -635,7 +653,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
             #endregion
 
             matching = false;
-            System.Diagnostics.Debug.WriteLine("Smart Net Matching");
+            _Log.Debug("Smart Net Matching");
             #region Smart Net Matching
 
             Matches = new Dictionary<string, string>();
@@ -658,7 +676,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
                     #region Only one other component on net
                     if (PR.SourceNets[srcItem.Value].Count == 2)
                     {
-                        System.Diagnostics.Debug.WriteLine("Only one other component on net");
+                        _Log.Debug("Only one other component on net");
                         foreach (structNet item2 in PR.SourceNets[srcItem.Value])
                         {
                             if (!Matched(item2.RefDes))
@@ -682,7 +700,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
                     #region Only one component unmatched
                     else if (Unmatched(lstSrc) == 1)
                     {
-                        System.Diagnostics.Debug.WriteLine("Only one component unmatched");
+                        _Log.Debug("Only one component unmatched");
                         string Ref1 = "", Ref2 = "";
                         foreach (string item in lstSrc)
                             if (!Matched(item)) { Ref1 = item; break; }
@@ -712,7 +730,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
                             AddMatch(item.Key, item.Value);
                     }
                     #endregion
-                    System.Diagnostics.Debug.WriteLine("Only one of each refdes type (R,C,U ...)");
+                    _Log.Debug("Only one of each refdes type (R,C,U ...)");
                     #region Only one of each refdes type (R,C,U ...)
 
                     Matches = new Dictionary<string, string>();
@@ -765,7 +783,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
                                 AddMatch(item.Key, item.Value);
                     }
                     #endregion
-                    System.Diagnostics.Debug.WriteLine("Rerun Matched");
+                    _Log.Debug("Rerun Matched");
                     #region Rerun Matched
                     if (chkInDepth.Checked)
                         if (!matching2)
@@ -802,6 +820,10 @@ public partial class frmPlaceReplicate : ServerPanelForm
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             matching = false;
             matching2 = false;
             matching3 = false;

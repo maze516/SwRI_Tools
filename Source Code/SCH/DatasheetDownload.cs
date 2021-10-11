@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using EDP;
-
+using NLog;
 
 class DatasheetDownload
 {
+    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
     List<Datasheet> Datasheets = new List<Datasheet>();
     string LatestPDF = "";
 
@@ -52,6 +53,10 @@ class DatasheetDownload
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return;
         }
@@ -293,6 +298,10 @@ class DatasheetDownload
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return;
         }

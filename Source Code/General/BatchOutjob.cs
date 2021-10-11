@@ -1,11 +1,13 @@
 ﻿using DXP;
 using EDP;
+using NLog;
 using PCB;
 using System;
 
 public class BatchOutjob
 {
-   
+    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
+
     public IPCB_ServerInterface PCBServer = PCB.GlobalVars.PCBServer;
 
 
@@ -22,6 +24,10 @@ public class BatchOutjob
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
         }
     }

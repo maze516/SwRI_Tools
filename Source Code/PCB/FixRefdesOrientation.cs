@@ -1,9 +1,11 @@
-﻿using PCB;
+﻿using NLog;
+using PCB;
 using System;
 
 
 class FixRefdesOrientation
 {
+    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
     /// <summary>
     /// Will adjust refdes orientation to match component orientation.
     /// </summary>
@@ -89,6 +91,10 @@ class FixRefdesOrientation
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
 
         }

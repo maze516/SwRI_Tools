@@ -1,5 +1,6 @@
 ﻿using DXP;
 using EDP;
+using NLog;
 using SCH;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Windows.Forms;
 
 class FootprintCompare
 {
+    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
     List<Var_Type> AllVariants = new List<Var_Type>();
 
     public void CompareFootprints()
@@ -177,6 +179,10 @@ class FootprintCompare
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return;
         }
@@ -259,6 +265,10 @@ class FootprintCompare
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return null;
         }

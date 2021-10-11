@@ -1,10 +1,12 @@
-﻿using PCB;
+﻿using NLog;
+using PCB;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
 class clFixEmbededResistors
 {
+    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
     bool error = false;
 
     /// <summary>
@@ -62,6 +64,10 @@ class clFixEmbededResistors
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             error = true;
             return false;
@@ -168,6 +174,10 @@ class clFixEmbededResistors
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
         }
     }

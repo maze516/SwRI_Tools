@@ -8,10 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using NLog;
 //PE pn, Comp pn, Refdes, Libref, package, UID(?), variant
 
 class Variant_BOM
 {
+    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
     PNCompList PartnumberCompList;
     RefDesCompList RefCompList;
     public void Create_Variant_BOM()
@@ -36,6 +38,10 @@ class Variant_BOM
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return;
         }
@@ -75,6 +81,10 @@ class Variant_BOM
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return;
         }
@@ -158,6 +168,10 @@ class Variant_BOM
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return false;
         }
@@ -271,6 +285,10 @@ class Variant_BOM
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return false;
         }
@@ -288,6 +306,7 @@ class Variant_BOM
 }
 class PNCompList : IDictionary<string, CompData>
 {
+    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
     private Dictionary<string, CompData> PNDictionary = new Dictionary<string, CompData>();
 
     public CompData this[string key]
@@ -411,6 +430,10 @@ class PNCompList : IDictionary<string, CompData>
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return;
         }
@@ -462,6 +485,7 @@ class PNCompList : IDictionary<string, CompData>
 }
 class RefDesCompList : IDictionary<string, CompData>
 {
+    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
     private Dictionary<string, CompData> RefDesDictionary = new Dictionary<string, CompData>();
 
     public CompData this[string key]
@@ -585,6 +609,10 @@ class RefDesCompList : IDictionary<string, CompData>
         }
         catch (Exception ex)
         {
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine(ex.ToString());
+            _Log.Fatal(sb);
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
             return;
         }
