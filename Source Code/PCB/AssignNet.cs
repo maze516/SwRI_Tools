@@ -11,7 +11,7 @@ using NLog;
 
 class AssignNetClss
 {
-    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
     public void AssignNet()
     {
         IClient tmpClient = DXP.GlobalVars.Client;

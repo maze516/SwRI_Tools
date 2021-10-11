@@ -13,7 +13,7 @@ using System.Text;
 
 class TestClass
 {
-    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
 
     string[] LogFile = new string[100000];
     public void ScanDocuments()//ref Dictionary<string, Heights> report)
@@ -206,7 +206,7 @@ class TestClass
                 l++;
             }
         }
-        log(LogFile);
+        _Log.Debug(LogFile);
         //degub:
         //EDP.IOutputer test;
         //for (int x = 0; x < OutJobDoc.GetState_OutputerCount(); x++)
@@ -265,7 +265,7 @@ class TestClass
             //Iterator clean-up
             Board.BoardIterator_Destroy(ref BoardIterator);
             //Board.GraphicalView_ZoomRedraw();
-            log(LogFile);
+            _Log.Debug(LogFile);
         }
         catch (Exception ex)
         {
@@ -276,14 +276,6 @@ class TestClass
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
 
         }
-    }
-    void log(string[] LogFile)
-    {
-        string strLogPath = "c:\\test.txt";
-
-        File.WriteAllLines(strLogPath, LogFile);
-        System.Diagnostics.Process.Start(strLogPath);
-        return;
     }
 
     public PCB.TObjectSet cstmPCBObject = new PCB.TObjectSet(new PCB.TObjectId[]
@@ -558,17 +550,6 @@ class TestClass
         //Iterator clean-up
         Board.BoardIterator_Destroy(ref BoardIterator);
 
-    }
-
-    public void DocGrouping()
-    {
-        //DXP.IClientAPI_InterfaceHelper.GetGroupingInDocumentsBar(this DXP.IClientAPI_Interface)
-        //DXP.IClientAPI_InterfaceHelper.SetGroupingInDocumentsBar(this DXP.IClientAPI_Interface, DXP.TDocumentsBarGrouping)
-        //DXP.IClientAPI_Interface.Internal_GetGroupingInDocumentsBar()
-        IClient client = DXP.GlobalVars.Client;
-        DXP.IClientAPI_Interface ClientAPI = client.GetClientAPI();
-
-        MessageBox.Show(ClientAPI.GetGroupingInDocumentsBar().ToString());
     }
 
 

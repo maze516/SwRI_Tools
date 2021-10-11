@@ -14,7 +14,7 @@ using NLog;
 
 public class PlaceReplicate
 {
-    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
     public List<string> SelectedSourceRef, SelectedDestRef;
     public clsSelectedObjects selectedSourceObjects, selectedDestinationObjects;
     public clsOutput Source, Destination;

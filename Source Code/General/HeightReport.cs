@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 public class HeightReport
 {
-    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
     /// <summary>
     /// Generates a report comparing schematic height parameter to footprint body height.
     /// </summary>

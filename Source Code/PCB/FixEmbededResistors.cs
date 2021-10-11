@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 class clFixEmbededResistors
 {
-    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
     bool error = false;
 
     /// <summary>

@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 public partial class FootprintSelect : ServerPanelForm
 {
-    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
     public const string PanelName = "VarFootprintSelect";
     public const string PanelCaption = "Variant Footprint Select";
     List<string> Report;

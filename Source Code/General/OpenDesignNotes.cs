@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 class DesignNotes
 {
-    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
     /// <summary>
     /// 
     /// </summary>

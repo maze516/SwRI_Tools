@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 public class ToggleDesignRules
 {
-    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
     IPCB_ServerInterface PCBServer = PCB.GlobalVars.PCBServer;
 
     private string myRuleName = "";

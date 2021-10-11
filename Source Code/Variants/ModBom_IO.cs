@@ -11,7 +11,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 //todo: comment
 public partial class ModBom_IO : Form
 {
-    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
     public IWSM_OutputJobDocument OutJobDoc;
     public IOutputMedium OutputMedium;
 

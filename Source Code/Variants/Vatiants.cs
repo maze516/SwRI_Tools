@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 public class Variants
 {
-    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
     private string Overwrite;
     public ProgressBar Progress;
 

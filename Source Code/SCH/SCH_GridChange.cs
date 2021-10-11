@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 public class SCH_GridChange
 {
-    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
     ISch_ServerInterface SchServer = SCH.GlobalVars.SchServer;
 
     /// <summary>

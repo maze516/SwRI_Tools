@@ -5,9 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using PCB;
 using DXP;
+using NLog;
 
 public class LayerStackTable
 {
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
     IPCB_ServerInterface PCBServer;
     int OffsetX = 0, OffsetY = 0;
     TV6_Layer ActiveLayer;

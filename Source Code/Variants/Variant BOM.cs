@@ -13,7 +13,7 @@ using NLog;
 
 class Variant_BOM
 {
-    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
     PNCompList PartnumberCompList;
     RefDesCompList RefCompList;
     public void Create_Variant_BOM()
@@ -306,7 +306,7 @@ class Variant_BOM
 }
 class PNCompList : IDictionary<string, CompData>
 {
-    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
     private Dictionary<string, CompData> PNDictionary = new Dictionary<string, CompData>();
 
     public CompData this[string key]
@@ -485,7 +485,7 @@ class PNCompList : IDictionary<string, CompData>
 }
 class RefDesCompList : IDictionary<string, CompData>
 {
-    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
     private Dictionary<string, CompData> RefDesDictionary = new Dictionary<string, CompData>();
 
     public CompData this[string key]

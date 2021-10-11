@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 class FootprintCompare
 {
-    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
     List<Var_Type> AllVariants = new List<Var_Type>();
 
     public void CompareFootprints()

@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 public partial class frmBatchOutjob : Form
 {
-    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
     public Dictionary<string, clsOutJob> dictOutputMedium = new Dictionary<string, clsOutJob>();
     public IClient tmpClient = DXP.GlobalVars.Client;
     public List<IServerDocument> lstServerDocs = new List<IServerDocument>();

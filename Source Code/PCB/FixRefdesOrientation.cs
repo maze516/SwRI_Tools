@@ -5,7 +5,7 @@ using System;
 
 class FixRefdesOrientation
 {
-    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
     /// <summary>
     /// Will adjust refdes orientation to match component orientation.
     /// </summary>

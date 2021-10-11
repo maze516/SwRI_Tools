@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 public partial class frmPlaceReplicate : ServerPanelForm
 {
-    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
     public const string PanelName = "PlaceReplicate";
     public const string PanelCaption = "Place Replicate";
 

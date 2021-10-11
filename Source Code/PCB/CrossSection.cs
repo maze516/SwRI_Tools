@@ -13,7 +13,7 @@ using NLog;
 
 public partial class CrossSection : Form//ServerPanelForm
 {
-    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
     public const string PanelName = "CrossSection";
     public const string PanelCaption = "Cross Section Calc";
     Dictionary<string, LayerValues> Nets;

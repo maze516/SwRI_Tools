@@ -6,7 +6,7 @@ using System;
 
 public class BatchOutjob
 {
-    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
 
     public IPCB_ServerInterface PCBServer = PCB.GlobalVars.PCBServer;
 

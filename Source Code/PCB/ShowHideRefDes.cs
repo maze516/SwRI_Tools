@@ -4,7 +4,7 @@ using System;
 
 class ShowHideRefDes
 {
-    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
     /// <summary>
     /// Property used to enable/disable menu button.
     /// </summary>

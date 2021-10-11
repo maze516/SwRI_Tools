@@ -9,11 +9,11 @@ using System.Reflection;
 
 public class Util
 {
-    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
+    public static readonly Logger _Log = LogManager.GetLogger(SERVERNAME);
 
     public const string SERVERNAME = "SwRI_Tools";
     private static IPCB_ServerInterface PCBServer;
-    //    public static readonly Logger _Log= LogManager.GetCurrentClassLogger();
+    //    public static readonly Logger _Log= LogManager.GetLogger(Util.SERVERNAME);
 
 
     public static void UpdateLogger(LogLevel logLevel)
@@ -36,7 +36,7 @@ public class Util
 
         // Rules for mapping loggers to targets            
         // config.AddRule(LogLevel.Info, LogLevel.Fatal, logconsole);
-        config.AddRule(logLevel, LogLevel.Fatal, logfile);
+        config.AddRule(logLevel, LogLevel.Fatal, logfile, SERVERNAME);
 
         // Apply config           
         NLog.LogManager.Configuration = config;

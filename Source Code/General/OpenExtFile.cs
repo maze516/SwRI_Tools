@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 public class OpenExtFile
 {
-    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
 
     /// <summary>
     /// Open external file.

@@ -12,7 +12,7 @@ using NLog;
 
 class DatasheetDownload
 {
-    public static readonly Logger _Log = LogManager.GetCurrentClassLogger();
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
     List<Datasheet> Datasheets = new List<Datasheet>();
     string LatestPDF = "";
 

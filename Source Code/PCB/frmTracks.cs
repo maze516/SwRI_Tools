@@ -1,4 +1,5 @@
 ﻿using DXP;
+using NLog;
 using PCB;
 using System;
 using System.Windows.Forms;
@@ -6,6 +7,7 @@ using System.Windows.Forms;
 
 public partial class frmTracks : ServerPanelForm //Form
 {
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
     IPCB_ServerInterface PCBServer = PCB.GlobalVars.PCBServer;
 
     public const string PanelName = "TrackUtil";
