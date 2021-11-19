@@ -512,13 +512,69 @@ public partial class frmPlaceReplicate : ServerPanelForm
         DXP.Utils.PercentFinish();
     }
 
+    private void lstSource_MouseClick(object sender, MouseEventArgs e)
+    {
+        //SelectCmpt();
+    }
+
+    private void lstDest_MouseClick(object sender, MouseEventArgs e)
+    {
+        //SelectCmpt();
+    }
+
+
+    string prevSelectedSource, prevSelectedDest;
+    void SelectCmpt()
+    {
+        string selectedSource, selectedDest;
+        IPCB_Component cmptSource, cmptDest;
+
+        IPCB_Board brd = PR.selectedSourceObjects.componentObjects[0].GetState_Board();
+
+        //Util.DeselectBoard(brd);
+        //deselect previouse part
+        if (prevSelectedDest != "")
+        {
+            cmptDest = PR.selectedDestinationObjects.GetComponent(prevSelectedDest);
+            if (cmptDest != null) cmptDest.SetState_Selected(false);
+        }
+
+        //deselect previouse part
+        if (prevSelectedSource != "")
+        {
+            cmptSource = PR.selectedSourceObjects.GetComponent(prevSelectedSource);
+            if (cmptSource != null) cmptSource.SetState_Selected(false);
+        }
+
+        //select new part
+        if (lstDest.SelectedItem != null)
+        {
+            selectedDest = lstDest.SelectedItem.ToString();
+            prevSelectedDest = selectedDest;
+            cmptDest = PR.selectedDestinationObjects.GetComponent(selectedDest);
+            if (cmptDest != null) cmptDest.SetState_Selected(true);
+        }
+
+        //select new part 
+        if (lstSource.SelectedItem != null)
+        {
+            selectedSource = lstSource.SelectedItem.ToString();
+            prevSelectedSource = selectedSource;
+            cmptSource = PR.selectedSourceObjects.GetComponent(selectedSource);
+            if (cmptSource != null) cmptSource.SetState_Selected(true);
+        }
+
+
+        brd.GraphicalView_ZoomRedraw();
+        brd.GraphicallyInvalidate();
+    }
 
 
     void AttemptAutoMatch(string Dest, string Source, List<string> SrcList, List<string> DstList)
     {
         try
         {
-            
+
             _Log.Debug(Dest);
             _Log.Debug(Source);
 
@@ -851,6 +907,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
         chkInDepth.Enabled = chkAutoMatch.Checked;
         if (!chkAutoMatch.Checked) chkInDepth.Checked = false;
     }
+
 
     private void btnFullReset_Click(object sender, EventArgs e)
     {

@@ -52,6 +52,7 @@
             this.lstSource.Size = new System.Drawing.Size(79, 264);
             this.lstSource.Sorted = true;
             this.lstSource.TabIndex = 0;
+            this.lstSource.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lstSource_MouseClick);
             this.lstSource.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lstSource_MouseDoubleClick);
             // 
             // lstDest
@@ -62,6 +63,7 @@
             this.lstDest.Size = new System.Drawing.Size(79, 264);
             this.lstDest.Sorted = true;
             this.lstDest.TabIndex = 0;
+            this.lstDest.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lstDest_MouseClick);
             this.lstDest.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lstDest_MouseDoubleClick);
             // 
             // btnMatch

@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using NLog;
-using System.Reflection;
 
 public class Util
 {
@@ -18,8 +17,18 @@ public class Util
 
     public static void UpdateLogger(LogLevel logLevel)
     {
+        NLog.Config.LoggingConfiguration config;
+        if (NLog.LogManager.Configuration == null)
+            config = new NLog.Config.LoggingConfiguration();
+        else if (LogManager.Configuration.AllTargets.Count == 1)
+        {
+            config = LogManager.Configuration;
+            //System.Diagnostics.Debug.WriteLine(config.AllTargets[0].Name);
+            if (config.AllTargets[0].Name == "logfile")   return;
 
-        var config = new NLog.Config.LoggingConfiguration();
+        }
+        else return;
+        
         string logPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\" + Util.SERVERNAME + " Logs\\";
 
         // Targets where to log to: File and Console
@@ -41,6 +50,7 @@ public class Util
         // Apply config           
         NLog.LogManager.Configuration = config;
     }
+
     /// <summary>
     /// Returns an Object set of all PCB primatives.
     /// </summary>
@@ -485,6 +495,42 @@ public class Util
 
         }
         sw.Close();
+    }
+
+    /// <summary>
+    /// Deselect all parts on the board provided.
+    /// </summary>
+    /// <param name="Board">Board to deselect all parts on.</param>
+    public static void DeselectBoard(IPCB_Board Board)
+    {
+        //Reset mask if applied.
+        string process = "PCB:RunQuery";
+        string parameters = "Clear=True";
+        DXP.Utils.RunCommand(process, parameters);
+
+        IPCB_BoardIterator BoardIterator;
+        IPCB_Component Component;
+        //IPCB_Board Board = Util.GetCurrentPCB();
+
+        if (Board == null)
+            return;
+
+        //Iterate theough all components on the board.
+        BoardIterator = Board.BoardIterator_Create();
+        PCB.TObjectSet FilterSet = new PCB.TObjectSet();
+        //Filter for components only.
+        FilterSet.Add(PCB.TObjectId.eComponentObject);
+        BoardIterator.AddFilter_ObjectSet(FilterSet);
+        BoardIterator.AddFilter_LayerSet(PCBConstant.V6AllLayersSet); //Filter all layers.
+        BoardIterator.AddFilter_Method(TIterationMethod.eProcessAll);
+
+        Component = (IPCB_Component)BoardIterator.FirstPCBObject();
+
+        while (Component != null)
+        {
+            //Deselect existing selected components.
+            Component.SetState_Selected(false);
+        }
     }
 }
 

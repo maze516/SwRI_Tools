@@ -250,6 +250,7 @@ partial class General_Options
             this.txtExtFileConfig.Size = new System.Drawing.Size(242, 20);
             this.txtExtFileConfig.TabIndex = 4;
             this.txtExtFileConfig.Text = "G:\\CADTOOLS\\Software\\Altium\\SwRI Software\\Altium Extensions\\SwRI_Tools Paths.ini";
+            this.txtExtFileConfig.TextChanged += new System.EventHandler(this.txtExtFileConfig_TextChanged);
             // 
             // label11
             // 

@@ -1,6 +1,6 @@
 ﻿using DXP;
 using System;
-
+using System.IO;
 
 public partial class General_Options : OptionsForm
 {
@@ -227,6 +227,18 @@ public partial class General_Options : OptionsForm
         txtSMTPHost.Enabled = boolEnabled;
         txtToAddress.Enabled = boolEnabled;
 
+    }
+
+    private void txtExtFileConfig_TextChanged(object sender, EventArgs e)
+    {
+        if (!File.Exists(txtExtFileConfig.Text))
+        {
+            txtExtFileConfig.BackColor = System.Drawing.Color.Red;
+        }
+        else
+        {
+            txtExtFileConfig.BackColor = DxpThemeManager.ColorPanelBody;
+        }
     }
 }
 

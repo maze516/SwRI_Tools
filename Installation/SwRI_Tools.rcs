@@ -61,6 +61,13 @@ PL
 End
 
 PL
+  PLSwRI_Tools:HideSelectedNets
+  Command='SwRI_Tools:HideSelectedNets' 
+  Caption='Hide Selected Nets'
+  Description='Hide nets of selected components.'
+End
+
+PL
   PLSwRI_Tools:LayerStackup
   Command='SwRI_Tools:LayerStackup' 
   Caption='Layer Stackup Table'
@@ -594,6 +601,10 @@ End
 
 Insertion MNSwRIMenu500 TargetID='MNPCB_Primitive' InsertType='After' RefID0='MNPCB_Primitive710' 
     Link SwRI_ToolsMenu110 PLID='PLSwRI_Tools:ShowSelectedNets' End
+End
+
+Insertion MNSwRIMenu500 TargetID='MNPCB_Primitive' InsertType='After' RefID0='MNPCB_Primitive710' 
+    Link SwRI_ToolsMenu110 PLID='PLSwRI_Tools:HideSelectedNets' End
 End
 
 Insertion MNSwRIMenu500 TargetID='MNPCB_Primitive' InsertType='After' RefID0='MNPCB_Primitive710' 

@@ -11,6 +11,8 @@ using System.Windows.Forms;
 using System.Reflection;
 using System.Text;
 
+//todo: delect POWER class from cross select.
+
 class TestClass
 {
     public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
@@ -771,7 +773,7 @@ class TestClass
         //string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         //NLog.LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(assemblyFolder + "\\NLog.config", true);
 
-        Util.UpdateLogger(ToolsPreferences.LoggerLevel);
+        //Util.UpdateLogger(ToolsPreferences.LoggerLevel);
 
         try
         {

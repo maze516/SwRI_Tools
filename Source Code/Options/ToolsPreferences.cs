@@ -49,7 +49,7 @@ public class ToolsPreferences
         ClientHost = optionsReader.ReadString(section, "ClientHost", "");
         ExtFileConfig = optionsReader.ReadString(section, "ExtFileConfig", "");
 
-        switch (optionsReader.ReadString(section, "LoggerLevel", "Info"))
+        switch (optionsReader.ReadString(section, "LoggerLevel", "Warn"))
         {
             case "Fatal":
                 LoggerLevel = NLog.LogLevel.Fatal;
