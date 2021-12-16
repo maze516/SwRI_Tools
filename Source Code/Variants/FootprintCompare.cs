@@ -16,6 +16,8 @@ class FootprintCompare
 
     public void CompareFootprints()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         //purge existing classname data
 
 
@@ -36,6 +38,8 @@ class FootprintCompare
     /// <param name="VarList">Reference to the class that will store the gathered parameter data.</param>
     public void GetBaseVariants()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
 
@@ -196,6 +200,8 @@ class FootprintCompare
     /// <returns></returns>
     public Dictionary<string, IComponentVariation> Get_Variants(string VariantName)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
             Dictionary<string, IComponentVariation> Output = new Dictionary<string, IComponentVariation>();

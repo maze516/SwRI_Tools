@@ -6,11 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Collections;
 using System.IO;
+using NLog;
 
 class xSignals
 {
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
+
     public void Get_xSignals()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         xSignalReport();
         //IPCB_Board board = Util.GetCurrentPCB();
         //IPCB_PinPairsManager PinPairs = board.GetState_PinPairsManager();
@@ -18,6 +23,8 @@ class xSignals
     }
      void xSignalReport()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         IPCB_ServerInterface PCBServer = PCB.GlobalVars.PCBServer;
         IPCB_Board Board;
         

@@ -13,6 +13,8 @@ class RenameNets
     ISch_ServerInterface SchServer = SCH.GlobalVars.SchServer;
     void LoadNets(string FilePath)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
             
@@ -29,6 +31,8 @@ class RenameNets
     }
     void SetNets()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         //try
         //{
         //    IDXPWorkSpace CurrentWorkspace = DXP.GlobalVars.DXPWorkSpace;

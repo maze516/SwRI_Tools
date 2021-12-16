@@ -17,6 +17,8 @@ public partial class frmPlaceReplicate : ServerPanelForm
     PlaceReplicate PR = new PlaceReplicate();
     public frmPlaceReplicate()
     {
+        _Log.Debug("frmPlaceReplicate");
+
 
         InitializeComponent();
 
@@ -26,6 +28,8 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
     private void btnSource_Click(object sender, EventArgs e)
     {
+        _Log.Debug("btnSource_Click");
+
         try
         {
             PR.GetInitialParts();
@@ -55,6 +59,8 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
     private void btnDest_Click(object sender, EventArgs e)
     {//TODO: allow adding dest from sch
+        _Log.Debug("btnDest_Click");
+
         try
         {
             PR.GetDestinationParts();
@@ -84,6 +90,8 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
     private void btnMatch_Click(object sender, EventArgs e)
     {
+        _Log.Debug("btnMatch_Click");
+
         try
         {
             string selectedSource, selectedDest;
@@ -107,6 +115,9 @@ public partial class frmPlaceReplicate : ServerPanelForm
         }
         catch (Exception ex)
         {
+            if (ex.Message == "Exit Automatch")
+                return;
+
             var sb = new System.Text.StringBuilder();
             sb.AppendLine("");
             sb.AppendLine(ex.ToString());
@@ -118,13 +129,18 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
     private void btnReset_Click(object sender, EventArgs e)
     {
+        _Log.Debug("btnReset_Click");
+
         RemoveMatched();
     }
 
     private void btnPlace_Click(object sender, EventArgs e)
     {
+        _Log.Debug("btnPlace_Click");
+
         try
         {
+            _Log.Debug("Place button");
             clsSelectedObjects NewPlacement = new clsSelectedObjects();
 
             Dictionary<string, string> NetCompare = GetNetDiff();
@@ -145,6 +161,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
                 OffsetX = OffsetX - PR.selectedSourceObjects.componentObjects[0].GetState_XLocation();
                 OffsetY = OffsetY - PR.selectedSourceObjects.componentObjects[0].GetState_YLocation();
+                _Log.Debug("OffsetX: "+OffsetX+ ", OffsetY: " + OffsetY);
             }
             catch (Exception ex)
             {
@@ -162,7 +179,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
             PR.GetNets();
 
             brd.BeginModify();
-
+            _Log.Debug("arcObjects");
             foreach (IPCB_Primitive item in PR.selectedSourceObjects.arcObjects)
             {
                 temp = item.Replicate();
@@ -183,7 +200,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
                 NewPlacement.arcObjects.Add(temp as IPCB_Arc);
 
             }
-
+            _Log.Debug("padObjects");
             foreach (IPCB_Primitive item in PR.selectedSourceObjects.padObjects)
             {
                 temp = item.Replicate();
@@ -204,7 +221,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
                 temp.EndModify();
                 NewPlacement.padObjects.Add(temp as IPCB_Pad);
             }
-
+            _Log.Debug("ViaObjects");
             foreach (IPCB_Primitive item in PR.selectedSourceObjects.ViaObjects)
             {
                 temp = item.Replicate();
@@ -227,7 +244,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
                 temp.EndModify();
                 NewPlacement.ViaObjects.Add(temp as IPCB_Via);
             }
-
+            _Log.Debug("trackObjects");
             foreach (IPCB_Primitive item in PR.selectedSourceObjects.trackObjects)
             {
                 temp = item.Replicate();
@@ -250,7 +267,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
                 temp.EndModify();
                 NewPlacement.trackObjects.Add(temp as IPCB_Track);
             }
-
+            _Log.Debug("textObjects");
             foreach (IPCB_Primitive item in PR.selectedSourceObjects.textObjects)
             {
                 temp = item.Replicate();
@@ -272,7 +289,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
                 temp.EndModify();
                 NewPlacement.textObjects.Add(temp as IPCB_Text);
             }
-
+            _Log.Debug("fillObjects");
             foreach (IPCB_Primitive item in PR.selectedSourceObjects.fillObjects)
             {
                 temp = item.Replicate();
@@ -294,7 +311,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
                 temp.EndModify();
                 NewPlacement.fillObjects.Add(temp as IPCB_Fill);
             }
-
+            _Log.Debug("polygonObjects");
             foreach (IPCB_Primitive item in PR.selectedSourceObjects.polygonObjects)
             {
                 temp = item.Replicate();
@@ -316,7 +333,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
                 temp.EndModify();
                 NewPlacement.polygonObjects.Add(temp as IPCB_Polygon);
             }
-
+            _Log.Debug("primitiveObjects");
             foreach (IPCB_Primitive item in PR.selectedSourceObjects.primitiveObjects)
             {
                 temp = item.Replicate();
@@ -338,7 +355,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
                 temp.EndModify();
                 NewPlacement.primitiveObjects.Add(temp);
             }
-
+            _Log.Debug("regionObjects");
             foreach (IPCB_Primitive item in PR.selectedSourceObjects.regionObjects)
             {
                 temp = item.Replicate();
@@ -361,7 +378,10 @@ public partial class frmPlaceReplicate : ServerPanelForm
                 NewPlacement.regionObjects.Add(temp as IPCB_Region);
             }
 
-            string srcRef, dstRef;
+
+
+            string srcRef, dstRef,srcKey,dstKey;
+
             IPCB_Component srcComp, dstComp;
 
             foreach (string item in lstMatched.Items)
@@ -369,16 +389,19 @@ public partial class frmPlaceReplicate : ServerPanelForm
                 srcRef = item.Split('>')[0];
                 dstRef = item.Split('>')[1];
 
-                srcComp = PR.selectedSourceObjects.GetComponent(srcRef);
-                dstComp = PR.selectedDestinationObjects.GetComponent(dstRef);
+                if (PR.Destination.Components.ContainsRefdes(dstRef, out dstKey) && PR.Source.Components.ContainsRefdes(srcRef, out srcKey))
+                {
+                    srcComp = PR.selectedSourceObjects.GetComponent(srcKey);
+                    dstComp = PR.selectedDestinationObjects.GetComponent(dstKey);
 
-                dstComp.BeginModify();
-                if (srcComp.GetState_Layer() != dstComp.GetState_Layer())
-                    dstComp.FlipComponent();
-                dstComp.SetState_Rotation(srcComp.GetState_Rotation());
-                dstComp.MoveToXY(OffsetX + srcComp.GetState_XLocation(), OffsetY + srcComp.GetState_YLocation());
-                //dstComp.Rebuild();
-                dstComp.EndModify();
+                    dstComp.BeginModify();
+                    if (srcComp.GetState_Layer() != dstComp.GetState_Layer())
+                        dstComp.FlipComponent();
+                    dstComp.SetState_Rotation(srcComp.GetState_Rotation());
+                    dstComp.MoveToXY(OffsetX + srcComp.GetState_XLocation(), OffsetY + srcComp.GetState_YLocation());
+                    //dstComp.Rebuild();
+                    dstComp.EndModify();
+                }
             }
 
 
@@ -395,6 +418,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
             //string parameters = "Object= Selection";
             //DXP.Utils.RunCommand(process, parameters);
             RemoveMatched("Placed");
+            _Log.Debug("placement done");
         }
         catch (Exception ex)
         {
@@ -409,29 +433,36 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
     private Dictionary<string, string> GetNetDiff()
     {
+
+        _Log.Debug(">GetNetDiff");
         string src, dst;
+        string srcKey, dstKey;
         Dictionary<string, string> tempOut = new Dictionary<string, string>();
         foreach (string item in lstMatched.Items)
         {
             src = item.Split('>')[0];
             dst = item.Split('>')[1];
-            if (PR.Source.Components.ContainsKey(src))
-                foreach (string pin in PR.Source.Components[src].Nets.Keys)
+
+            if (PR.Source.Components.ContainsRefdes(src, out srcKey) && PR.Destination.Components.ContainsRefdes(dst, out dstKey))
+                foreach (string pin in PR.Source.Components[srcKey].Nets.Keys)
                 {
-                    if (!tempOut.ContainsKey(PR.Source.Components[src].Nets[pin]))
-                        tempOut.Add(PR.Source.Components[src].Nets[pin], PR.Destination.Components[dst].Nets[pin]);
+                    if (!tempOut.ContainsKey(PR.Source.Components[srcKey].Nets[pin]))
+                        tempOut.Add(PR.Source.Components[srcKey].Nets[pin], PR.Destination.Components[dstKey].Nets[pin]);
                     else
                     {
-                        if (tempOut[PR.Source.Components[src].Nets[pin]] != PR.Destination.Components[dst].Nets[pin])
-                            tempOut[PR.Source.Components[src].Nets[pin]] = "dupe";
+                        if (tempOut[PR.Source.Components[srcKey].Nets[pin]] != PR.Destination.Components[dstKey].Nets[pin])
+                            tempOut[PR.Source.Components[srcKey].Nets[pin]] = "dupe";
                     }
                 }
         }
+        _Log.Debug("GetNetDiff>");
         return tempOut;
     }
 
     private void RemoveMatched(string Match = "")
     {
+        _Log.Debug("RemoveMatched");
+
         string[] temp;
         if (Match == "")
         {
@@ -461,9 +492,23 @@ public partial class frmPlaceReplicate : ServerPanelForm
         }
     }
 
-    bool matching = false, matching2 = false, matching3 = false;
+    /// <summary>
+    /// Set true when attempting the AutoMatch process.
+    /// </summary>
+    bool AutoMatching = false;
+    /// <summary>
+    /// Attempting to match components based on net patterns.
+    /// </summary>
+    bool SmartNetMatching = false;
+    /// <summary>
+    /// Try rerunning simple matching methods once more matches have already been made.
+    /// </summary>
+    bool SmartNetMatchRecursion = false;
+
     private void AddMatch(string Source, string Dest)
     {
+        _Log.Debug("AddMatch");
+
         if (Matched(Source)) return;
 
         lstDest.Items.Remove(Dest);
@@ -471,17 +516,21 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
         lstMatched.Items.Add(Source + ">" + Dest);
 
-        if (chkAutoMatch.Checked & !matching)
+        if (chkAutoMatch.Checked & !AutoMatching)
             AttemptAutoMatch(Dest, Source, lstSource.Items.OfType<string>().ToList<string>(), lstDest.Items.OfType<string>().ToList<string>());
 
     }
     private void lstMatched_MouseDoubleClick(object sender, MouseEventArgs e)
     {
+        _Log.Debug("lstMatched_MouseDoubleClick");
+
         RemoveMatched(lstMatched.SelectedItem.ToString());
     }
 
     private void lstDest_MouseDoubleClick(object sender, MouseEventArgs e)
     {
+        _Log.Debug("lstDest_MouseDoubleClick");
+
         string selectedSource, selectedDest;
         DXP.Utils.PercentBeginComplexOperation("Adding matches.");
         selectedSource = lstSource.SelectedItem.ToString();
@@ -498,6 +547,8 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
     private void lstSource_MouseDoubleClick(object sender, MouseEventArgs e)
     {
+        _Log.Debug("lstSource_MouseDoubleClick");
+
         string selectedSource, selectedDest;
         DXP.Utils.PercentBeginComplexOperation("Adding matches.");
         selectedSource = lstSource.SelectedItem.ToString();
@@ -514,11 +565,15 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
     private void lstSource_MouseClick(object sender, MouseEventArgs e)
     {
+        _Log.Debug("lstSource_MouseClick");
+
         //SelectCmpt();
     }
 
     private void lstDest_MouseClick(object sender, MouseEventArgs e)
     {
+        _Log.Debug("lstDest_MouseClick");
+
         //SelectCmpt();
     }
 
@@ -526,6 +581,8 @@ public partial class frmPlaceReplicate : ServerPanelForm
     string prevSelectedSource, prevSelectedDest;
     void SelectCmpt()
     {
+        _Log.Debug("SelectCmpt");
+
         string selectedSource, selectedDest;
         IPCB_Component cmptSource, cmptDest;
 
@@ -572,13 +629,15 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
     void AttemptAutoMatch(string Dest, string Source, List<string> SrcList, List<string> DstList)
     {
+        _Log.Debug("AttemptAutoMatch");
+
         try
         {
 
             _Log.Debug(Dest);
             _Log.Debug(Source);
 
-            matching = true;
+            AutoMatching = true;
             Dictionary<string, string> Matches = new Dictionary<string, string>();
             _Log.Debug("Match channels");
             #region Match Channels
@@ -593,9 +652,6 @@ public partial class frmPlaceReplicate : ServerPanelForm
                                     if (src.Split('_')[0] == dest.Split('_')[0])
                                         if (dest.Split('_')[1] == Dest.Split('_')[1])
                                             Matches.Add(src, dest);
-
-
-
             }
 
             foreach (KeyValuePair<string, string> item in Matches)
@@ -604,35 +660,122 @@ public partial class frmPlaceReplicate : ServerPanelForm
             }
 
             #endregion
-            _Log.Debug("Match Part Numbers");
-            #region Match Part Numbers
 
             Matches = new Dictionary<string, string>();
 
-            foreach (string src in SrcList)
+            #region Getting Source component data
+
+            string srcKey = null;
+            st_IPCB_Component srcComp = null;
+            string[] splitSource;
+
+            if (Source.Contains(" "))
+            {
+                splitSource = Source.Split(' ');
+                splitSource[1] = splitSource[1].Replace("(", "").Replace(")", "");
+
+                foreach (string item in PR.Source.Components.GetRefDesKeys(splitSource[0]))
+                {
+                    srcComp = PR.Source.Components[item];
+                    if (srcComp.RefDes == splitSource[0] && srcComp.Footprint == splitSource[1])
+                    {
+                        srcKey = srcComp.ID;
+                        break;
+                    }
+                }
+            }
+            else
             {
 
-                foreach (string dest in DstList)
+                srcComp = PR.Source.Components.GetComponent(Source);//todo: check for dupes
+                if (srcComp == null) return;
+                srcKey = srcComp.ID;
+            }
+            //todo: what if srcComp still null?
+            #endregion
+
+
+            #region Getting Destination component data
+
+            string dstKey = null;
+            st_IPCB_Component dstComp = null;
+            string[] splitDest;
+
+            if (Dest.Contains(" "))
+            {
+                splitDest = Dest.Split(' ');
+                splitDest[1] = splitDest[1].Replace("(", "").Replace(")", "");
+
+                foreach (string item in PR.Destination.Components.GetRefDesKeys(splitDest[0]))
                 {
-                    if (src.StartsWith(dest.First().ToString()))
-                        //if (PR.Source.Components[src].Footprint == PR.Destination.Components[dest].Footprint)
-                        //{
-                        if (PR.Source.Components[src].Parameters.ContainsKey("PartNumber") & PR.Destination.Components[dest].Parameters.ContainsKey("PartNumber"))
-                            if (PR.Source.Components[src].Parameters["PartNumber"] == PR.Destination.Components[dest].Parameters["PartNumber"])
-                                if (!Matched(src))
-                                    if (Matches.ContainsKey(src))
-                                        Matches[src] = "multi";
-                                    else
-                                        Matches.Add(src, dest);
-                    //}
-                    //else
-                    //{
-                    //    if (Matches.ContainsKey(src))
-                    //        Matches[src] = "multi";
-                    //    else
-                    //        Matches.Add(src, dest);
-                    //}
+                    dstComp = PR.Destination.Components[item];
+                    if (dstComp.RefDes == splitDest[0] && dstComp.Footprint == splitDest[1])
+                    {
+                        dstKey = dstComp.ID;
+                        break;
+                    }
                 }
+            }
+            else
+            {
+                dstComp = PR.Destination.Components.GetComponent(Dest);//todo: check for dupes
+                dstKey = dstComp.ID;
+            }
+            //todo: what if dstComp still null?
+            #endregion
+
+
+            #region Add alternate footprints
+
+            if (srcComp.Dupe)
+            {
+                foreach (string item in PR.Source.Components.GetRefDesKeys(srcComp.RefDes))
+                {
+                    if (!Matched(PR.Source.Components[item].RefDes + " (" + PR.Source.Components[item].Footprint + ")"))
+                    {
+                        string tmpSrc = PR.Source.Components[item].RefDes + " (" + PR.Source.Components[item].Footprint + ")";
+                        string tmpDest = dstComp.RefDes + " (" + PR.Source.Components[item].Footprint + ")";
+                        if (PR.Source.Components.GetComponent(dstComp.RefDes, PR.Source.Components[item].Footprint) != null)
+                            AddMatch(tmpSrc, tmpDest);
+                    }
+                }
+            }
+
+            #endregion
+
+
+
+
+            _Log.Debug("Match Part Numbers");
+            #region Match Part Numbers
+
+            string secondSrcKey = null;
+            string secondDestKey = null;
+            foreach (string src in SrcList)
+            {
+                if (PR.Source.Components.ContainsRefdes(src, out secondSrcKey))//todo: check for dupes
+                    foreach (string dest in DstList)
+                    {
+                        if (PR.Destination.Components.ContainsRefdes(dest, out secondDestKey))//todo: check for dupes
+                            if (src.StartsWith(dest.First().ToString()))
+                                //if (PR.Source.Components[src].Footprint == PR.Destination.Components[dest].Footprint)
+                                //{
+                                if (PR.Source.Components[secondSrcKey].Parameters.ContainsKey("PartNumber") & PR.Destination.Components[secondDestKey].Parameters.ContainsKey("PartNumber"))
+                                    if (PR.Source.Components[secondSrcKey].Parameters["PartNumber"] == PR.Destination.Components[secondDestKey].Parameters["PartNumber"])
+                                        if (!Matched(src))
+                                            if (Matches.ContainsKey(src))
+                                                Matches[src] = "multi";
+                                            else
+                                                Matches.Add(src, dest);
+                        //}
+                        //else
+                        //{
+                        //    if (Matches.ContainsKey(src))
+                        //        Matches[src] = "multi";
+                        //    else
+                        //        Matches.Add(src, dest);
+                        //}
+                    }
             }
 
             foreach (KeyValuePair<string, string> item in Matches)
@@ -640,8 +783,10 @@ public partial class frmPlaceReplicate : ServerPanelForm
                 if (item.Value != "multi")
                     AddMatch(item.Key, item.Value);
             }
+            
 
             #endregion
+
             _Log.Debug("Match Nets");
             #region Match Nets
 
@@ -652,34 +797,63 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
 
 
+            _Log.Debug("Src: " + Source + ", Dst: " + Dest);
+            _Log.Debug("Source");
 
-            foreach (KeyValuePair<string, clsOutput.st_IPCB_Component> srcSecond in PR.Source.Components)
+            //bool match = true;
+            foreach (st_IPCB_Component srcSecond in PR.Source.Components.Values)
             {
-                if (srcSecond.Value.RefDes != Source)
-                    foreach (KeyValuePair<string, string> firstNet in PR.Source.Components[Source].Nets)
+                //match = true;
+                _Log.Debug(srcSecond.RefDes);
+                //if (Source.Contains(" "))
+                //{
+                //    if (Source != srcSecond.RefDes + " (" + srcSecond.Footprint + ")")
+                //    {
+                //        match = false;
+                //    }
+                //}
+                //else
+                //{
+                //    if (srcSecond.RefDes != Source)
+                //    {
+                //        match = false;
+                //    }
+                //}
+
+                if (srcComp.ID != srcSecond.ID)
+                    foreach (KeyValuePair<string, string> firstNet in PR.Source.Components[srcKey].Nets)
                     {
-                        foreach (KeyValuePair<string, string> secondNet in PR.Source.Components[srcSecond.Key].Nets)
+                        foreach (KeyValuePair<string, string> secondNet in PR.Source.Components[srcSecond.ID].Nets)
                         {
                             if (firstNet.Value == secondNet.Value)
                             {
+
                                 //if (!Matched(Source))
                                 if (srcMatches.ContainsKey(Source + "," + firstNet.Key + "," + firstNet.Value))
                                     srcMatches[Source + "," + firstNet.Key + "," + firstNet.Value] = "multi";
                                 else
-                                    srcMatches.Add(Source + "," + firstNet.Key + "," + firstNet.Value, srcSecond.Value.RefDes);
+                                {
+                                    if (srcSecond.Dupe)
+                                        srcMatches.Add(Source + "," + firstNet.Key + "," + firstNet.Value, srcSecond.RefDes + " (" + srcSecond.Footprint + ")");
+                                    else
+                                        srcMatches.Add(Source + "," + firstNet.Key + "," + firstNet.Value, srcSecond.RefDes);
+                                }
                             }
                         }
                     }
             }
 
 
-
-            foreach (string destSecond in DstList)
+            _Log.Debug("Dest");
+            //string[] secondDestName;
+            foreach (st_IPCB_Component destSecond in PR.Destination.Components.Values)
+            //foreach (string destSecond in DstList)
             {
-                if (destSecond != Dest)
-                    foreach (KeyValuePair<string, string> firstNet in PR.Destination.Components[Dest].Nets)
+                _Log.Debug(destSecond);
+                if (dstComp.ID != destSecond.ID)
+                    foreach (KeyValuePair<string, string> firstNet in PR.Destination.Components[dstKey].Nets)//Dest
                     {
-                        foreach (KeyValuePair<string, string> secondNet in PR.Destination.Components[destSecond].Nets)
+                        foreach (KeyValuePair<string, string> secondNet in PR.Destination.Components[destSecond.ID].Nets)//secondDest
                         {
                             if (firstNet.Value == secondNet.Value)
                             {
@@ -687,12 +861,18 @@ public partial class frmPlaceReplicate : ServerPanelForm
                                 if (dstMatches.ContainsKey(Dest + "," + firstNet.Key + "," + firstNet.Value))
                                     dstMatches[Dest + "," + firstNet.Key + "," + firstNet.Value] = "multi";
                                 else
-                                    dstMatches.Add(Dest + "," + firstNet.Key + "," + firstNet.Value, destSecond);
+                                {
+                                    if (destSecond.Dupe)
+                                        dstMatches.Add(Dest + "," + firstNet.Key + "," + firstNet.Value, destSecond.RefDes + " (" + destSecond.Footprint + ")");
+                                    else
+                                        dstMatches.Add(Dest + "," + firstNet.Key + "," + firstNet.Value, destSecond.RefDes);
+                                }
                             }
                         }
                     }
             }
 
+            _Log.Debug("Matches");
             foreach (KeyValuePair<string, string> dstItem in dstMatches)
             {
                 if (dstItem.Value != "multi")// || dstItem.Value.Contains("U"))
@@ -708,13 +888,13 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
             #endregion
 
-            matching = false;
+            AutoMatching = false;
             _Log.Debug("Smart Net Matching");
             #region Smart Net Matching
 
             Matches = new Dictionary<string, string>();
-            Dictionary<string, string> SNets = PR.Source.Components[Source].Nets;
-            Dictionary<string, string> DNets = PR.Destination.Components[Dest].Nets;
+            Dictionary<string, string> SNets = PR.Source.Components[srcKey].Nets;
+            Dictionary<string, string> DNets = PR.Destination.Components[dstKey].Nets;
 
             if (SNets.Count == DNets.Count)
                 foreach (KeyValuePair<string, string> srcItem in SNets)
@@ -724,10 +904,24 @@ public partial class frmPlaceReplicate : ServerPanelForm
                     List<string> lstDst = new List<string>();
 
                     foreach (structNet item2 in PR.SourceNets[srcItem.Value])
-                        lstSrc.Add(item2.RefDes);
+                        if (PR.Source.Components.DuplicateRef(item2.RefDes))
+                            foreach (string srcKeys in PR.Source.Components.GetRefDesKeys(item2.RefDes))
+                            {
+                                string tmpSrc = PR.Source.Components[srcKeys].RefDes + " (" + PR.Source.Components[srcKeys].Footprint + ")";
+                                lstSrc.Add(tmpSrc);
+                            }
+                        else
+                            lstSrc.Add(item2.RefDes);
 
                     foreach (structNet item3 in PR.DestNets[DNets[srcItem.Key]])
-                        lstDst.Add(item3.RefDes);
+                        if (PR.Destination.Components.DuplicateRef(item3.RefDes))
+                            foreach (string dstKeys in PR.Destination.Components.GetRefDesKeys(item3.RefDes))
+                            {
+                                string tmpSrc = PR.Destination.Components[dstKeys].RefDes + " (" + PR.Destination.Components[dstKeys].Footprint + ")";
+                                lstDst.Add(tmpSrc);
+                            }
+                        else
+                            lstDst.Add(item3.RefDes);
 
                     #region Only one other component on net
                     if (PR.SourceNets[srcItem.Value].Count == 2)
@@ -737,21 +931,22 @@ public partial class frmPlaceReplicate : ServerPanelForm
                         {
                             if (!Matched(item2.RefDes))
                             {
-                                foreach (structNet item3 in PR.DestNets[DNets[srcItem.Key]])
-                                {
-                                    if (item3.Pin == item2.Pin)
+                                if (!item2.RefDes.Contains(' ') && !PR.Source.Components.DuplicateRef(item2.RefDes))
+                                    foreach (structNet item3 in PR.DestNets[DNets[srcItem.Key]])
                                     {
-                                        //if (!Matched(item2.RefDes))
-                                        if (Matches.ContainsKey(item2.RefDes))
-                                            Matches[item2.RefDes] = "multi";
-                                        else
-                                            Matches.Add(item2.RefDes, item3.RefDes);
+                                        if (item3.Pin == item2.Pin)
+                                        {
+                                            //if (!Matched(item2.RefDes))
+                                            if (Matches.ContainsKey(item2.RefDes))
+                                                Matches[item2.RefDes] = "multi";
+                                            else
+                                                Matches.Add(item2.RefDes, item3.RefDes);
+                                        }
                                     }
-                                }
                             }
                         }
                     }
-                    #endregion                   
+                    #endregion
 
                     #region Only one component unmatched
                     else if (Unmatched(lstSrc) == 1)
@@ -765,18 +960,21 @@ public partial class frmPlaceReplicate : ServerPanelForm
                             if (!Matched(item)) { Ref2 = item; break; }
 
                         if (Ref1 != "" && Ref2 != "")
-                            if (!Matches.ContainsKey(Ref1))
-                                Matches.Add(Ref1, Ref2);
+                            if (!PR.Source.Components.DuplicateRef(Ref1))
+                                if (!PR.Destination.Components.DuplicateRef(Ref2))
+                                    if (!Matches.ContainsKey(Ref1))
+                                        Matches.Add(Ref1, Ref2);
 
                     }
                     #endregion
                     else
                     {
-                        if (!matching3)
+                        if (!SmartNetMatchRecursion)
                         {
-                            matching3 = true;
+                            SmartNetMatchRecursion = true;
+                            _Log.Info("Smart Net AttemptAutoMatch: " + Dest + ", " + Source + ", " + lstSrc + ", " + lstDst);
                             AttemptAutoMatch(Dest, Source, lstSrc, lstDst);
-                            matching3 = false;
+                            SmartNetMatchRecursion = false;
                         }
                     }
 
@@ -788,63 +986,65 @@ public partial class frmPlaceReplicate : ServerPanelForm
                     #endregion
                     _Log.Debug("Only one of each refdes type (R,C,U ...)");
                     #region Only one of each refdes type (R,C,U ...)
-
-                    Matches = new Dictionary<string, string>();
-                    Dictionary<string, string> SourceCount = new Dictionary<string, string>();
-                    Dictionary<string, string> DestCount = new Dictionary<string, string>();
-                    var digits = new[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-
-                    foreach (structNet structNet in PR.SourceNets[srcItem.Value])
+                    if (!Source.Contains(' '))
                     {
-                        if (structNet.RefDes != Source) // && structNet.RefDes != Dest)
+                        Matches = new Dictionary<string, string>();
+                        Dictionary<string, string> SourceCount = new Dictionary<string, string>();
+                        Dictionary<string, string> DestCount = new Dictionary<string, string>();
+                        var digits = new[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+
+                        foreach (structNet structNet in PR.SourceNets[srcItem.Value])
                         {
-                            string refType = structNet.RefDes.TrimEnd(digits);
-                            if (!Matched(structNet.RefDes))
-                                if (!SourceCount.ContainsKey(refType))
-                                    SourceCount.Add(refType, structNet.RefDes);
-                                else
-                                    SourceCount[refType] = "multi";
+                            if (structNet.RefDes != Source) // && structNet.RefDes != Dest)
+                            {
+                                string refType = structNet.RefDes.TrimEnd(digits);
+                                if (!Matched(structNet.RefDes))
+                                    if (!SourceCount.ContainsKey(refType))
+                                        SourceCount.Add(refType, structNet.RefDes);
+                                    else
+                                        SourceCount[refType] = "multi";
+                            }
                         }
-                    }
 
-                    foreach (structNet structNet in PR.DestNets[DNets[srcItem.Key]])
-                    {
-                        if (structNet.RefDes != Dest) // && structNet.RefDes != Dest)
+                        foreach (structNet structNet in PR.DestNets[DNets[srcItem.Key]])
                         {
-                            string refType = structNet.RefDes.TrimEnd(digits);
-                            if (!Matched(structNet.RefDes))
-                                if (!DestCount.ContainsKey(refType))
-                                    DestCount.Add(refType, structNet.RefDes);
-                                else
-                                    DestCount[refType] = "multi";
+                            if (structNet.RefDes != Dest) // && structNet.RefDes != Dest)
+                            {
+                                string refType = structNet.RefDes.TrimEnd(digits);
+                                if (!Matched(structNet.RefDes))
+                                    if (!DestCount.ContainsKey(refType))
+                                        DestCount.Add(refType, structNet.RefDes);
+                                    else
+                                        DestCount[refType] = "multi";
+                            }
                         }
-                    }
 
-                    foreach (KeyValuePair<string, string> cnt in SourceCount)
-                    {
-                        if (cnt.Value != "multi")
+                        foreach (KeyValuePair<string, string> cnt in SourceCount)
                         {
-                            if (DestCount.Count > 0)
-                                if (!Matched(cnt.Value))
-                                    if (!Matches.ContainsKey(cnt.Value))
-                                        Matches.Add(cnt.Value, DestCount[cnt.Key]);
-                            //AddMatch(cnt.Value, DestCount[cnt.Key]);
+                            if (cnt.Value != "multi")
+                            {
+                                if (DestCount.Count > 0)
+                                    if (!Matched(cnt.Value))
+                                        if (!Matches.ContainsKey(cnt.Value))
+                                            Matches.Add(cnt.Value, DestCount[cnt.Key]);
+                                //AddMatch(cnt.Value, DestCount[cnt.Key]);
+                            }
                         }
-                    }
 
-                    foreach (KeyValuePair<string, string> item in Matches)
-                    {
-                        if (item.Value != "multi")
-                            if (!Matched(item.Key))
-                                AddMatch(item.Key, item.Value);
+                        foreach (KeyValuePair<string, string> item in Matches)
+                        {
+                            if (item.Value != "multi")
+                                if (!Matched(item.Key))
+                                    AddMatch(item.Key, item.Value);
+                        }
                     }
                     #endregion
                     _Log.Debug("Rerun Matched");
                     #region Rerun Matched
                     if (chkInDepth.Checked)
-                        if (!matching2)
+                        if (!SmartNetMatching)
                         {
-                            matching2 = true;
+                            SmartNetMatching = true;
 
                             lstSrc = new List<string>();
                             lstDst = new List<string>();
@@ -862,12 +1062,12 @@ public partial class frmPlaceReplicate : ServerPanelForm
                                 lstSrc.RemoveAt(0);
                                 lstDst.RemoveAt(0);
                             }
-                            matching2 = false;
+                            SmartNetMatching = false;
                         }
                     #endregion
 
 
-                    matching = false;
+                    AutoMatching = false;
                 }
             //else
             //    throw new Exception("Net counts dont match");
@@ -876,20 +1076,24 @@ public partial class frmPlaceReplicate : ServerPanelForm
         }
         catch (Exception ex)
         {
+            if(ex.Message=="Exit Automatch")
+                throw new Exit_AttempteAutomatch("Exit Automatch");
             var sb = new System.Text.StringBuilder();
             sb.AppendLine("");
             sb.AppendLine(ex.ToString());
             _Log.Fatal(sb);
-            matching = false;
-            matching2 = false;
-            matching3 = false;
+            AutoMatching = false;
+            SmartNetMatching = false;
+            SmartNetMatchRecursion = false;
             ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
-            return;
+            throw new Exit_AttempteAutomatch("Exit Automatch");
         }
     }
 
     int Unmatched(List<string> RefDes)
     {
+        _Log.Debug("Unmatched");
+
         int output = 0;
         foreach (string match in lstMatched.Items)
         {
@@ -904,22 +1108,25 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
     private void chkAutoMatch_CheckedChanged(object sender, EventArgs e)
     {
+        _Log.Debug("chkAutoMatch_CheckedChanged");
+
         chkInDepth.Enabled = chkAutoMatch.Checked;
-        if (!chkAutoMatch.Checked) chkInDepth.Checked = false;
     }
 
 
     private void btnFullReset_Click(object sender, EventArgs e)
     {
+        _Log.Debug("btnFullReset_Click");
+
         PR = new PlaceReplicate();
 
         lstDest.Items.Clear();
         lstSource.Items.Clear();
         lstMatched.Items.Clear();
 
-        matching = false;
-        matching2 = false;
-        matching3 = false;
+        AutoMatching = false;
+        SmartNetMatching = false;
+        SmartNetMatchRecursion = false;
 
     }
 
@@ -930,11 +1137,14 @@ public partial class frmPlaceReplicate : ServerPanelForm
     /// <returns>Refdes has been matched.</returns>
     bool Matched(string RefDes)
     {
-        //throw new Exception("tell diff between R133 and R13. fixed??");
+        string[] matched;
         foreach (string item in lstMatched.Items)
         {
-            if (item.Split('>')[0] == RefDes) return true;
-            if (item.Split('>')[1] == RefDes) return true;
+            matched = item.Split('>');
+            if (matched[0] == RefDes) return true;
+            //if (matched[0].StartsWith(RefDes + " (")) return true;
+            if (matched[1] == RefDes) return true;
+            //if (matched[1].StartsWith(RefDes + " (")) return true;
         }
         return false;
     }

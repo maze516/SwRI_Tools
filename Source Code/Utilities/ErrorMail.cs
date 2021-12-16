@@ -1,5 +1,6 @@
 ﻿using DXP;
 using EDP;
+using NLog;
 using System;
 using System.IO;
 using System.Net.Mail;
@@ -7,6 +8,7 @@ using System.Windows.Forms;
 
 public class ErrorMail
 {
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
 
     /// <summary>
     /// Log and email error report.
@@ -15,6 +17,8 @@ public class ErrorMail
     /// <param name="ex">Exception raised.</param>
     public static void LogError(string ErrorMsg, Exception ex, string ProjPath = "")
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
 #if !DEBUG
 
         try
@@ -81,6 +85,8 @@ public class ErrorMail
     /// <param name="ErrorMsg">Error message</param>
     private void EmailReport(string ErrorMsg)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         //Configure emailer
         MailMessage message = new MailMessage(ToolsPreferences.FromAddress, ToolsPreferences.ToAddress);
         SmtpClient client = new SmtpClient();
@@ -106,6 +112,7 @@ public class ErrorMail
     /// <param name="ErrorMsg">Error message</param>
     private void LogReport(string ErrorMsg)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         string strPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\" + Util.SERVERNAME + " Logs\\";
         //"C:\\Users\\rlyne\\AppData\\Local"

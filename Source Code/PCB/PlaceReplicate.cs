@@ -1,17 +1,13 @@
 ﻿using PCB;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-using System.Reflection;
-using System.Xml.Serialization;
-using System.Runtime.Serialization;
-using System.Xml;
-using System.Xml.Schema;
 using System.Windows.Forms;
 using NLog;
 
+
+/// <summary>
+/// 
+/// </summary>
 public class PlaceReplicate
 {
     public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
@@ -20,7 +16,6 @@ public class PlaceReplicate
     public clsOutput Source, Destination;
     public Dictionary<string, IPCB_Net> BoardNets;
     public Dictionary<string, List<structNet>> SourceNets, DestNets;
-
 
 
     public PlaceReplicate()
@@ -219,7 +214,7 @@ public class PlaceReplicate
                             IPCB_Component componentObject = Primitive as IPCB_Component;
                             selectedSourceObjects.componentObjects.Add(componentObject);
 
-                            clsOutput.st_IPCB_Component newComp = new clsOutput.st_IPCB_Component();
+                            st_IPCB_Component newComp = new st_IPCB_Component();
 
                             IPCB_GroupIterator compIterator = componentObject.GroupIterator_Create();
 
@@ -230,6 +225,8 @@ public class PlaceReplicate
 
                             IPCB_Pad pad = compIterator.FirstPCBObject() as IPCB_Pad;
                             int pinCount = 0;
+
+                            newComp.ID = componentObject.GetState_UniqueId();
                             //Collecting nets
                             newComp.Nets = new Dictionary<string, string>();
                             while (pad != null)
@@ -274,17 +271,50 @@ public class PlaceReplicate
                             for (int i = 0; i < componentParameters.Count(); i++)
                             {
                                 IPCB_Parameter parameter = componentParameters.GetParameterByIndex(i);
-                                newComp.Parameters.Add(parameter.GetName(), parameter.GetValue());
+                                if (newComp.Parameters.ContainsKey(parameter.GetName()))
+                                    _Log.Debug(parameter.GetName());
+                                else
+                                    newComp.Parameters.Add(parameter.GetName(), parameter.GetValue());
                             }
 
 
                             newComp.RefDes = componentObject.GetState_Name().GetState_Text();
                             newComp.Footprint = componentObject.GetState_Pattern();
                             newComp.PinCount = pinCount;
+                            newComp.Dupe = false;
 
-                            Source.Components.Add(newComp.RefDes, newComp);
+                            _Log.Trace(newComp.RefDes + ", " + newComp.RefDes.GetHashCode());
+                            _Log.Trace(newComp.Footprint);
+                            _Log.Trace(newComp.GetHashCode());
+                            _Log.Trace("ID " + componentObject.GetState_UniqueId());
 
-                            SelectedSourceRef.Add(newComp.RefDes);
+                            string srcKey;
+                            if (Source.Components.ContainsRefdes(newComp.RefDes, out srcKey))
+                            {
+                                st_IPCB_Component tmp = Source.Components[srcKey];
+                                tmp.Dupe = true;
+                                Source.Components[srcKey] = tmp;
+
+                                for (int i = 0; i < SelectedSourceRef.Count; i++)
+                                {
+                                    if (SelectedSourceRef[i] == newComp.RefDes)
+                                    {
+                                        SelectedSourceRef[i] = tmp.RefDes + " (" + tmp.Footprint + ")";
+                                        break;
+                                    }
+                                }
+
+                                newComp.Dupe = true;
+                                Source.Components.Add(newComp.ID, newComp);
+                                _Log.Debug(newComp.RefDes);
+                            }
+                            else
+                                Source.Components.Add(newComp.ID, newComp);
+
+                            if (newComp.Dupe)
+                                SelectedSourceRef.Add(newComp.RefDes + " (" + newComp.Footprint + ")");
+                            else
+                                SelectedSourceRef.Add(newComp.RefDes);
 
                             //?componentObject.GetState_DescriptorString()
                             //"SOIC Component U5FM-QT#94L9#-20.000MHz (5528.098mil,6358.425mil) on Top Layer"
@@ -297,6 +327,7 @@ public class PlaceReplicate
                             //componentObject.GetState_SourceLibReference() corp number
                             //componentObject.GetState_XLocation()
                             //componentObject.GetState_YLocation()
+
                             _Log.Debug(componentObject.GetState_DescriptorString());
                             break;
                         #endregion
@@ -474,6 +505,7 @@ public class PlaceReplicate
     /// </summary>
     public void GetNets()
     {
+        _Log.Debug(">GetNets");
         IPCB_BoardIterator BoardIterator;
         IPCB_Net Net;
         BoardNets = new Dictionary<string, IPCB_Net>();
@@ -547,7 +579,7 @@ public class PlaceReplicate
                         IPCB_Component componentObject = Primitive as IPCB_Component;
                         selectedDestinationObjects.componentObjects.Add(componentObject);
 
-                        clsOutput.st_IPCB_Component newComp = new clsOutput.st_IPCB_Component();
+                        st_IPCB_Component newComp = new st_IPCB_Component();
 
                         IPCB_GroupIterator compIterator = componentObject.GroupIterator_Create();
 
@@ -558,6 +590,9 @@ public class PlaceReplicate
 
                         IPCB_Pad pad = compIterator.FirstPCBObject() as IPCB_Pad;
                         int pinCount = 0;
+
+                        newComp.ID = componentObject.GetState_UniqueId();
+
                         newComp.Nets = new Dictionary<string, string>();
                         while (pad != null)
                         {
@@ -612,14 +647,49 @@ public class PlaceReplicate
                         newComp.RefDes = componentObject.GetState_Name().GetState_Text();
                         newComp.Footprint = componentObject.GetState_Pattern();
                         newComp.PinCount = pinCount;
+                        newComp.Dupe = false;
 
-                        if (!Destination.Components.ContainsKey(newComp.RefDes) && !SelectedDestRef.Contains(newComp.RefDes))
+
+                        string dstKey;
+                        if (Destination.Components.ContainsRefdes(newComp.RefDes, out dstKey))
                         {
-                            Destination.Components.Add(newComp.RefDes, newComp);
+                            st_IPCB_Component tmp = Destination.Components[dstKey];
+                            tmp.Dupe = true;
+                            Destination.Components[dstKey] = tmp;
 
-                            SelectedDestRef.Add(newComp.RefDes);
+                            for (int i = 0; i < SelectedDestRef.Count; i++)
+                            {
+                                if (SelectedDestRef[i] == newComp.RefDes)
+                                {
+                                    SelectedDestRef[i] = tmp.RefDes + " (" + tmp.Footprint + ")";
+                                    break;
+                                }
+                            }
+
+                            newComp.Dupe = true;
+                            Destination.Components.Add(newComp.ID, newComp);
+                            _Log.Debug(newComp.RefDes);
                         }
-                        else { MessageBox.Show("Multiple " + newComp.RefDes + " refdes found. Only one was added. Please look into this issue."); }
+                        else
+                            Destination.Components.Add(newComp.ID, newComp);
+
+                        if (newComp.Dupe)
+                            SelectedDestRef.Add(newComp.RefDes + " (" + newComp.Footprint + ")");
+                        else
+                            SelectedDestRef.Add(newComp.RefDes);
+
+
+
+                        //if (!Destination.Components.ContainsRefdes(newComp.RefDes, out _) && !SelectedDestRef.Contains(newComp.RefDes))
+                        //{
+                        //    Destination.Components.Add(newComp.ID, newComp);
+
+                        //    SelectedDestRef.Add(newComp.RefDes);
+                        //}
+                        //else
+                        //{
+                        //    MessageBox.Show("Multiple " + newComp.RefDes + " refdes found. Only one was added. Please look into this issue.");
+                        //}
 
                         //?componentObject.GetState_DescriptorString()
                         //"SOIC Component U5FM-QT#94L9#-20.000MHz (5528.098mil,6358.425mil) on Top Layer"
@@ -627,7 +697,7 @@ public class PlaceReplicate
                         //"Component U5FM Comment:QT#94L9#-20.000MHz Footprint: QT194"
                         //?componentObject.GetState_Layer()
                         //componentObject.GetState_Pattern() Footprint
-                        //componentObject.GetState_SourceDesignator() Refdes
+                        //componentObject.GetState_SourceDesignator() Refdes 
                         //componentObject.GetState_SourceFootprintLibrary() library
                         //componentObject.GetState_SourceLibReference() corp number
                         //componentObject.GetState_XLocation()
@@ -655,7 +725,9 @@ public class PlaceReplicate
 
 }
 
-
+/// <summary>
+/// Structure for a net.
+/// </summary>
 public struct structNet
 {
     public string RefDes;
@@ -663,12 +735,114 @@ public struct structNet
 
 }
 
-
-public class clsOutput
+/// <summary>
+/// Adds new functions to the component dictionary.
+/// </summary>
+public class cls_IPCB_Component : Dictionary<string, st_IPCB_Component>
 {
 
+    public bool ContainsRefdes(string RefDes, out string Key)
+    {
+        string Footprint = "";
+        if (RefDes.Contains(" "))
+        {
+            string[] tmp = RefDes.Split(' ');
+            RefDes = tmp[0];
+            Footprint = tmp[1].Replace("(", "").Replace(")", "");
+        }
+
+        foreach (KeyValuePair<string, st_IPCB_Component> item in this)
+            if (Footprint == "")
+            {
+                if (item.Value.RefDes == RefDes)
+                {
+                    Key = item.Key;
+                    return true;
+                }
+            }
+            else
+            {
+                if (item.Value.RefDes == RefDes && item.Value.Footprint == Footprint)
+                {
+                    Key = item.Key;
+                    return true;
+                }
+            }
+        Key = null;
+        return false;
+    }
+
+
+    public st_IPCB_Component GetComponent(string RefDes, string Footprint = "")
+    {
+        foreach (st_IPCB_Component item in this.Values)
+        {
+            if (Footprint == "")
+            {
+                if (item.RefDes == RefDes)
+                    if (item.Dupe) return null;
+                    else return item;
+            }
+            else
+            {
+                if (item.Footprint == Footprint && item.RefDes == RefDes) return item;
+            }
+        }
+
+        return null;
+    }
+
+
+    public List<string> GetRefDesKeys(string RefDes)
+    {
+        List<string> output = new List<string>();
+
+        foreach (KeyValuePair<string, st_IPCB_Component> item in this)
+            if (item.Value.RefDes == RefDes)
+                output.Add(item.Key);
+
+        return output;
+
+    }
+
+    public bool DuplicateRef(string RefDes)
+    {
+
+        int cnt = 0;
+        foreach (KeyValuePair<string, st_IPCB_Component> item in this)
+            if (item.Value.RefDes == RefDes) cnt++; ;
+
+        if (cnt > 1) return true;
+        return false;
+
+    }
+}
+
+/// <summary>
+/// Component structure.
+/// </summary>
+public class st_IPCB_Component
+{
+    public string RefDes;
+    public string Footprint;
+    public bool Dupe;
+    public string ID;
+    public Dictionary<string, string> Parameters;
+
+    public Dictionary<string, string> Nets;
+
+    public int PinCount;
+
+}
+
+/// <summary>
+/// Used to store easily accessable info for altium primitives.
+/// </summary>
+public class clsOutput
+{
     public List<st_IPCB_Arc> Arcs = new List<st_IPCB_Arc>();
-    public Dictionary<string, st_IPCB_Component> Components = new Dictionary<string, st_IPCB_Component>();
+    //public Dictionary<string, st_IPCB_Component> Components = new Dictionary<string, st_IPCB_Component>();
+    public cls_IPCB_Component Components = new cls_IPCB_Component();
     public List<st_IPCB_Fill> Fills = new List<st_IPCB_Fill>();
     public List<st_IPCB_Pad> Pads = new List<st_IPCB_Pad>();
     public List<st_IPCB_Polygon> Polygons = new List<st_IPCB_Polygon>();
@@ -678,21 +852,12 @@ public class clsOutput
     public List<st_IPCB_Via> Vias = new List<st_IPCB_Via>();
     public List<st_IPCB_Region> Regions = new List<st_IPCB_Region>();
 
-    public struct st_IPCB_Component
-    {
-        public string RefDes;
-        public string Footprint;
-        public Dictionary<string, string> Parameters;
 
-        public Dictionary<string, string> Nets;
+    #region Structs
 
-        public int PinCount;
-
-    }
 
     public struct st_IPCB_Arc
     {
-
         public int StartX, StartY, EndX, EndY, CenterX, CenterY, LineWidth, PasteMaskExpansion, Radius, SolderMaskExpansion;
         public double StartAngle, EndAngle;
         /// <summary>
@@ -701,9 +866,6 @@ public class clsOutput
         public bool KeepOut;
         public string Layer;
         public string Net;
-
-
-
     }
 
     public struct st_IPCB_Pad
@@ -768,6 +930,8 @@ public class clsOutput
     {
 
     }
+    #endregion
+
 }
 //switch (Primitive.GetState_ObjectID())
 //                {
@@ -911,6 +1075,9 @@ public class clsOutput
 //    public string Layer2;           // |Stop Layer
 //}
 
+/// <summary>
+/// Contains lists of all selected objects as Altium objects.
+/// </summary>
 public class clsSelectedObjects
 {
 
@@ -939,11 +1106,12 @@ public class clsSelectedObjects
         regionObjects = new List<IPCB_Region>();
     }
 
-    internal IPCB_Component GetComponent(string RefDes)
+    internal IPCB_Component GetComponent(string ID)
     {
+
         foreach (IPCB_Component item in componentObjects)
         {
-            if (item.GetState_Name().GetState_Text() == RefDes)
+            if (item.GetState_UniqueId() == ID)
                 return item;
         }
         return null;

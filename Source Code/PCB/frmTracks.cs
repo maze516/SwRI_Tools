@@ -18,6 +18,8 @@ public partial class frmTracks : ServerPanelForm //Form
 
     public frmTracks()
     {
+        _Log.Debug("frmTracks");
+
         InitializeComponent();
         UI.ApplyADUITheme(this);
     }
@@ -25,6 +27,7 @@ public partial class frmTracks : ServerPanelForm //Form
 
     private void txtCmd_KeyPress(object sender, KeyPressEventArgs e)
     {
+        _Log.Debug("txtCmd_KeyPress");
 
         structPos NewPos = new structPos() { x = null, y = null, absolute = true };
         if (e.KeyChar == (char)Keys.Enter)
@@ -129,6 +132,8 @@ help");
     /// <returns>Returns coord of command</returns>
     structPos DecodeCommand(string Cmd)
     {
+        _Log.Debug("DecodeCommand");
+
         structPos Output = new structPos() { x = null, y = null, absolute = true };
         try
         {
@@ -170,6 +175,8 @@ help");
     /// <param name="argWidth"></param>
     private void AddTrack(structPos Offset, int argWidth)//, V7_Layer argLayer)
     {
+        _Log.Debug("AddTrack");
+
         PCBServer = PCB.GlobalVars.PCBServer;
         if (Offset.x == null) Offset.x = 0;
         if (Offset.y == null) Offset.y = 0;
@@ -259,6 +266,8 @@ help");
 
     private void txtLog_TextChanged(object sender, EventArgs e)
     {
+        _Log.Debug("txtLog_TextChanged");
+
         txtLog.ScrollToCaret();
     }
 

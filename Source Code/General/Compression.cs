@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using Ionic.Zip;
+using NLog;
 
 namespace Helpers
 {
     public static class Compression
     {
+        public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
+
         /// <summary>
         /// Used to specify what our overwrite policy
         /// is for files we are extracting.
@@ -43,7 +46,8 @@ namespace Helpers
         /// </param>
         public static void SimpleZip(string dirToZip, string zipName)
         {
-            
+            _Log.Debug("SimpleZip");
+
             using (ZipFile zip = new ZipFile())
             {
                 zip.SaveProgress += Zip_SaveProgress; 
@@ -58,6 +62,8 @@ namespace Helpers
         static long transfer = 0;
         private static void Zip_SaveProgress(object sender, SaveProgressEventArgs e)
         {
+            _Log.Debug("Zip_SaveProgress");
+
             if (e.TotalBytesToTransfer > 0 & !initialized)
             {
                 //DXP.Utils.PercentBeginUndeterminedOperation("Copying Project");
@@ -91,6 +97,8 @@ namespace Helpers
         public static void SimpleZip(string dirToZip, string zipName, 
             Ionic.Zlib.CompressionLevel compression = Ionic.Zlib.CompressionLevel.BestSpeed, bool includeRoot = false)
         {
+            _Log.Debug("SimpleZip");
+
             using (ZipFile zip = new ZipFile())
             {
                 zip.CompressionLevel = compression;

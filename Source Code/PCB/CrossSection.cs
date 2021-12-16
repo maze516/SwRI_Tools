@@ -20,6 +20,8 @@ public partial class CrossSection : Form//ServerPanelForm
     Dictionary<string, RuleValues> Rules;
     public CrossSection()
     {
+        _Log.Debug("CrossSection");
+
         InitializeComponent();
         UI.ApplyADUITheme(this);
         Nets = new Dictionary<string, LayerValues>();
@@ -29,6 +31,8 @@ public partial class CrossSection : Form//ServerPanelForm
     }
     double Solve(double width, double height, int spokes)
     {
+        _Log.Debug("Solve");
+
         return (width * height) * spokes;
     }
 
@@ -84,6 +88,8 @@ public partial class CrossSection : Form//ServerPanelForm
 
     void LoadData()
     {
+        _Log.Debug("LoadData");
+
         IPCB_Board Board = Util.GetCurrentPCB();
         if (Board == null)
             return;
@@ -135,6 +141,8 @@ public partial class CrossSection : Form//ServerPanelForm
 
     void Loadrules()
     {
+        _Log.Debug("Loadrules");
+
         IPCB_Board Board;
         IPCB_BoardIterator BoardIterator;
         Board = Util.GetCurrentPCB();
@@ -206,6 +214,7 @@ class RuleValues
     }
 
 }
+
 class LayerValues
 {
     public int Count;

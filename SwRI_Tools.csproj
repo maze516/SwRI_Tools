@@ -144,6 +144,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Source Code\General\Compression.cs" />
+    <Compile Include="Source Code\General\Exceptions.cs" />
     <Compile Include="Source Code\General\frmResFinder.cs">
       <SubType>Form</SubType>
     </Compile>

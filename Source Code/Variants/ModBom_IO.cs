@@ -17,11 +17,15 @@ public partial class ModBom_IO : Form
 
     public ModBom_IO()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         InitializeComponent();
         UI.ApplyADUITheme(this);
     }
     public void Export()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
             ExportModBOM();
@@ -41,6 +45,8 @@ public partial class ModBom_IO : Form
 
     private void btnBrowse_Click(object sender, EventArgs e)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
             IDXPWorkSpace CurrentWorkspace = DXP.GlobalVars.DXPWorkSpace;
@@ -70,6 +76,8 @@ public partial class ModBom_IO : Form
     /// <param name="Text">Text to display on the progress bar.</param>
     public void UpdateLabel(string Text)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
             string myString = "N/A";
@@ -93,6 +101,8 @@ public partial class ModBom_IO : Form
 
     private void btnImport_Click(object sender, EventArgs e)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
             //TODO: need to support hierarchy 
@@ -162,7 +172,7 @@ public partial class ModBom_IO : Form
             //        Component = LibraryIterator.FirstSchObject() as ISch_Component;
             //        while (Component != null)
             //        {
-            //            if (Variants.Components.ContainsKey(Component.GetState_DesignItemId()))
+            //            if (Variants.Components.ContainsRefdes(Component.GetState_DesignItemId()))
             //            {
             //                Component.UpdatePart_PreProcess();
             //                CompVars = Variants.Components[Component.GetState_DesignItemId()];
@@ -320,6 +330,8 @@ public partial class ModBom_IO : Form
     /// <param name="RefDes">Refdes of component being modified.</param>
     void CreateCompVar(ref IComponentVariation Dest, VarParam<string, string> Source, string RefDes)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
             IParameterVariation tmpParam;
@@ -349,6 +361,8 @@ public partial class ModBom_IO : Form
     /// <returns></returns>
     Var_Type GetPEData(string Path)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
 
         pbProgress.Value = 0;
         UpdateLabel("Opening Excel Doc");
@@ -482,6 +496,8 @@ public partial class ModBom_IO : Form
     /// <returns></returns>
     public void CheckParams()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
             ComponentList<string, string> Output = new ComponentList<string, string>();
@@ -592,6 +608,8 @@ public partial class ModBom_IO : Form
 
     public ComponentList<string, string> GetComponents()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
 
@@ -635,6 +653,8 @@ public partial class ModBom_IO : Form
 
     private void releaseObject(object obj)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
             System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
@@ -659,6 +679,8 @@ public partial class ModBom_IO : Form
     /// <returns></returns>
     string GetColumn(string Name, ref Excel.Worksheet xlWorksheet)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
             int Col = 65;
@@ -687,6 +709,8 @@ public partial class ModBom_IO : Form
     }
     private void btnCancel_Click(object sender, EventArgs e)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         this.Close();
     }
 
@@ -695,6 +719,8 @@ public partial class ModBom_IO : Form
     /// </summary>
     void ExportModBOM()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
             string process, parameters;

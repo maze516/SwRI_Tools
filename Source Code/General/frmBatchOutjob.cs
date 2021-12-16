@@ -20,6 +20,8 @@ public partial class frmBatchOutjob : Form
 
     public frmBatchOutjob()
     {
+        _Log.Debug("frmBatchOutjob");
+
         InitializeComponent();
         UI.ApplyADUITheme(this);
     }
@@ -27,6 +29,8 @@ public partial class frmBatchOutjob : Form
     private bool Checking = false;
     private void treeOutjobs_AfterCheck(object sender, TreeViewEventArgs e)
     {
+        _Log.Debug("treeOutjobs_AfterCheck");
+
         if (Checking) return;
         Checking = true;
         TreeNode nodeSelected = e.Node;
@@ -58,6 +62,8 @@ public partial class frmBatchOutjob : Form
 
     private void btnGenerate_Click(object sender, System.EventArgs e)
     {
+        _Log.Debug("btnGenerate_Click");
+
         try
         {
             foreach (TreeNode node in treeOutjobs.Nodes)
@@ -175,6 +181,8 @@ public partial class frmBatchOutjob : Form
 
     public void frmBatchOutjob_Load(object sender, System.EventArgs e)
     {
+        _Log.Debug("frmBatchOutjob_Load");
+
         IDXPProject Project = DXP.GlobalVars.DXPWorkSpace.DM_FocusedProject();
 
         IProject project = DXP.GlobalVars.DXPWorkSpace.DM_FocusedProject() as IProject;
@@ -251,6 +259,8 @@ public partial class frmBatchOutjob : Form
     /// <returns>True/False if successful.</returns>
     bool PreODB()
     {
+        _Log.Debug("PreODB");
+
         try
         {
             IDXPWorkSpace CurrentWorkspace = DXP.GlobalVars.DXPWorkSpace;
@@ -319,6 +329,8 @@ public partial class frmBatchOutjob : Form
     /// <returns>True/False if successful.</returns>
     bool PostODB()
     {
+        _Log.Debug("PostODB");
+
         try
         {
             IClient tmpClient = DXP.GlobalVars.Client;
@@ -350,6 +362,8 @@ public partial class frmBatchOutjob : Form
     /// <returns>List of outjobs in project.</returns>
     public List<string> GetOutputJobPath()
     {
+        _Log.Debug("GetOutputJobPath");
+
         try
         {
             List<string> DirList = new List<string>();
@@ -402,6 +416,8 @@ public partial class frmBatchOutjob : Form
 
     private void btnCancel_Click(object sender, EventArgs e)
     {
+        _Log.Debug("btnCancel_Click");
+
         foreach (IServerDocument ServerDoc in lstServerDocs)
             tmpClient.CloseDocument(ServerDoc);
         lstServerDocs.Clear();

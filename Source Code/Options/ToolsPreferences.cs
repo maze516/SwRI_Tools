@@ -1,8 +1,10 @@
 ﻿using DXP;
-
+using NLog;
 
 public class ToolsPreferences
 {
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
+
     public const int NotificationCodePreferencesChanged = 1010; //Unique ID used to identify messages for this Extension from AD.
 
     //Batch outjob generator option
@@ -29,6 +31,8 @@ public class ToolsPreferences
     /// </summary>
     public static void Load()
     {
+        _Log.Debug("Load");
+
         IOptionsReader optionsReader = Utils.ServerOptionsReader(Util.SERVERNAME);
 
         string section = Util.SERVERNAME;
@@ -47,7 +51,10 @@ public class ToolsPreferences
         FromAddress = optionsReader.ReadString(section, "FromAddress", "");
         ToAddress = optionsReader.ReadString(section, "ToAddress", "");
         ClientHost = optionsReader.ReadString(section, "ClientHost", "");
-        ExtFileConfig = optionsReader.ReadString(section, "ExtFileConfig", "");
+        if (System.IO.Directory.Exists("G:\\CADTOOLS\\"))
+            ExtFileConfig = optionsReader.ReadString(section, "ExtFileConfig", "G:\\CADTOOLS\\Software\\Altium\\SwRI Software\\Altium Extensions\\SwRI_Tools Paths.ini");
+        else
+            ExtFileConfig = optionsReader.ReadString(section, "ExtFileConfig", "G:\\ElectronicCAD\\Templates\\Altium Project Templates\\SwRI_Tools Paths.ini");
 
         switch (optionsReader.ReadString(section, "LoggerLevel", "Warn"))
         {
@@ -85,6 +92,8 @@ public class ToolsPreferences
     /// </summary>
     public static void Save()
     {
+        _Log.Debug("Save");
+
         IOptionsWriter optionsWriter = DXP.Utils.ServerOptionsWriter(Util.SERVERNAME);
 
         string section = Util.SERVERNAME;

@@ -18,6 +18,8 @@ public class HeightReport
     /// <param name="Update">Update body heights to schematic height parameter.</param>
     public void GetReport(bool Update = false)
     {
+        _Log.Debug("GetReport");
+
         try
         {
 
@@ -56,6 +58,8 @@ public class HeightReport
     /// <param name="argHeights">Reference to the dict storing report info.</param>
     void GetParamHeights(ref Dictionary<string, Heights> argHeights)
     {
+        _Log.Debug("GetParamHeights");
+
         try
         {
             ISch_ServerInterface schServer = SCH.GlobalVars.SchServer;
@@ -95,6 +99,8 @@ public class HeightReport
     /// <param name="argHeights">Reference to the dict storing report info.</param>
     void GetBodyHeights(ref Dictionary<string, Heights> argHeights)
     {
+        _Log.Debug("GetBodyHeights");
+
         try
         {
             IPCB_Component Component; // component object
@@ -142,6 +148,8 @@ public class HeightReport
     /// <param name="argComponent">Component to get height from.</param>
     private void ObtainParamHeight(ref Dictionary<string, Heights> argHeights, ISch_Component argComponent)
     {
+        _Log.Debug("ObtainParamHeight");
+
         try
         {
             ISch_Designator designator = argComponent.GetState_SchDesignator();
@@ -206,6 +214,8 @@ public class HeightReport
     /// <param name="argComponent">Footprint to get height from.</param>
     private void ObtainBodyHeight(ref Dictionary<string, Heights> argHeights, IPCB_Component argComponent)
     {
+        _Log.Debug("ObtainBodyHeight");
+
         try
         {
             IPCB_GroupIterator CompIterator;
@@ -271,6 +281,8 @@ public class HeightReport
     /// <param name="argHeights">Reference to the dict storing report info.</param>
     void UpdateBodies(Dictionary<string, Heights> argHeights)
     {
+        _Log.Debug("UpdateBodies");
+
         try
         {
             frmHeightReport HeightForm = new frmHeightReport();
@@ -305,6 +317,7 @@ public class HeightReport
     /// <param name="tmpList"></param>
     private void SetBodyHeight(Dictionary<string, Heights> argHeights, List<string> tmpList)
     {
+        _Log.Debug("SetBodyHeight");
 
         //?Body.GetState_DescriptorString()
         //"3D Extruded  (Mechanical 2, Bot Assy)  Standoff=0mil  Overall=163mil  (26522.112mil, 20350.482mil)"
@@ -404,6 +417,8 @@ public class HeightReport
     /// <param name="argHeights">Reference to the dict storing report info.</param>
     private void GenerateReport(ref Dictionary<string, Heights> argHeights)
     {
+        _Log.Debug("GenerateReport");
+
         try
         {//Generating Report
             DXP.Utils.PercentInit("Generating Report", argHeights.Count);
@@ -453,6 +468,8 @@ public class HeightReport
     /// <param name="argHeights">Reference to the dict storing report info.</param>
     private void GenerateCSV(ref Dictionary<string, Heights> argHeights)
     {
+        _Log.Debug("GenerateCSV");
+
         try
         {
             DXP.Utils.PercentInit("Generating CSV", argHeights.Count);
@@ -508,6 +525,8 @@ public class HeightReport
     /// <param name="report"></param>
     void ScanDocuments(ref Dictionary<string, Heights> report)
     {
+        _Log.Debug("ScanDocuments");
+
         try
         {
             IDXPWorkSpace CurrentWorkspace = DXP.GlobalVars.DXPWorkSpace;
@@ -633,6 +652,8 @@ public class HeightReport
     /// <returns>Height of body in AD coords</returns>
     int GetCompHeight(IPCB_ComponentBody Body)
     {
+        _Log.Debug("GetCompHeight");
+
         double RotX, RotY, RotZ;
         int StandOff;
 
@@ -654,6 +675,8 @@ public class HeightReport
     /// <param name="value">Desired height in AD coords</param>
     void SetCompHeight(IPCB_ComponentBody Body, int value)
     {
+        _Log.Debug("SetCompHeight");
+
         double RotX, RotY, RotZ;
         int StandOff;
 
@@ -676,6 +699,8 @@ public class HeightReport
 /// </summary>
 public class Heights
 {
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
+
     private double intBodyHeight = -1;
     private double intParamHeight = -1;
     private string strLibrary = "";
@@ -686,6 +711,8 @@ public class Heights
     public string Footprint { get { return strFootprint; } set { strFootprint = value; } }
     public override string ToString()
     {
+        _Log.Debug("ToString");
+
         string output = "";
         output = "Body Height:";
         if (BodyHeight < 0)

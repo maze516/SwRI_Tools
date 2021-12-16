@@ -1,4 +1,5 @@
 ﻿using DXP;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,12 @@ using System.Threading.Tasks;
 
 class GenericOptions
 {
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
+
     public bool GroupEnabled(DXP.TDocumentsBarGrouping Grouping)
     {
+        _Log.Debug("GroupEnabled");
+
         IClient client = DXP.GlobalVars.Client;
         DXP.IClientAPI_Interface ClientAPI = client.GetClientAPI();
 
@@ -17,6 +22,8 @@ class GenericOptions
     }
     public void ChangeDocGrouping(DXP.TDocumentsBarGrouping Grouping)
     {
+        _Log.Debug("ChangeDocGrouping");
+
         IClient client = DXP.GlobalVars.Client;
         DXP.IClientAPI_Interface ClientAPI = client.GetClientAPI();
 

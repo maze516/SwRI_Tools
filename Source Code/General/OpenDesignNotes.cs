@@ -17,6 +17,8 @@ class DesignNotes
     /// </summary>
     public void OpenDesignNotes()
     {
+        _Log.Debug("OpenDesignNotes");
+
         try
         {
             IDXPProject Project = DXP.GlobalVars.DXPWorkSpace.DM_FocusedProject();
@@ -134,6 +136,8 @@ class DesignNotes
     /// <returns></returns>
     string OneNotePath(string ProjectFolderPath, string FileName)
     {
+        _Log.Debug("OneNotePath");
+
         string[] Files = Directory.GetFiles(ProjectFolderPath);
         string output = "";
         foreach (string item in Files)
@@ -160,6 +164,8 @@ class DesignNotes
     /// <returns></returns>
     public bool CopyFile(string FromPath, string DestPath)
     {
+        _Log.Debug("CopyFile");
+
         try
         {//todo: need to deal with template directories
          //Create directory if needed.
@@ -186,6 +192,8 @@ class DesignNotes
     /// <returns>Dictionary of Altium passed parameters.</returns>
     private Dictionary<string, string> GetParams()
     {
+        _Log.Debug("GetParams");
+
         Dictionary<string, string> Params = new Dictionary<string, string>() { { "relative", "false" }, { "filename", "" }, { "argument", "" }, { "template", "" }, { "ref", "DesignNotes" } };
 
         //Get param info from the Ext file config file.

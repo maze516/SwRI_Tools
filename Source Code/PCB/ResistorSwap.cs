@@ -1,4 +1,5 @@
-﻿using PCB;
+﻿using NLog;
+using PCB;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -8,9 +9,12 @@ using System.Text;
 
 class ResistorSwap
 {
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
 
     public void SwapResistors()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         //IPCB_Component Component; // component object
         IPCB_BoardIterator Iterator;
         IPCB_Primitive Item;
@@ -54,8 +58,10 @@ class ResistorSwap
     /// <param name="L2a">Line 2 coord a</param>
     /// <param name="L2b">Line 2 coord b</param>
     /// <returns></returns>
-    private bool SegmentsIntersection(            PointF L1a, PointF L1b, PointF L2a, PointF L2b)
+    private bool SegmentsIntersection(PointF L1a, PointF L1b, PointF L2a, PointF L2b)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         // Get the segments' parameters.
         float dx1 = L1b.X - L1a.X;
         float dy1 = L1b.Y - L1a.Y;

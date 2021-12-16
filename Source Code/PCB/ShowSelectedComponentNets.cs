@@ -5,12 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using NLog;
 
 class ShowSelectedComponentNets
 {
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
 
     public void NetConnect()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
 #if DEBUG
         Stopwatch stopwatch;
         stopwatch = new Stopwatch();

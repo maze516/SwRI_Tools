@@ -1,4 +1,5 @@
 ﻿using DXP;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,12 +12,16 @@ using System.Windows.Forms;
 
 public partial class frmResFinder : ServerPanelForm
 {
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
+
     public const string PanelName = "ResFinder";
     public const string PanelCaption = "Resistor Value Finder";
     public List<double> ResValues;
 
     public frmResFinder()
     {
+        _Log.Debug("frmResFinder");
+
         InitializeComponent();
         UI.ApplyADUITheme(this);
 
@@ -24,6 +29,8 @@ public partial class frmResFinder : ServerPanelForm
 
     private void btnFind_Click(object sender, EventArgs e)
     {
+        _Log.Debug("btnFind_Click");
+
         double find = (double)numTarget.Value;
         List<Values> SeriesOutput = new List<Values>();
         List<Values> ParallelOutput = new List<Values>();
@@ -91,6 +98,8 @@ public partial class frmResFinder : ServerPanelForm
     /// <param name="d"> 1, 10, 100, 1000, 10000, 100000</param>
     void FillResValues(int[] Steps, List<double> Decades)
     { //r=d*10^(i/n)
+        _Log.Debug("FillResValues");
+
         double Multiplier;
         int tmp;
         double dtmp;
@@ -170,12 +179,16 @@ public partial class frmResFinder : ServerPanelForm
 
     private void numTarget_KeyDown(object sender, KeyEventArgs e)
     {
+        _Log.Debug("numTarget_KeyDown");
+
         if (e.KeyCode == Keys.Enter)
             btnFind_Click(null, null);
     }
 
     private void frmResFinder_Load(object sender, EventArgs e)
     {
+        _Log.Debug("frmResFinder_Load");
+
         ResValues = new List<double>();// { 100, 110, 120, 130, 150, 160, 180, 200, 220, 240, 270, 300, 330, 360, 390, 430, 470, 510, 560, 620, 680, 750, 820, 910 };
         List<double> Decades = new List<double>();
         int[] Steps = new int[] { 24, 48, 96 }; //24, 48, 96, 192
@@ -193,6 +206,8 @@ public partial class frmResFinder : ServerPanelForm
 
     private void numTarget_ValueChanged(object sender, EventArgs e)
     {
+        _Log.Debug("numTarget_ValueChanged");
+
         if (numTarget.Value > (decimal)ResValues[ResValues.Count - 1])
             lblMax.Text = "Max single value is " + ResValues[ResValues.Count - 1];
         else

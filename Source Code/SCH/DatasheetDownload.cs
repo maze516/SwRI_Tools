@@ -18,6 +18,8 @@ class DatasheetDownload
 
     public void DownloadDatasheets()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         //if (MessageBox.Show("This tool will close schematic pages without saveing. Do you wish to continue?", "Data may be lost", MessageBoxButtons.YesNo) == DialogResult.No) return;
         try
         {
@@ -64,6 +66,8 @@ class DatasheetDownload
 
     bool UpdatePDF(string path, string ProjectFullPath)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
             if (!path.ToLower().EndsWith("pdf")) return true;
@@ -89,6 +93,8 @@ class DatasheetDownload
     }
     void CollectDatasheets(bool Overwrite)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
 

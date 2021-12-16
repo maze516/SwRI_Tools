@@ -20,6 +20,8 @@ public partial class FootprintSelect : ServerPanelForm
     List<string> Report;
     public FootprintSelect()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         InitializeComponent();
         UI.ApplyADUITheme(this);
         //ListFootprints();
@@ -30,6 +32,8 @@ public partial class FootprintSelect : ServerPanelForm
     /// </summary>
     void ListFootprints()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
             Report = new List<string>();
@@ -209,6 +213,8 @@ public partial class FootprintSelect : ServerPanelForm
     /// <param name="e"></param>
     private void tvList_AfterSelect(object sender, TreeViewEventArgs e)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         List<string> Components = new List<string>();
         TreeNode Selected = tvList.SelectedNode;
         typeSelected SelectionType;
@@ -310,8 +316,8 @@ public partial class FootprintSelect : ServerPanelForm
         {
             RefDes = Component.GetState_Name().GetState_Text();
             //Deselect existing selected components.
-            Component.SetState_Selected(false);
-
+            //Component.SetState_Selected(false);
+            //_Log.Debug(RefDes);
             //Determine if component is in a variant.
             if (Component.GetState_SourceUniqueId() == null)
                 varr = false;
@@ -371,26 +377,36 @@ public partial class FootprintSelect : ServerPanelForm
 
     private void btnZoom_Click(object sender, EventArgs e)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         DXP.Utils.RunCommand("PCB:Zoom", "Action= Selected");
     }
 
     private void btnRefresh_Click(object sender, EventArgs e)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         ListFootprints();
     }
 
     private void btnMask_Click(object sender, EventArgs e)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         DXP.Utils.RunCommand("PCB:Mask", "Action= Selected");
     }
 
     private void btnAlignSelected_Click(object sender, EventArgs e)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         new AlignVariants().AlignSelectedVariants();
     }
 
     private void btnReport_Click(object sender, EventArgs e)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         string strPath = Util.ProjPath();
         //"C:\\Users\\rlyne\\AppData\\Local"
         if (!Directory.Exists(strPath))

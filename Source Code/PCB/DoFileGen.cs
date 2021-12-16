@@ -20,6 +20,8 @@ public partial class DoFileGen : ServerPanelForm
     public const string PanelCaption = "DO File Gen";
     public DoFileGen()
     {
+        _Log.Debug("DoFileGen");
+
         InitializeComponent();
         UI.ApplyADUITheme(this);
         //ListBoxItem Test = new ListBoxItem { Text = "Test", Tag = "Test"};
@@ -28,6 +30,8 @@ public partial class DoFileGen : ServerPanelForm
 
     private void chkReportList_MouseUp(object sender, MouseEventArgs e)
     {
+        _Log.Debug("chkReportList_MouseUp");
+
         ArrayList Output = new ArrayList();
         CheckedListBox.CheckedItemCollection CheckedItems = chkReportList.CheckedItems;
         try
@@ -75,6 +79,8 @@ public partial class DoFileGen : ServerPanelForm
 
     private void btnSave_Click(object sender, EventArgs e)
     {
+        _Log.Debug("btnSave_Click");
+
         SaveFileDialog FileDiag = new SaveFileDialog();
         FileDiag.OverwritePrompt = true;
         FileDiag.DefaultExt = "txt";

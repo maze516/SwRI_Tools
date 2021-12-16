@@ -1,9 +1,12 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
 public partial class frmHeightReport : Form
 {
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
+
     #region Windows Form Controls
 
     public frmHeightReport()
@@ -36,7 +39,8 @@ public partial class frmHeightReport : Form
     /// <param name="HeightList"></param>
     public void FillList(Dictionary<string, Heights> HeightList)
     {
-        
+        _Log.Debug("FillList");
+
         foreach (KeyValuePair<string, Heights> item in HeightList)
         {
             if (item.Value.BodyHeight != -1 && item.Value.ParameterHeight != -1)
@@ -51,6 +55,8 @@ public partial class frmHeightReport : Form
     /// <returns>Returns a list of components selected in the list.</returns>
     public List<string> GetSelectedComponents()
     {
+        _Log.Debug("GetSelectedComponents");
+
         List<string> tmpComponents = new List<string>();
         foreach (string item in lstComponents.CheckedItems)
         {
@@ -61,17 +67,23 @@ public partial class frmHeightReport : Form
 
     private void btnUpdate_Click(object sender, EventArgs e)
     {
+        _Log.Debug("btnUpdate_Click");
+
         this.DialogResult = DialogResult.OK;
         this.Close();
     }
 
     private void btnCancel_Click(object sender, EventArgs e)
     {
+        _Log.Debug("btnCancel_Click");
+
         this.DialogResult = DialogResult.Cancel;
         this.Close();
     }
     public int ListCount()
     {
+        _Log.Debug("ListCount");
+
         return lstComponents.Items.Count;
     }
 }

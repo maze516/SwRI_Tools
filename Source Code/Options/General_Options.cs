@@ -1,9 +1,13 @@
 ﻿using DXP;
+using NLog;
 using System;
 using System.IO;
 
 public partial class General_Options : OptionsForm
 {
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
+
+
     //Batch outjob generator option
     private bool ODB_HideRefDes;
 
@@ -25,6 +29,8 @@ public partial class General_Options : OptionsForm
 
     public General_Options() : base()
     {
+        _Log.Debug("General_Options");
+
         InitializeComponent();
         UI.ApplyADUITheme(this);
     }
@@ -35,6 +41,8 @@ public partial class General_Options : OptionsForm
     /// </summary>
     protected override void GetStateControlsImpl()
     {
+        _Log.Debug("GetStateControlsImpl");
+
         int intLayer;
         if (Int32.TryParse(txtEmbededResLayer.Text, out intLayer))
             ToolsPreferences.FirstResistorLayer = intLayer;
@@ -90,6 +98,8 @@ public partial class General_Options : OptionsForm
     /// </summary>
     protected override void ClearModified()
     {
+        _Log.Debug("ClearModified");
+
         int intLayer;
         if (int.TryParse(txtEmbededResLayer.Text, out intLayer))
             FirstResistorLayer = intLayer;
@@ -145,6 +155,7 @@ public partial class General_Options : OptionsForm
     /// </summary>
     protected override void SetStateControlsImpl()
     {
+        _Log.Debug("SetStateControlsImpl");
 
         txtEmbededResLayer.Text = ToolsPreferences.FirstResistorLayer.ToString();
         txtLayerCount.Text = ToolsPreferences.LayerCount.ToString();
@@ -169,6 +180,8 @@ public partial class General_Options : OptionsForm
     /// </summary>
     protected override void SetDefaultStateImpl()
     {
+        _Log.Debug("SetDefaultStateImpl");
+
         //Batch outjob generator option
         chkBatchRefHide.Checked = true;
 
@@ -183,7 +196,10 @@ public partial class General_Options : OptionsForm
         txtSMTPHost.Text = "smtp.swri.org";
 
         //Open Ext File config path
-        txtExtFileConfig.Text = "G:\\CADTOOLS\\Software\\Altium\\SwRI Software\\Altium Extensions\\SwRI_Tools Paths.ini";
+        if (System.IO.Directory.Exists("G:\\CADTOOLS\\"))
+            txtExtFileConfig.Text = "G:\\CADTOOLS\\Software\\Altium\\SwRI Software\\Altium Extensions\\SwRI_Tools Paths.ini";
+        else
+            txtExtFileConfig.Text = "G:\\ElectronicCAD\\Templates\\Altium Project Templates\\SwRI_Tools Paths.ini";
     }
 
     /// <summary>
@@ -193,6 +209,8 @@ public partial class General_Options : OptionsForm
     /// <returns>True if form values have been modified.</returns>
     protected override bool GetModifiedImpl()
     {
+        _Log.Debug("GetModifiedImpl");
+
         return (txtEmbededResLayer.Text != ToolsPreferences.FirstResistorLayer.ToString()) ||
             (txtLayerCount.Text != ToolsPreferences.LayerCount.ToString()) ||
             (txtSMTPHost.Text != ToolsPreferences.ClientHost) ||
@@ -211,6 +229,8 @@ public partial class General_Options : OptionsForm
     /// <returns></returns>
     protected override int GetNotificationCodeImpl()
     {
+        _Log.Debug("GetNotificationCodeImpl");
+
         return ToolsPreferences.NotificationCodePreferencesChanged;
     }
 
@@ -221,6 +241,8 @@ public partial class General_Options : OptionsForm
     /// <param name="e"></param>
     private void chkErrorEnable_CheckedChanged(object sender, EventArgs e)
     {
+        _Log.Debug("chkErrorEnable_CheckedChanged");
+
         bool boolEnabled = chkErrorEnable.Checked;
 
         txtFromAddress.Enabled = boolEnabled;
@@ -231,6 +253,8 @@ public partial class General_Options : OptionsForm
 
     private void txtExtFileConfig_TextChanged(object sender, EventArgs e)
     {
+        _Log.Debug("txtExtFileConfig_TextChanged");
+
         if (!File.Exists(txtExtFileConfig.Text))
         {
             txtExtFileConfig.BackColor = System.Drawing.Color.Red;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -7,9 +8,12 @@ public partial class frmEmbededResistorRpt : Form
 {
     private bool updating = false; //Used to stop methods from being triggered while filling the Data Grid View.
     private SortedDictionary<string, int> LayerList;
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
 
     public frmEmbededResistorRpt()
     {
+        _Log.Debug("frmEmbededResistorRpt");
+
         updating = true;
         InitializeComponent();
         UI.ApplyADUITheme(this);
@@ -19,6 +23,8 @@ public partial class frmEmbededResistorRpt : Form
 
     private void dataGridView1_ContentClicked(object sender, DataGridViewCellEventArgs e)
     {
+        _Log.Debug("dataGridView1_ContentClicked");
+
         if (updating) return;
         updating = true;
         if (e.ColumnIndex == 2)
@@ -46,6 +52,8 @@ public partial class frmEmbededResistorRpt : Form
     /// <param name="Layers">Dictionary of used layers and qty of components on each.</param>
     public void FillList(SortedDictionary<string, int> Layers)
     {
+        _Log.Debug("FillList");
+
         updating = true;
         int Pos;
         LayerList = Layers;
@@ -65,6 +73,8 @@ public partial class frmEmbededResistorRpt : Form
     /// <returns>Updated list of layers used.</returns>
     public SortedDictionary<string, int> GetSelection()
     {
+        _Log.Debug("GetSelection");
+
         string tmpKey;
         int tmpLoc;
         foreach (DataGridViewRow item in dgvLayers.Rows)
@@ -81,6 +91,7 @@ public partial class frmEmbededResistorRpt : Form
 
     private void btnCancel_Click(object sender, EventArgs e)
     {
+        _Log.Debug("btnCancel_Click");
 
     }
 }

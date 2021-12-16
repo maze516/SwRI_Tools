@@ -47,6 +47,7 @@
             // lstSource
             // 
             this.lstSource.FormattingEnabled = true;
+            this.lstSource.HorizontalScrollbar = true;
             this.lstSource.Location = new System.Drawing.Point(14, 54);
             this.lstSource.Name = "lstSource";
             this.lstSource.Size = new System.Drawing.Size(79, 264);
@@ -58,6 +59,7 @@
             // lstDest
             // 
             this.lstDest.FormattingEnabled = true;
+            this.lstDest.HorizontalScrollbar = true;
             this.lstDest.Location = new System.Drawing.Point(99, 54);
             this.lstDest.Name = "lstDest";
             this.lstDest.Size = new System.Drawing.Size(79, 264);
@@ -106,8 +108,12 @@
             // 
             // lstMatched
             // 
+            this.lstMatched.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lstMatched.FormattingEnabled = true;
+            this.lstMatched.HorizontalScrollbar = true;
             this.lstMatched.Location = new System.Drawing.Point(202, 54);
+            this.lstMatched.MinimumSize = new System.Drawing.Size(90, 264);
             this.lstMatched.Name = "lstMatched";
             this.lstMatched.Size = new System.Drawing.Size(90, 264);
             this.lstMatched.TabIndex = 0;
@@ -198,7 +204,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(305, 542);
+            this.ClientSize = new System.Drawing.Size(299, 542);
             this.Controls.Add(this.chkInDepth);
             this.Controls.Add(this.btnFullReset);
             this.Controls.Add(this.chkAutoMatch);

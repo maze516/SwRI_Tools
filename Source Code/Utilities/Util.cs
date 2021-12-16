@@ -17,6 +17,8 @@ public class Util
 
     public static void UpdateLogger(LogLevel logLevel)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         NLog.Config.LoggingConfiguration config;
         if (NLog.LogManager.Configuration == null)
             config = new NLog.Config.LoggingConfiguration();
@@ -24,17 +26,46 @@ public class Util
         {
             config = LogManager.Configuration;
             //System.Diagnostics.Debug.WriteLine(config.AllTargets[0].Name);
-            if (config.AllTargets[0].Name == "logfile")   return;
+            if (config.AllTargets[0].Name == "logfile")
+            {
+                bool good = false;
+                foreach (NLog.Config.LoggingRule item in config.LoggingRules)
+                {
+                    if (item.LoggerNamePattern == "SwRI_Tools")
+                    {
+                        item.EnableLoggingForLevels(logLevel, LogLevel.Fatal);
+                        good = true;
+                    }
+                    //System.Diagnostics.Debug.WriteLine(item.Name);
+                }
+                if (good)
+                    return;
+            }
 
         }
-        else return;
-        
+        else
+        {
+            bool good = false;
+            config = LogManager.Configuration;
+            foreach (NLog.Config.LoggingRule item in config.LoggingRules)
+            {
+                if (item.LoggerNamePattern == "SwRI_Tools")
+                {
+                    item.EnableLoggingForLevels(logLevel, LogLevel.Fatal);
+                    good = true;
+                }
+                //System.Diagnostics.Debug.WriteLine(item.Name);
+            }
+            if (good)
+                return;
+        };
+
         string logPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\" + Util.SERVERNAME + " Logs\\";
 
         // Targets where to log to: File and Console
         var logfile = new NLog.Targets.FileTarget("logfile")
         {
-            FileName = logPath + "\\SwRI_Tools.log",
+            FileName = logPath + Util.SERVERNAME + ".log",
             ArchiveNumbering = NLog.Targets.ArchiveNumberingMode.Rolling,
             ArchiveEvery = NLog.Targets.FileArchivePeriod.Day,
             ConcurrentWrites = true,
@@ -115,6 +146,8 @@ public class Util
     /// <returns>T6_LayerSet</returns>
     public static TV6_LayerSet MKset(params TV6_Layer[] LayerArgs)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         TV6_LayerSet ReturnSet = new TV6_LayerSet();
         foreach (TV6_Layer tmpLayer in LayerArgs)
         {
@@ -129,6 +162,8 @@ public class Util
     /// <returns>PCB TObjectSet</returns>
     public static PCB.TObjectSet MKset(params PCB.TObjectId[] ObjectArgs)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         PCB.TObjectSet ReturnSet = new PCB.TObjectSet();
         foreach (PCB.TObjectId tmpObject in ObjectArgs)
         {
@@ -143,6 +178,8 @@ public class Util
     /// <returns>SCH TObjectSet</returns>
     public static SCH.TObjectSet MKset(params SCH.TObjectId[] ObjectArgs)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         SCH.TObjectSet ReturnSet = new SCH.TObjectSet();
         foreach (SCH.TObjectId tmpObject in ObjectArgs)
         {
@@ -158,6 +195,8 @@ public class Util
     /// <returns>Path of project.</returns>
     public static string ProjPath()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
             IDXPWorkSpace CurrentWorkspace = DXP.GlobalVars.DXPWorkSpace;
@@ -185,6 +224,8 @@ public class Util
     /// <returns>Path as string</returns>
     public static string OutputPath()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
             IDXPWorkSpace CurrentWorkspace = DXP.GlobalVars.DXPWorkSpace;
@@ -210,6 +251,8 @@ public class Util
     /// <returns>TObjectId array of object types to select.</returns>
     public static SCH.TObjectId[] AllSCHObjects()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         return new SCH.TObjectId[] { SCH.TObjectId.eWire, SCH.TObjectId.eNote, SCH.TObjectId.eLine, SCH.TObjectId.eLabel, SCH.TObjectId.eDesignator, SCH.TObjectId.eSchComponent, SCH.TObjectId.eSheetSymbol, SCH.TObjectId.eSymbol, SCH.TObjectId.ePowerObject, SCH.TObjectId.ePort, SCH.TObjectId.eProbe, SCH.TObjectId.eRectangle, SCH.TObjectId.eRoundRectangle, SCH.TObjectId.eSignalHarness, SCH.TObjectId.ePin, SCH.TObjectId.eNetLabel, SCH.TObjectId.eNoERC, SCH.TObjectId.eLine, SCH.TObjectId.eJunction, SCH.TObjectId.eTextFrame };
     }
 
@@ -219,6 +262,8 @@ public class Util
     /// <returns>Returns IPCB_Board if PCB file is active. Returns null if no PCB file is active.</returns>
     public static IPCB_Board GetCurrentPCB(bool OpenPCB = false)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
             PCBServer = PCB.GlobalVars.PCBServer;
@@ -287,6 +332,8 @@ public class Util
     /// <returns>List of layers.</returns>
     public static List<V7_Layer> GetV7SigLayers(IPCB_Board Board)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         List<V7_Layer> tempList = new List<V7_Layer>();
         //IPCB_LayerSet test = Board.ElectricalLayers();
         IPCB_LayerIterator LayerIterator = Board.LayerIterator();
@@ -312,6 +359,8 @@ public class Util
     /// <returns>List of layers.</returns>
     public static List<V7_Layer> GetV7ElectLayers(IPCB_Board Board)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         List<V7_Layer> tempList = new List<V7_Layer>();
         IPCB_LayerIterator LayerIterator = Board.LayerIterator();
         LayerIterator.AddFilter_ElectricalLayers();
@@ -336,6 +385,8 @@ public class Util
     /// <returns>List of layers.</returns>
     public static List<V7_Layer> GetV7PlaneLayers(IPCB_Board Board)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         List<V7_Layer> tempList = new List<V7_Layer>();
         //IPCB_LayerSet test = Board.ElectricalLayers();
         IPCB_LayerIterator LayerIterator = Board.LayerIterator();
@@ -361,6 +412,8 @@ public class Util
     /// <returns>List of layers.</returns>
     public static List<TV6_Layer> GetV6SigLayers(IPCB_Board Board)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         List<TV6_Layer> tempList = new List<TV6_Layer>();
         IPCB_LayerIterator LayerIterator = Board.LayerIterator();
         LayerIterator.AddFilter_SignalLayers();
@@ -385,6 +438,8 @@ public class Util
     /// <returns>List of layers.</returns>
     public static List<TV6_Layer> GetV6ElectLayers(IPCB_Board Board)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         List<TV6_Layer> tempList = new List<TV6_Layer>();
         IPCB_LayerIterator LayerIterator = Board.LayerIterator();
         LayerIterator.AddFilter_ElectricalLayers();
@@ -407,6 +462,8 @@ public class Util
     /// <returns>List of layers.</returns>
     public static List<TV6_Layer> GetV6Layers(IPCB_Board Board)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         List<TV6_Layer> tempList = new List<TV6_Layer>();
         IPCB_LayerIterator LayerIterator = Board.LayerIterator();
         //LayerIterator.AddFilter_ElectricalLayers();
@@ -430,6 +487,8 @@ public class Util
     /// <returns>User created name for provided layer.</returns>
     public static string GetLayerName(IPCB_Board Board, V7_LayerBase LayerID)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         IPCB_LayerStack_V7 tmpLayerstack = Board.GetState_LayerStack_V7();
         IPCB_LayerObject_V7 objLayer;
         objLayer = tmpLayerstack.FirstLayer();
@@ -449,6 +508,8 @@ public class Util
     /// <returns></returns>
     public static IPCB_Component Place(IPCB_Component component)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         var pcbServer = PCB.GlobalVars.PCBServer;
         var pcbBoard = pcbServer?.GetCurrentPCBBoard();
 
@@ -503,6 +564,8 @@ public class Util
     /// <param name="Board">Board to deselect all parts on.</param>
     public static void DeselectBoard(IPCB_Board Board)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         //Reset mask if applied.
         string process = "PCB:RunQuery";
         string parameters = "Clear=True";
@@ -539,6 +602,8 @@ public class Util
 /// </summary>
 internal class StringListCompare : IComparer<string>
 {
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
+
     /// <summary>
     /// Will sort two strings with numbers at the end.
     /// </summary>
@@ -547,6 +612,8 @@ internal class StringListCompare : IComparer<string>
     /// <returns></returns>
     public int Compare(string x, string y)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         string pattern = "([A-Za-z])([0-9]+)";
         string h1 = Regex.Match(x, pattern).Groups[1].Value;
         string h2 = Regex.Match(y, pattern).Groups[1].Value;
@@ -565,6 +632,8 @@ internal class StringListCompare : IComparer<string>
 public class KvpKeyComparer : IComparer<KeyValuePair<string, string>>
 
 {
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
+
     /// <summary>
     /// Will compare two KeyValuePair<string,string> based on 
     /// the key string value with a number at the end.
@@ -574,6 +643,8 @@ public class KvpKeyComparer : IComparer<KeyValuePair<string, string>>
     /// <returns></returns>
     public int Compare(KeyValuePair<string, string> x, KeyValuePair<string, string> y)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         //if (x.Key == null)
         //{
         //    if (y.Key == null)

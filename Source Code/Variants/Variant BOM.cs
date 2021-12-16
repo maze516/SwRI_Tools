@@ -18,6 +18,8 @@ class Variant_BOM
     RefDesCompList RefCompList;
     public void Create_Variant_BOM()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
             PartnumberCompList = new PNCompList();
@@ -49,6 +51,8 @@ class Variant_BOM
 
     void OutputBOM()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
             IDXPWorkSpace CurrentWorkspace = DXP.GlobalVars.DXPWorkSpace;
@@ -96,6 +100,8 @@ class Variant_BOM
     /// <param name="VarList">Reference to the class that will store the gathered parameter data.</param>
     bool Get_Variants(string VariantName)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
             IProject project = DXP.GlobalVars.DXPWorkSpace.DM_FocusedProject() as IProject;
@@ -183,6 +189,8 @@ class Variant_BOM
     /// <param name="VarList">Reference to the class that will store the gathered parameter data.</param>
     bool GetBaseVariants()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
 
@@ -297,6 +305,8 @@ class Variant_BOM
 
     void AddPart(CompData Component)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         RefCompList.Add(Component.RefDes, Component);
         PartnumberCompList.Add(Component.Base_Partnumber, Component);
         ///add to each dictionary
@@ -361,6 +371,8 @@ class PNCompList : IDictionary<string, CompData>
 
     public void Add(string key, CompData value)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
             CompData temp;
@@ -440,41 +452,57 @@ class PNCompList : IDictionary<string, CompData>
     }
     public void Clear()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         ((IDictionary<string, CompData>)PNDictionary).Clear();
     }
 
     public bool Contains(KeyValuePair<string, CompData> item)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         return ((IDictionary<string, CompData>)PNDictionary).Contains(item);
     }
 
     public bool ContainsKey(string key)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         return ((IDictionary<string, CompData>)PNDictionary).ContainsKey(key);
     }
 
     public void CopyTo(KeyValuePair<string, CompData>[] array, int arrayIndex)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         ((IDictionary<string, CompData>)PNDictionary).CopyTo(array, arrayIndex);
     }
 
     public IEnumerator<KeyValuePair<string, CompData>> GetEnumerator()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         return ((IDictionary<string, CompData>)PNDictionary).GetEnumerator();
     }
 
     public bool Remove(KeyValuePair<string, CompData> item)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         return ((IDictionary<string, CompData>)PNDictionary).Remove(item);
     }
 
     public bool Remove(string key)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         return ((IDictionary<string, CompData>)PNDictionary).Remove(key);
     }
 
     public bool TryGetValue(string key, out CompData value)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         return ((IDictionary<string, CompData>)PNDictionary).TryGetValue(key, out value);
     }
 
@@ -535,11 +563,15 @@ class RefDesCompList : IDictionary<string, CompData>
 
     public void Add(KeyValuePair<string, CompData> item)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         ((IDictionary<string, CompData>)RefDesDictionary).Add(item);
     }
 
     public void Add(string key, CompData value)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
             CompData temp;
@@ -620,41 +652,57 @@ class RefDesCompList : IDictionary<string, CompData>
 
     public void Clear()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         ((IDictionary<string, CompData>)RefDesDictionary).Clear();
     }
 
     public bool Contains(KeyValuePair<string, CompData> item)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         return ((IDictionary<string, CompData>)RefDesDictionary).Contains(item);
     }
 
     public bool ContainsKey(string key)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         return ((IDictionary<string, CompData>)RefDesDictionary).ContainsKey(key);
     }
 
     public void CopyTo(KeyValuePair<string, CompData>[] array, int arrayIndex)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         ((IDictionary<string, CompData>)RefDesDictionary).CopyTo(array, arrayIndex);
     }
 
     public IEnumerator<KeyValuePair<string, CompData>> GetEnumerator()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         return ((IDictionary<string, CompData>)RefDesDictionary).GetEnumerator();
     }
 
     public bool Remove(KeyValuePair<string, CompData> item)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         return ((IDictionary<string, CompData>)RefDesDictionary).Remove(item);
     }
 
     public bool Remove(string key)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         return ((IDictionary<string, CompData>)RefDesDictionary).Remove(key);
     }
 
     public bool TryGetValue(string key, out CompData value)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         return ((IDictionary<string, CompData>)RefDesDictionary).TryGetValue(key, out value);
     }
 

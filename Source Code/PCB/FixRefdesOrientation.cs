@@ -11,6 +11,8 @@ class FixRefdesOrientation
     /// </summary>
     public void FixRefDesOrientation()
     {
+        _Log.Debug("FixRefDesOrientation");
+
         try
         {
             IPCB_BoardIterator BoardIterator;

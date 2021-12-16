@@ -24,6 +24,8 @@ public class Variants
     /// <param name="Force">Will force Alternate variants to fitted and apply data.</param>
     public void SyncVariants(string from, string[] Destinations, string _overwrite, bool Force)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         Overwrite = _overwrite;
 
 
@@ -65,6 +67,8 @@ public class Variants
     /// <param name="Text">Text to be displayed in the progress bar.</param>
     public void UpdateLabel(string Text)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         if (Progress.Maximum > 0)
         {
             float strWidth;
@@ -84,6 +88,8 @@ public class Variants
     /// <returns>Quantity of Alternates in provided variant.</returns>
     public int Get_VariantAlternates(string VariantName)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
             IProject project = DXP.GlobalVars.DXPWorkSpace.DM_FocusedProject() as IProject;
@@ -128,6 +134,8 @@ public class Variants
     /// <param name="VarList">Reference to the class that will store the gathered parameter data.</param>
     public void Get_Variants(ref Var_Type VarList)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
             IProject project = DXP.GlobalVars.DXPWorkSpace.DM_FocusedProject() as IProject;
@@ -208,6 +216,8 @@ public class Variants
     /// <param name="VarList">Reference to the class that will store the gathered parameter data.</param>
     public void GetBaseVariants(ref Var_Type VarList)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
 
@@ -331,6 +341,8 @@ public class Variants
     /// <param name="VarList">Parameter data</param>
     void SetBaseDesign(Var_Type VarList)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
             string RefDes;
@@ -455,6 +467,8 @@ public class Variants
     /// <param name="Force">Force alternate variants to fitted.</param>
     void SetVariant(Var_Type VarList, string VarName, bool Force)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
             IProject project = DXP.GlobalVars.DXPWorkSpace.DM_FocusedProject() as IProject;
@@ -558,6 +572,8 @@ public class Variants
     //create alternate part. Need to make functional.
     public void Command_CreateComponentVariantion(IServerDocumentView view, ref string parameters)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         IWorkspace workspace = DXP.GlobalVars.DXPWorkSpace as IWorkspace;
         IProject project = workspace.DM_FocusedProject();
 
@@ -622,6 +638,8 @@ public class Variants
     /// <param name="RefDes">Refdes of component being modified.</param>
     void CreateCompVar(ref IComponentVariation Dest, VarParam<string, string> Source, string RefDes = "")
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         IParameterVariation tmpParam;
         if (RefDes != "")
             Dest.DM_SetPhysicalDesignator(RefDes); //Set refdes
@@ -644,6 +662,8 @@ public class Variants
     /// <returns></returns>
     bool OverwriteValue(string Original, string NewValue, string RefDes, string Parameter)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         DialogResult Result;
 
         if (Overwrite == "Overwrite")

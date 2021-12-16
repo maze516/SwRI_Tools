@@ -15,6 +15,8 @@ class clFixEmbededResistors
     /// <returns>True: Layers are clear, False:Objects on one of the layers.</returns>
     public Boolean MechanicalClear()
     {
+        _Log.Debug("MechanicalClear");
+
         try
         {
             //Checking Mechanical Layers
@@ -79,6 +81,8 @@ class clFixEmbededResistors
     /// </summary>
     public void FixEmbededResistors()
     {
+        _Log.Debug("FixEmbededResistors");
+
         try
         {
             List<IPCB_Component> EmbededResistors = new List<IPCB_Component>();
@@ -193,7 +197,9 @@ class clFixEmbededResistors
     /// </returns>
     SortedDictionary<string, int> LayerReport(SortedDictionary<string, int> LayerList)
     {
-            frmEmbededResistorRpt frmReport = new frmEmbededResistorRpt();
+        _Log.Debug("LayerReport");
+
+        frmEmbededResistorRpt frmReport = new frmEmbededResistorRpt();
         if (LayerList.Count <= 0)
         {
             frmReport.Show();
@@ -222,7 +228,8 @@ class clFixEmbededResistors
     /// </param>
     void MoveMechLayers(List<IPCB_Component> EmbededResistors, List<TV6_Layer> UsedLayers, SortedDictionary<string, int> LayerCounts)
     {
-        
+        _Log.Debug("MoveMechLayers");
+
         DXP.Utils.PercentInit("Updating Embeded Components", EmbededResistors.Count);
 
         IPCB_GroupIterator CompIterator;

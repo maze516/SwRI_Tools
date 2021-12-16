@@ -1,4 +1,5 @@
 ﻿using DXP;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,9 +10,12 @@ using System.Windows.Forms;
 
 public class PDF_Update
 {
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
 
     public void Update_PDF_Sch_Links()
     {
+        _Log.Debug("Update_PDF_Sch_Links");
+
         DXP.Utils.StatusBarSetState(2, "Fixing PDFs");
 
         string ProjPath = Util.ProjPath();
@@ -87,6 +91,8 @@ public class PDF_Update
     }
     bool UpdatePDF(string path)
     {
+        _Log.Debug("UpdatePDF");
+
         try
         {
             if (!path.ToLower().EndsWith("pdf")) return true;

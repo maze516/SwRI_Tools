@@ -10,6 +10,8 @@ class DuplicateRefDes
     public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
     public void CheckRefDes()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
             IDXPWorkSpace CurrentWorkspace = DXP.GlobalVars.DXPWorkSpace;
@@ -71,6 +73,8 @@ class DuplicateRefDes
                     {
 
                         RefDes = Component.GetState_SchDesignator().GetState_Text();
+                        if (RefDes == "" || RefDes == null)
+                            RefDes = "Blank";
                         if (Component.GetState_CurrentPartID() == 1)
                             lstRefDes.Add(RefDes);
 
@@ -170,9 +174,13 @@ class DuplicateRefDes
 
     string[] SplitString(string input)
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
+        if (input == "" || input == null) 
+            return new string[1];
         Regex re = new Regex(@"([a-zA-Z]+)(\d+)");
         Match result = re.Match(input);
+        if(result.Length==0) return new string[1];
         string remainder = input.Replace(result.Groups[0].Value, null);
         string[] output;
 

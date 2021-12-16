@@ -1,13 +1,17 @@
 ﻿using DXP;
-
+using NLog;
 
 class ToggleResetPartsDesignatorsOnPaste
 {
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
+
     /// <summary>
     /// Toggles the "Reset Part Refdes on Paste" preference.
     /// </summary>
     public void ToggleResetPartsRefDesOnPaste()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         bool CurrentState;
 
         IOptionsReader optionsReader = DXP.Utils.ServerOptionsReader("SCH");

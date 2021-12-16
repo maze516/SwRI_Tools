@@ -1,4 +1,5 @@
-﻿using PCB;
+﻿using NLog;
+using PCB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,15 +11,21 @@ using System.Windows.Forms;
 /// </summary>
 public class AlignVariants
 {
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
+
     List<string> SelectedRef;
     List<IPCB_Component> SelectedComp;
     public AlignVariants()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         SelectedRef = new List<string>();
         SelectedComp = new List<IPCB_Component>();
     }
     public void AlignSelectedVariants()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         GetSelectedComponents();
         AlignSelected();
     }
@@ -27,6 +34,8 @@ public class AlignVariants
     /// </summary>
     void GetSelectedComponents()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         IPCB_BoardIterator BoardIterator;
         IPCB_Component Component;
 
@@ -74,6 +83,8 @@ public class AlignVariants
     /// </summary>
     void AlignSelected()
     {
+        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         IPCB_BoardIterator BoardIterator;
         IPCB_Component Component;
 
