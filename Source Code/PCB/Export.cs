@@ -18,7 +18,7 @@ class Export
     /// </summary>
     public void xSignalReport()
     {
-        _Log.Debug("xSignalReport");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         IPCB_ServerInterface PCBServer = PCB.GlobalVars.PCBServer;
         IPCB_Board Board;
@@ -126,7 +126,7 @@ class Export
     /// </summary>
     public void NetClassReport()
     {
-        _Log.Debug("NetClassReport");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         int i;
         IPCB_Board Board;
@@ -187,7 +187,7 @@ class Export
     /// </summary>
     public void RuleReport()
     {
-        _Log.Debug("RuleReport");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         IPCB_Board Board;
         IPCB_Rule Rule;
@@ -250,7 +250,7 @@ class Export
     /// <returns>Returns an arraylist of strings.</returns>
     public ArrayList RuleDoReport()
     {
-        _Log.Debug("RuleDoReport");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         IPCB_Board Board;
         IPCB_Rule Rule;
@@ -335,7 +335,7 @@ class Export
     /// <returns>Returns an arraylist of strings.</returns>
     public ArrayList xSignalDoReport()//Const View : IServerDocumentView; Var Parameters : WideString)
     {
-        _Log.Debug("xSignalDoReport");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         Dictionary<string, List<string>> PrimList = new Dictionary<string, List<string>>();
         string output;
@@ -510,7 +510,7 @@ class Export
     /// <returns>Returns an arraylist of strings.</returns>
     public ArrayList LayerDirectionDo()
     {
-        _Log.Debug("LayerDirectionDo");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         IPCB_Board Board;
         Board = Util.GetCurrentPCB();
@@ -592,7 +592,7 @@ class Export
     /// <returns>Returns an arraylist of strings.</returns>
     public ArrayList LayerSelectDo()
     {
-        _Log.Debug("LayerSelectDo");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         IPCB_Board Board;
         Board = Util.GetCurrentPCB();
@@ -654,7 +654,7 @@ class Export
     /// <returns>Returns an arraylist of strings.</returns>
     public ArrayList SameNetDo()
     {
-        _Log.Debug("SameNetDo");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         ArrayList Output = new ArrayList();
 
@@ -674,7 +674,7 @@ class Export
     /// <returns>DO file command.</returns>
     string DecodeRule(IPCB_Rule Rule, IPCB_Board Board)
     {
-        _Log.Debug("DecodeRule");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
@@ -1053,7 +1053,7 @@ class Export
     /// <returns>List of xSignal names.</returns>
     List<string> GetxSignalNets(string xSignalClass, IPCB_Board Board)
     {
-        _Log.Debug("GetxSignalNets");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         Dictionary<string, List<string>> PrimList = new Dictionary<string, List<string>>();
         List<string> output = new List<string>();
@@ -1112,7 +1112,7 @@ class Export
     /// <returns>Returns an arraylist of strings.</returns>
     public ArrayList DiffPairDoFile()
     {
-        _Log.Debug("DiffPairDoFile");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         IPCB_Board Board;
         IPCB_BoardIterator BoardIterator;
@@ -1181,7 +1181,7 @@ class Export
     /// </summary>
     public void ComponentDensity()
     {
-        _Log.Debug("ComponentDensity");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
@@ -1319,7 +1319,7 @@ class Export
     }
     protected virtual bool IsFileLocked(FileInfo file)
     {
-        _Log.Debug("IsFileLocked");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {

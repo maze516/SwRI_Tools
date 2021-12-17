@@ -17,7 +17,7 @@ public class OpenExtFile
     /// </param>
     public void OpenEXTFile(string parameters)
     {
-        _Log.Debug("OpenEXTFile");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
         try
         {
             //Prefill parameter list.
@@ -66,7 +66,7 @@ public class OpenExtFile
     /// <returns></returns>
     public bool CopyFile(string FromPath, string DestPath)
     {
-        _Log.Debug("CopyFile");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {//todo: need to deal with template directories
@@ -102,7 +102,7 @@ public class OpenExtFile
     /// <returns>Dictionary of Altium passed parameters.</returns>
     private Dictionary<string, string> GetParams(string Parameters)
     {
-        _Log.Debug("GetParams");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         Dictionary<string, string> Params = new Dictionary<string, string>() { { "relative", "false" }, { "filename", "" }, { "argument", "" }, { "template", "" }, { "ref", "" } };
 

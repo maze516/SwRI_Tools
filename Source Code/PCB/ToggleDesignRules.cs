@@ -61,7 +61,7 @@ public class ToggleDesignRules
     /// <returns>Returns rule object matching RuleName or null.</returns>
     private IPCB_Rule GetRule(string RuleName)
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
@@ -110,7 +110,7 @@ public class ToggleDesignRules
     /// <param name="RuleName">Name of rule to toggle</param>
     public void ToggleDesignRule(string RuleName)
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {

@@ -17,7 +17,7 @@ class DesignNotes
     /// </summary>
     public void OpenDesignNotes()
     {
-        _Log.Debug("OpenDesignNotes");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
@@ -136,7 +136,7 @@ class DesignNotes
     /// <returns></returns>
     string OneNotePath(string ProjectFolderPath, string FileName)
     {
-        _Log.Debug("OneNotePath");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         string[] Files = Directory.GetFiles(ProjectFolderPath);
         string output = "";
@@ -164,7 +164,7 @@ class DesignNotes
     /// <returns></returns>
     public bool CopyFile(string FromPath, string DestPath)
     {
-        _Log.Debug("CopyFile");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {//todo: need to deal with template directories
@@ -192,7 +192,7 @@ class DesignNotes
     /// <returns>Dictionary of Altium passed parameters.</returns>
     private Dictionary<string, string> GetParams()
     {
-        _Log.Debug("GetParams");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         Dictionary<string, string> Params = new Dictionary<string, string>() { { "relative", "false" }, { "filename", "" }, { "argument", "" }, { "template", "" }, { "ref", "DesignNotes" } };
 

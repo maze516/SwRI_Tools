@@ -13,7 +13,7 @@ class ResistorSwap
 
     public void SwapResistors()
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         //IPCB_Component Component; // component object
         IPCB_BoardIterator Iterator;
@@ -60,7 +60,7 @@ class ResistorSwap
     /// <returns></returns>
     private bool SegmentsIntersection(PointF L1a, PointF L1b, PointF L2a, PointF L2b)
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         // Get the segments' parameters.
         float dx1 = L1b.X - L1a.X;

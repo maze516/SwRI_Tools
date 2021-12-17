@@ -14,7 +14,7 @@ public class PDF_Update
 
     public void Update_PDF_Sch_Links()
     {
-        _Log.Debug("Update_PDF_Sch_Links");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         DXP.Utils.StatusBarSetState(2, "Fixing PDFs");
 
@@ -91,7 +91,7 @@ public class PDF_Update
     }
     bool UpdatePDF(string path)
     {
-        _Log.Debug("UpdatePDF");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {

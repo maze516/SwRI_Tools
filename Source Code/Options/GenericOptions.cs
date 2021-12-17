@@ -12,7 +12,7 @@ class GenericOptions
 
     public bool GroupEnabled(DXP.TDocumentsBarGrouping Grouping)
     {
-        _Log.Debug("GroupEnabled");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         IClient client = DXP.GlobalVars.Client;
         DXP.IClientAPI_Interface ClientAPI = client.GetClientAPI();
@@ -22,7 +22,7 @@ class GenericOptions
     }
     public void ChangeDocGrouping(DXP.TDocumentsBarGrouping Grouping)
     {
-        _Log.Debug("ChangeDocGrouping");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         IClient client = DXP.GlobalVars.Client;
         DXP.IClientAPI_Interface ClientAPI = client.GetClientAPI();

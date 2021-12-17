@@ -20,6 +20,7 @@ public class PlaceReplicate
 
     public PlaceReplicate()
     {
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         Source = new clsOutput();
         Destination = new clsOutput();
@@ -33,6 +34,8 @@ public class PlaceReplicate
     /// </summary>
     public void GetInitialParts()
     {
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         try
         {
             SelectedSourceRef = new List<string>();
@@ -542,6 +545,7 @@ public class PlaceReplicate
     /// </summary>
     public void GetDestinationParts()
     {
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         SelectedDestRef = new List<string>();
         DestNets = new Dictionary<string, List<structNet>>();
@@ -740,9 +744,12 @@ public struct structNet
 /// </summary>
 public class cls_IPCB_Component : Dictionary<string, st_IPCB_Component>
 {
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
 
     public bool ContainsRefdes(string RefDes, out string Key)
     {
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         string Footprint = "";
         if (RefDes.Contains(" "))
         {
@@ -775,6 +782,8 @@ public class cls_IPCB_Component : Dictionary<string, st_IPCB_Component>
 
     public st_IPCB_Component GetComponent(string RefDes, string Footprint = "")
     {
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         foreach (st_IPCB_Component item in this.Values)
         {
             if (Footprint == "")
@@ -795,6 +804,8 @@ public class cls_IPCB_Component : Dictionary<string, st_IPCB_Component>
 
     public List<string> GetRefDesKeys(string RefDes)
     {
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         List<string> output = new List<string>();
 
         foreach (KeyValuePair<string, st_IPCB_Component> item in this)
@@ -807,6 +818,7 @@ public class cls_IPCB_Component : Dictionary<string, st_IPCB_Component>
 
     public bool DuplicateRef(string RefDes)
     {
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         int cnt = 0;
         foreach (KeyValuePair<string, st_IPCB_Component> item in this)
@@ -1080,6 +1092,7 @@ public class clsOutput
 /// </summary>
 public class clsSelectedObjects
 {
+    public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
 
     public List<IPCB_Arc> arcObjects;
     public List<IPCB_Pad> padObjects;
@@ -1094,6 +1107,8 @@ public class clsSelectedObjects
 
     public clsSelectedObjects()
     {
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         arcObjects = new List<IPCB_Arc>();
         padObjects = new List<IPCB_Pad>();
         ViaObjects = new List<IPCB_Via>();
@@ -1108,6 +1123,8 @@ public class clsSelectedObjects
 
     internal IPCB_Component GetComponent(string ID)
     {
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
 
         foreach (IPCB_Component item in componentObjects)
         {

@@ -29,7 +29,7 @@ public partial class General_Options : OptionsForm
 
     public General_Options() : base()
     {
-        _Log.Debug("General_Options");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         InitializeComponent();
         UI.ApplyADUITheme(this);
@@ -41,7 +41,7 @@ public partial class General_Options : OptionsForm
     /// </summary>
     protected override void GetStateControlsImpl()
     {
-        _Log.Debug("GetStateControlsImpl");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         int intLayer;
         if (Int32.TryParse(txtEmbededResLayer.Text, out intLayer))
@@ -98,7 +98,7 @@ public partial class General_Options : OptionsForm
     /// </summary>
     protected override void ClearModified()
     {
-        _Log.Debug("ClearModified");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         int intLayer;
         if (int.TryParse(txtEmbededResLayer.Text, out intLayer))
@@ -155,7 +155,7 @@ public partial class General_Options : OptionsForm
     /// </summary>
     protected override void SetStateControlsImpl()
     {
-        _Log.Debug("SetStateControlsImpl");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         txtEmbededResLayer.Text = ToolsPreferences.FirstResistorLayer.ToString();
         txtLayerCount.Text = ToolsPreferences.LayerCount.ToString();
@@ -180,7 +180,7 @@ public partial class General_Options : OptionsForm
     /// </summary>
     protected override void SetDefaultStateImpl()
     {
-        _Log.Debug("SetDefaultStateImpl");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         //Batch outjob generator option
         chkBatchRefHide.Checked = true;
@@ -209,7 +209,7 @@ public partial class General_Options : OptionsForm
     /// <returns>True if form values have been modified.</returns>
     protected override bool GetModifiedImpl()
     {
-        _Log.Debug("GetModifiedImpl");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         return (txtEmbededResLayer.Text != ToolsPreferences.FirstResistorLayer.ToString()) ||
             (txtLayerCount.Text != ToolsPreferences.LayerCount.ToString()) ||
@@ -229,7 +229,7 @@ public partial class General_Options : OptionsForm
     /// <returns></returns>
     protected override int GetNotificationCodeImpl()
     {
-        _Log.Debug("GetNotificationCodeImpl");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         return ToolsPreferences.NotificationCodePreferencesChanged;
     }
@@ -241,7 +241,7 @@ public partial class General_Options : OptionsForm
     /// <param name="e"></param>
     private void chkErrorEnable_CheckedChanged(object sender, EventArgs e)
     {
-        _Log.Debug("chkErrorEnable_CheckedChanged");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         bool boolEnabled = chkErrorEnable.Checked;
 
@@ -253,7 +253,7 @@ public partial class General_Options : OptionsForm
 
     private void txtExtFileConfig_TextChanged(object sender, EventArgs e)
     {
-        _Log.Debug("txtExtFileConfig_TextChanged");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         if (!File.Exists(txtExtFileConfig.Text))
         {

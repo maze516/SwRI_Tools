@@ -39,7 +39,7 @@ public partial class frmHeightReport : Form
     /// <param name="HeightList"></param>
     public void FillList(Dictionary<string, Heights> HeightList)
     {
-        _Log.Debug("FillList");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         foreach (KeyValuePair<string, Heights> item in HeightList)
         {
@@ -55,7 +55,7 @@ public partial class frmHeightReport : Form
     /// <returns>Returns a list of components selected in the list.</returns>
     public List<string> GetSelectedComponents()
     {
-        _Log.Debug("GetSelectedComponents");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         List<string> tmpComponents = new List<string>();
         foreach (string item in lstComponents.CheckedItems)
@@ -67,7 +67,7 @@ public partial class frmHeightReport : Form
 
     private void btnUpdate_Click(object sender, EventArgs e)
     {
-        _Log.Debug("btnUpdate_Click");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         this.DialogResult = DialogResult.OK;
         this.Close();
@@ -75,14 +75,14 @@ public partial class frmHeightReport : Form
 
     private void btnCancel_Click(object sender, EventArgs e)
     {
-        _Log.Debug("btnCancel_Click");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         this.DialogResult = DialogResult.Cancel;
         this.Close();
     }
     public int ListCount()
     {
-        _Log.Debug("ListCount");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         return lstComponents.Items.Count;
     }

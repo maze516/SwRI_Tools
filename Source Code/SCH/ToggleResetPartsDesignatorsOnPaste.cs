@@ -10,7 +10,7 @@ class ToggleResetPartsDesignatorsOnPaste
     /// </summary>
     public void ToggleResetPartsRefDesOnPaste()
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         bool CurrentState;
 

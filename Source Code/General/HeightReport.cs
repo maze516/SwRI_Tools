@@ -18,7 +18,7 @@ public class HeightReport
     /// <param name="Update">Update body heights to schematic height parameter.</param>
     public void GetReport(bool Update = false)
     {
-        _Log.Debug("GetReport");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
@@ -58,7 +58,7 @@ public class HeightReport
     /// <param name="argHeights">Reference to the dict storing report info.</param>
     void GetParamHeights(ref Dictionary<string, Heights> argHeights)
     {
-        _Log.Debug("GetParamHeights");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
@@ -99,7 +99,7 @@ public class HeightReport
     /// <param name="argHeights">Reference to the dict storing report info.</param>
     void GetBodyHeights(ref Dictionary<string, Heights> argHeights)
     {
-        _Log.Debug("GetBodyHeights");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
@@ -148,7 +148,7 @@ public class HeightReport
     /// <param name="argComponent">Component to get height from.</param>
     private void ObtainParamHeight(ref Dictionary<string, Heights> argHeights, ISch_Component argComponent)
     {
-        _Log.Debug("ObtainParamHeight");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
@@ -214,7 +214,7 @@ public class HeightReport
     /// <param name="argComponent">Footprint to get height from.</param>
     private void ObtainBodyHeight(ref Dictionary<string, Heights> argHeights, IPCB_Component argComponent)
     {
-        _Log.Debug("ObtainBodyHeight");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
@@ -281,7 +281,7 @@ public class HeightReport
     /// <param name="argHeights">Reference to the dict storing report info.</param>
     void UpdateBodies(Dictionary<string, Heights> argHeights)
     {
-        _Log.Debug("UpdateBodies");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
@@ -317,7 +317,7 @@ public class HeightReport
     /// <param name="tmpList"></param>
     private void SetBodyHeight(Dictionary<string, Heights> argHeights, List<string> tmpList)
     {
-        _Log.Debug("SetBodyHeight");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         //?Body.GetState_DescriptorString()
         //"3D Extruded  (Mechanical 2, Bot Assy)  Standoff=0mil  Overall=163mil  (26522.112mil, 20350.482mil)"
@@ -417,7 +417,7 @@ public class HeightReport
     /// <param name="argHeights">Reference to the dict storing report info.</param>
     private void GenerateReport(ref Dictionary<string, Heights> argHeights)
     {
-        _Log.Debug("GenerateReport");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {//Generating Report
@@ -468,7 +468,7 @@ public class HeightReport
     /// <param name="argHeights">Reference to the dict storing report info.</param>
     private void GenerateCSV(ref Dictionary<string, Heights> argHeights)
     {
-        _Log.Debug("GenerateCSV");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
@@ -525,7 +525,7 @@ public class HeightReport
     /// <param name="report"></param>
     void ScanDocuments(ref Dictionary<string, Heights> report)
     {
-        _Log.Debug("ScanDocuments");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
@@ -652,7 +652,7 @@ public class HeightReport
     /// <returns>Height of body in AD coords</returns>
     int GetCompHeight(IPCB_ComponentBody Body)
     {
-        _Log.Debug("GetCompHeight");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         double RotX, RotY, RotZ;
         int StandOff;
@@ -675,7 +675,7 @@ public class HeightReport
     /// <param name="value">Desired height in AD coords</param>
     void SetCompHeight(IPCB_ComponentBody Body, int value)
     {
-        _Log.Debug("SetCompHeight");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         double RotX, RotY, RotZ;
         int StandOff;
@@ -711,7 +711,7 @@ public class Heights
     public string Footprint { get { return strFootprint; } set { strFootprint = value; } }
     public override string ToString()
     {
-        _Log.Debug("ToString");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         string output = "";
         output = "Body Height:";

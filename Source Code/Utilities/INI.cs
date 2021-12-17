@@ -27,7 +27,7 @@ namespace Ini
         /// <PARAM name="INIPath"></PARAM>
         public IniFile(string INIPath)
         {
-            _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+            _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
             path = INIPath;
         }
@@ -42,7 +42,7 @@ namespace Ini
         /// Value Name
         public void IniWriteValue(string Section, string Key, string Value)
         {
-            _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+            _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
             WritePrivateProfileString(Section, Key, Value, this.path);
         }
@@ -56,7 +56,7 @@ namespace Ini
         /// <returns></returns>
         public string IniReadValue(string Section, string Key)
         {
-            _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+            _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
             StringBuilder temp = new StringBuilder(255);
             int i = GetPrivateProfileString(Section, Key, "", temp,

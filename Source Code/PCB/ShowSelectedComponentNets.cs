@@ -13,7 +13,7 @@ class ShowSelectedComponentNets
 
     public void NetConnect()
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
 #if DEBUG
         Stopwatch stopwatch;

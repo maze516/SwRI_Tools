@@ -14,7 +14,7 @@ class AssignNetClss
     public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
     public void AssignNet()
     {
-        _Log.Debug("AssignNet");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         IClient tmpClient = DXP.GlobalVars.Client;
         IPCB_Primitive FirstObj = null;

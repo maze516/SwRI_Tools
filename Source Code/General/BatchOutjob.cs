@@ -16,7 +16,7 @@ public class BatchOutjob
     /// </summary>
     public void StartOutjobBatch()
     {
-        _Log.Debug("StartOutjobBatch");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
         try
         {
             //Initialize the form.
@@ -45,7 +45,7 @@ public class clsODBFiles
     /// </summary>
     public clsODBFiles()
     {
-        _Log.Debug("clsODBFiles");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         Board = null;
         PCBServerDoc = null;
@@ -81,7 +81,7 @@ public class clsOutJob
     /// <param name="ODB">True if outjob is and ODB++ medium.</param>
     public clsOutJob(IOutputMedium Medium, IServerDocument Document, bool ODB)
     {
-        _Log.Debug("clsODBFiles");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         OutputMedium = Medium;
         ServerDoc = Document;

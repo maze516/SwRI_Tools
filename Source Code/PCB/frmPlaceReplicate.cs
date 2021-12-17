@@ -17,7 +17,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
     PlaceReplicate PR = new PlaceReplicate();
     public frmPlaceReplicate()
     {
-        _Log.Debug("frmPlaceReplicate");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
 
         InitializeComponent();
@@ -28,7 +28,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
     private void btnSource_Click(object sender, EventArgs e)
     {
-        _Log.Debug("btnSource_Click");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
@@ -59,7 +59,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
     private void btnDest_Click(object sender, EventArgs e)
     {//TODO: allow adding dest from sch
-        _Log.Debug("btnDest_Click");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
@@ -90,7 +90,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
     private void btnMatch_Click(object sender, EventArgs e)
     {
-        _Log.Debug("btnMatch_Click");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
@@ -129,18 +129,17 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
     private void btnReset_Click(object sender, EventArgs e)
     {
-        _Log.Debug("btnReset_Click");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         RemoveMatched();
     }
 
     private void btnPlace_Click(object sender, EventArgs e)
     {
-        _Log.Debug("btnPlace_Click");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
-            _Log.Debug("Place button");
             clsSelectedObjects NewPlacement = new clsSelectedObjects();
 
             Dictionary<string, string> NetCompare = GetNetDiff();
@@ -461,7 +460,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
     private void RemoveMatched(string Match = "")
     {
-        _Log.Debug("RemoveMatched");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         string[] temp;
         if (Match == "")
@@ -507,7 +506,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
     private void AddMatch(string Source, string Dest)
     {
-        _Log.Debug("AddMatch");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         if (Matched(Source)) return;
 
@@ -522,14 +521,14 @@ public partial class frmPlaceReplicate : ServerPanelForm
     }
     private void lstMatched_MouseDoubleClick(object sender, MouseEventArgs e)
     {
-        _Log.Debug("lstMatched_MouseDoubleClick");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         RemoveMatched(lstMatched.SelectedItem.ToString());
     }
 
     private void lstDest_MouseDoubleClick(object sender, MouseEventArgs e)
     {
-        _Log.Debug("lstDest_MouseDoubleClick");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         string selectedSource, selectedDest;
         DXP.Utils.PercentBeginComplexOperation("Adding matches.");
@@ -547,7 +546,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
     private void lstSource_MouseDoubleClick(object sender, MouseEventArgs e)
     {
-        _Log.Debug("lstSource_MouseDoubleClick");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         string selectedSource, selectedDest;
         DXP.Utils.PercentBeginComplexOperation("Adding matches.");
@@ -565,14 +564,14 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
     private void lstSource_MouseClick(object sender, MouseEventArgs e)
     {
-        _Log.Debug("lstSource_MouseClick");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         //SelectCmpt();
     }
 
     private void lstDest_MouseClick(object sender, MouseEventArgs e)
     {
-        _Log.Debug("lstDest_MouseClick");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         //SelectCmpt();
     }
@@ -581,7 +580,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
     string prevSelectedSource, prevSelectedDest;
     void SelectCmpt()
     {
-        _Log.Debug("SelectCmpt");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         string selectedSource, selectedDest;
         IPCB_Component cmptSource, cmptDest;
@@ -629,7 +628,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
     void AttemptAutoMatch(string Dest, string Source, List<string> SrcList, List<string> DstList)
     {
-        _Log.Debug("AttemptAutoMatch");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
@@ -1092,7 +1091,6 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
     int Unmatched(List<string> RefDes)
     {
-        _Log.Debug("Unmatched");
 
         int output = 0;
         foreach (string match in lstMatched.Items)
@@ -1108,7 +1106,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
     private void chkAutoMatch_CheckedChanged(object sender, EventArgs e)
     {
-        _Log.Debug("chkAutoMatch_CheckedChanged");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         chkInDepth.Enabled = chkAutoMatch.Checked;
     }
@@ -1116,7 +1114,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
     private void btnFullReset_Click(object sender, EventArgs e)
     {
-        _Log.Debug("btnFullReset_Click");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         PR = new PlaceReplicate();
 

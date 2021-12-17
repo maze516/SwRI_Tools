@@ -11,7 +11,7 @@ class FixRefdesOrientation
     /// </summary>
     public void FixRefDesOrientation()
     {
-        _Log.Debug("FixRefDesOrientation");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {

@@ -25,7 +25,7 @@ class ShowHideRefDes
     /// <param name="NameOn">true = show refdes', false = hide refdes'</param>
     public void ShowHide(IPCB_Board Board, bool NameOn,bool Discretes = false)
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {

@@ -20,7 +20,7 @@ public partial class frmBatchOutjob : Form
 
     public frmBatchOutjob()
     {
-        _Log.Debug("frmBatchOutjob");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         InitializeComponent();
         UI.ApplyADUITheme(this);
@@ -29,7 +29,7 @@ public partial class frmBatchOutjob : Form
     private bool Checking = false;
     private void treeOutjobs_AfterCheck(object sender, TreeViewEventArgs e)
     {
-        _Log.Debug("treeOutjobs_AfterCheck");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         if (Checking) return;
         Checking = true;
@@ -62,7 +62,7 @@ public partial class frmBatchOutjob : Form
 
     private void btnGenerate_Click(object sender, System.EventArgs e)
     {
-        _Log.Debug("btnGenerate_Click");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
@@ -181,7 +181,7 @@ public partial class frmBatchOutjob : Form
 
     public void frmBatchOutjob_Load(object sender, System.EventArgs e)
     {
-        _Log.Debug("frmBatchOutjob_Load");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         IDXPProject Project = DXP.GlobalVars.DXPWorkSpace.DM_FocusedProject();
 
@@ -259,7 +259,7 @@ public partial class frmBatchOutjob : Form
     /// <returns>True/False if successful.</returns>
     bool PreODB()
     {
-        _Log.Debug("PreODB");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
@@ -329,7 +329,7 @@ public partial class frmBatchOutjob : Form
     /// <returns>True/False if successful.</returns>
     bool PostODB()
     {
-        _Log.Debug("PostODB");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
@@ -362,7 +362,7 @@ public partial class frmBatchOutjob : Form
     /// <returns>List of outjobs in project.</returns>
     public List<string> GetOutputJobPath()
     {
-        _Log.Debug("GetOutputJobPath");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
@@ -416,7 +416,7 @@ public partial class frmBatchOutjob : Form
 
     private void btnCancel_Click(object sender, EventArgs e)
     {
-        _Log.Debug("btnCancel_Click");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         foreach (IServerDocument ServerDoc in lstServerDocs)
             tmpClient.CloseDocument(ServerDoc);

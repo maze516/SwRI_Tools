@@ -15,7 +15,7 @@ class clFixEmbededResistors
     /// <returns>True: Layers are clear, False:Objects on one of the layers.</returns>
     public Boolean MechanicalClear()
     {
-        _Log.Debug("MechanicalClear");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
@@ -81,7 +81,7 @@ class clFixEmbededResistors
     /// </summary>
     public void FixEmbededResistors()
     {
-        _Log.Debug("FixEmbededResistors");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
@@ -197,7 +197,7 @@ class clFixEmbededResistors
     /// </returns>
     SortedDictionary<string, int> LayerReport(SortedDictionary<string, int> LayerList)
     {
-        _Log.Debug("LayerReport");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         frmEmbededResistorRpt frmReport = new frmEmbededResistorRpt();
         if (LayerList.Count <= 0)
@@ -228,7 +228,7 @@ class clFixEmbededResistors
     /// </param>
     void MoveMechLayers(List<IPCB_Component> EmbededResistors, List<TV6_Layer> UsedLayers, SortedDictionary<string, int> LayerCounts)
     {
-        _Log.Debug("MoveMechLayers");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         DXP.Utils.PercentInit("Updating Embeded Components", EmbededResistors.Count);
 

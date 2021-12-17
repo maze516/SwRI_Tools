@@ -13,7 +13,7 @@ public class ToggleLockedObjects
     /// </summary>
     public void ToggleProtectLockedObjects()
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
@@ -39,7 +39,7 @@ public class ToggleLockedObjects
 
     public void ToggleLoopRemoval()
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {

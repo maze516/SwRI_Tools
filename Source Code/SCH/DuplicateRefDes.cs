@@ -10,7 +10,7 @@ class DuplicateRefDes
     public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
     public void CheckRefDes()
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
@@ -174,7 +174,7 @@ class DuplicateRefDes
 
     string[] SplitString(string input)
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         if (input == "" || input == null) 
             return new string[1];

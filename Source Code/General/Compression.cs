@@ -46,7 +46,7 @@ namespace Helpers
         /// </param>
         public static void SimpleZip(string dirToZip, string zipName)
         {
-            _Log.Debug("SimpleZip");
+            _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
             using (ZipFile zip = new ZipFile())
             {
@@ -62,7 +62,7 @@ namespace Helpers
         static long transfer = 0;
         private static void Zip_SaveProgress(object sender, SaveProgressEventArgs e)
         {
-            _Log.Debug("Zip_SaveProgress");
+            _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
             if (e.TotalBytesToTransfer > 0 & !initialized)
             {
@@ -97,7 +97,7 @@ namespace Helpers
         public static void SimpleZip(string dirToZip, string zipName, 
             Ionic.Zlib.CompressionLevel compression = Ionic.Zlib.CompressionLevel.BestSpeed, bool includeRoot = false)
         {
-            _Log.Debug("SimpleZip");
+            _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
             using (ZipFile zip = new ZipFile())
             {

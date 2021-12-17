@@ -12,7 +12,7 @@ public partial class frmEmbededResistorRpt : Form
 
     public frmEmbededResistorRpt()
     {
-        _Log.Debug("frmEmbededResistorRpt");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         updating = true;
         InitializeComponent();
@@ -23,7 +23,7 @@ public partial class frmEmbededResistorRpt : Form
 
     private void dataGridView1_ContentClicked(object sender, DataGridViewCellEventArgs e)
     {
-        _Log.Debug("dataGridView1_ContentClicked");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         if (updating) return;
         updating = true;
@@ -52,7 +52,7 @@ public partial class frmEmbededResistorRpt : Form
     /// <param name="Layers">Dictionary of used layers and qty of components on each.</param>
     public void FillList(SortedDictionary<string, int> Layers)
     {
-        _Log.Debug("FillList");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         updating = true;
         int Pos;
@@ -73,7 +73,7 @@ public partial class frmEmbededResistorRpt : Form
     /// <returns>Updated list of layers used.</returns>
     public SortedDictionary<string, int> GetSelection()
     {
-        _Log.Debug("GetSelection");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         string tmpKey;
         int tmpLoc;
@@ -91,7 +91,7 @@ public partial class frmEmbededResistorRpt : Form
 
     private void btnCancel_Click(object sender, EventArgs e)
     {
-        _Log.Debug("btnCancel_Click");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
     }
 }

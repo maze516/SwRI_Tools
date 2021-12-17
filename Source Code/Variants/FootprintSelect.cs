@@ -20,7 +20,7 @@ public partial class FootprintSelect : ServerPanelForm
     List<string> Report;
     public FootprintSelect()
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         InitializeComponent();
         UI.ApplyADUITheme(this);
@@ -32,7 +32,7 @@ public partial class FootprintSelect : ServerPanelForm
     /// </summary>
     void ListFootprints()
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
@@ -213,7 +213,7 @@ public partial class FootprintSelect : ServerPanelForm
     /// <param name="e"></param>
     private void tvList_AfterSelect(object sender, TreeViewEventArgs e)
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         List<string> Components = new List<string>();
         TreeNode Selected = tvList.SelectedNode;
@@ -377,35 +377,35 @@ public partial class FootprintSelect : ServerPanelForm
 
     private void btnZoom_Click(object sender, EventArgs e)
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         DXP.Utils.RunCommand("PCB:Zoom", "Action= Selected");
     }
 
     private void btnRefresh_Click(object sender, EventArgs e)
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         ListFootprints();
     }
 
     private void btnMask_Click(object sender, EventArgs e)
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         DXP.Utils.RunCommand("PCB:Mask", "Action= Selected");
     }
 
     private void btnAlignSelected_Click(object sender, EventArgs e)
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         new AlignVariants().AlignSelectedVariants();
     }
 
     private void btnReport_Click(object sender, EventArgs e)
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         string strPath = Util.ProjPath();
         //"C:\\Users\\rlyne\\AppData\\Local"

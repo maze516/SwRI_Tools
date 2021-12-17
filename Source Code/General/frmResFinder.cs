@@ -20,7 +20,7 @@ public partial class frmResFinder : ServerPanelForm
 
     public frmResFinder()
     {
-        _Log.Debug("frmResFinder");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         InitializeComponent();
         UI.ApplyADUITheme(this);
@@ -29,7 +29,7 @@ public partial class frmResFinder : ServerPanelForm
 
     private void btnFind_Click(object sender, EventArgs e)
     {
-        _Log.Debug("btnFind_Click");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         double find = (double)numTarget.Value;
         List<Values> SeriesOutput = new List<Values>();
@@ -98,7 +98,7 @@ public partial class frmResFinder : ServerPanelForm
     /// <param name="d"> 1, 10, 100, 1000, 10000, 100000</param>
     void FillResValues(int[] Steps, List<double> Decades)
     { //r=d*10^(i/n)
-        _Log.Debug("FillResValues");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         double Multiplier;
         int tmp;
@@ -179,7 +179,7 @@ public partial class frmResFinder : ServerPanelForm
 
     private void numTarget_KeyDown(object sender, KeyEventArgs e)
     {
-        _Log.Debug("numTarget_KeyDown");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         if (e.KeyCode == Keys.Enter)
             btnFind_Click(null, null);
@@ -187,7 +187,7 @@ public partial class frmResFinder : ServerPanelForm
 
     private void frmResFinder_Load(object sender, EventArgs e)
     {
-        _Log.Debug("frmResFinder_Load");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         ResValues = new List<double>();// { 100, 110, 120, 130, 150, 160, 180, 200, 220, 240, 270, 300, 330, 360, 390, 430, 470, 510, 560, 620, 680, 750, 820, 910 };
         List<double> Decades = new List<double>();
@@ -206,7 +206,7 @@ public partial class frmResFinder : ServerPanelForm
 
     private void numTarget_ValueChanged(object sender, EventArgs e)
     {
-        _Log.Debug("numTarget_ValueChanged");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         if (numTarget.Value > (decimal)ResValues[ResValues.Count - 1])
             lblMax.Text = "Max single value is " + ResValues[ResValues.Count - 1];

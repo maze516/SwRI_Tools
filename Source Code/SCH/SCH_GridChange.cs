@@ -17,7 +17,7 @@ public class SCH_GridChange
     /// <param name="parameters">Altium provided parameter string.</param>
     public void GridChange(string parameters)
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
@@ -66,7 +66,7 @@ public class SCH_GridChange
     /// </summary>
     void SelectAll()
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
@@ -104,7 +104,7 @@ public class SCH_GridChange
     /// <param name="SizeInMils">Desired grid size in mils.</param>
     void SetGrid(int SizeInMils)
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
@@ -140,7 +140,7 @@ public class SCH_GridChange
     /// </summary>
     void AlignToGrid()
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
@@ -166,7 +166,7 @@ public class SCH_GridChange
     /// <param name="AlignToGrid">True/False if components should be aligned to the new grid.</param>
     void ChangeGridSize(int SizeInMils, bool AlignToGrid = false)
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {

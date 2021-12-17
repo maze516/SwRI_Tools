@@ -20,7 +20,7 @@ public partial class DoFileGen : ServerPanelForm
     public const string PanelCaption = "DO File Gen";
     public DoFileGen()
     {
-        _Log.Debug("DoFileGen");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         InitializeComponent();
         UI.ApplyADUITheme(this);
@@ -30,7 +30,7 @@ public partial class DoFileGen : ServerPanelForm
 
     private void chkReportList_MouseUp(object sender, MouseEventArgs e)
     {
-        _Log.Debug("chkReportList_MouseUp");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         ArrayList Output = new ArrayList();
         CheckedListBox.CheckedItemCollection CheckedItems = chkReportList.CheckedItems;
@@ -79,7 +79,7 @@ public partial class DoFileGen : ServerPanelForm
 
     private void btnSave_Click(object sender, EventArgs e)
     {
-        _Log.Debug("btnSave_Click");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         SaveFileDialog FileDiag = new SaveFileDialog();
         FileDiag.OverwritePrompt = true;

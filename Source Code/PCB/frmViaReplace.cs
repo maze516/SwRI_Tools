@@ -25,7 +25,7 @@ public partial class frmViaReplace : ServerPanelForm
 
     public frmViaReplace()
     {
-        _Log.Debug("frmViaReplace");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         InitializeComponent();
         UI.ApplyADUITheme(this);
@@ -34,7 +34,7 @@ public partial class frmViaReplace : ServerPanelForm
 
     private void LoadLists()
     {
-        _Log.Debug("LoadLists");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         PCBServer = PCB.GlobalVars.PCBServer;
 
@@ -64,7 +64,7 @@ public partial class frmViaReplace : ServerPanelForm
     }
     private void btnReplaceAll_Click(object sender, EventArgs e)
     {
-        _Log.Debug("btnReplaceAll_Click");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         DXP.Utils.StatusBarSetState(2, "Replacing Vias");
         if (lstAfter.SelectedItems.Count < 1 || lstBefore.SelectedItems.Count < 1)
@@ -93,7 +93,7 @@ public partial class frmViaReplace : ServerPanelForm
 
     private bool SingleViaReplace()
     {
-        _Log.Debug("SingleViaReplace");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         if (PCBServer == null)
             return false;
@@ -160,7 +160,7 @@ public partial class frmViaReplace : ServerPanelForm
 
     private bool MultiBeforeViaReplace()
     {
-        _Log.Debug("MultiBeforeViaReplace");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         //if (PCBServer == null)
         //    return false;
@@ -292,7 +292,7 @@ public partial class frmViaReplace : ServerPanelForm
 
     private void ReplaceVia(IPCB_Via OldVia, List<IPCB_DrillLayerPair> NewPairs, bool RemoveOld = true)
     {
-        _Log.Debug("ReplaceVia");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         IPCB_Via NewVia;
         PCBServer = PCB.GlobalVars.PCBServer;
@@ -345,7 +345,7 @@ public partial class frmViaReplace : ServerPanelForm
 
     private void btnSelected_Click(object sender, EventArgs e)
     {
-        _Log.Debug("btnSelected_Click");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         SelectedOnly = true;
         btnReplaceAll.PerformClick();
@@ -354,7 +354,7 @@ public partial class frmViaReplace : ServerPanelForm
 
     private void btnSelect_Click(object sender, EventArgs e)
     {
-        _Log.Debug("btnSelect_Click");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         if (PCBServer == null)
             return;
@@ -409,14 +409,14 @@ public partial class frmViaReplace : ServerPanelForm
 
     private void btnUpdateList_Click(object sender, EventArgs e)
     {
-        _Log.Debug("btnUpdateList_Click");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         LoadLists();
     }
 
     private void btnRemoveDupe_Click(object sender, EventArgs e)
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
         DXP.Utils.StatusBarSetState(2, "Removing Vias");
 
         //if (PCBServer == null)

@@ -31,7 +31,7 @@ public class ToolsPreferences
     /// </summary>
     public static void Load()
     {
-        _Log.Debug("Load");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         IOptionsReader optionsReader = Utils.ServerOptionsReader(Util.SERVERNAME);
 
@@ -92,7 +92,7 @@ public class ToolsPreferences
     /// </summary>
     public static void Save()
     {
-        _Log.Debug("Save");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         IOptionsWriter optionsWriter = DXP.Utils.ServerOptionsWriter(Util.SERVERNAME);
 

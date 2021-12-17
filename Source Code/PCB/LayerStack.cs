@@ -17,7 +17,7 @@ public class LayerStackTable
 
     public void PlaceLayerStackTable()
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         PCBServer = PCB.GlobalVars.PCBServer;
         List<IPCB_Primitive> lstLayerStackPrims = new List<IPCB_Primitive>();
@@ -208,7 +208,7 @@ public class LayerStackTable
 
     List<IPCB_Primitive> CreateTemplate(int LayerCount)
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         List<IPCB_Primitive> lstWorkingSet = new List<IPCB_Primitive>();
 
@@ -260,7 +260,7 @@ public class LayerStackTable
 
     IPCB_Primitive CreateTrack(double x1, double y1, double x2, double y2, TV6_Layer Layer)
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         IPCB_Primitive tmpPrim = PCBServer.PCBObjectFactory(TObjectId.eTrackObject, TDimensionKind.eNoDimension, TObjectCreationMode.eCreate_Default);
         IPCB_Track track = tmpPrim as IPCB_Track;
@@ -278,7 +278,7 @@ public class LayerStackTable
 
     IPCB_Primitive CreateString(double x1, double y1, string Text, TV6_Layer Layer)
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         if (Text == null) return null;
         IPCB_Primitive tmpPrim = PCBServer.PCBObjectFactory(TObjectId.eTextObject, TDimensionKind.eNoDimension, TObjectCreationMode.eCreate_Default);
@@ -304,7 +304,7 @@ public class LayerStackTable
     //return;
     private static IPCB_Component Place(IPCB_Component component)
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         DXP.Utils.RunCommand("PCB:DeSelect", "Scope = All");
 

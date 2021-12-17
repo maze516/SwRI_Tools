@@ -14,7 +14,7 @@ class xSignals
 
     public void Get_xSignals()
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         xSignalReport();
         //IPCB_Board board = Util.GetCurrentPCB();
@@ -23,7 +23,7 @@ class xSignals
     }
      void xSignalReport()
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         IPCB_ServerInterface PCBServer = PCB.GlobalVars.PCBServer;
         IPCB_Board Board;

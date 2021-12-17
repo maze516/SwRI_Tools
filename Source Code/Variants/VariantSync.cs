@@ -11,7 +11,7 @@ public partial class VariantSync : Form
     Variants SyncVar = new Variants();
     public VariantSync()
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         InitializeComponent();
         UI.ApplyADUITheme(this);
@@ -20,7 +20,7 @@ public partial class VariantSync : Form
     }
     void LoadCombobox(CheckedListBox cbObject, string Omit)
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         //IProject project = DXP.GlobalVars.DXPWorkSpace.DM_FocusedProject() as IProject;
         //cbObject.Items.Add("Base");
@@ -39,7 +39,7 @@ public partial class VariantSync : Form
     }
     void LoadCombobox(ComboBox cbObject)
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         IProject project = DXP.GlobalVars.DXPWorkSpace.DM_FocusedProject() as IProject;
         cbObject.Items.Add("Base");
@@ -51,7 +51,7 @@ public partial class VariantSync : Form
     }
     private void btnSync_Click(object sender, EventArgs e)
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         string Overwrite;
         if (rbOverwrite.Checked)
@@ -77,14 +77,14 @@ public partial class VariantSync : Form
 
     private void btnCancel_Click(object sender, EventArgs e)
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         this.Close();
     }
 
     private void cbDest_SelectedIndexChanged(object sender, EventArgs e)
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         //Gets the number of non-fitted variants to notify the user about what will be changed to fitted.
         int Count = 0;
@@ -104,7 +104,7 @@ public partial class VariantSync : Form
 
     private void cbForce_CheckedChanged(object sender, EventArgs e)
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         if (cbForce.Checked)
             MessageBox.Show("This will remove all variants set to \"Alternate\".", "Warning", MessageBoxButtons.OK);
@@ -112,7 +112,7 @@ public partial class VariantSync : Form
 
     private void cbSource_SelectedIndexChanged(object sender, EventArgs e)
     {
-        _Log.Debug(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         LoadCombobox(cbDest, cbSource.Text);
     }

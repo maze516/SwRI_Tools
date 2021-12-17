@@ -8,7 +8,7 @@ public class ServerPanel : ServerPanelView
     public ServerPanel(ServerPanelForm argFrm, string argPanelName, string argPanelCaption)
         : base(argFrm, argPanelName, argPanelCaption)
     {
-        _Log.Debug("ServerPanel");
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         if (argPanelName == "")
             return;
