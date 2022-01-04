@@ -44,12 +44,14 @@ public class OpenExtFile
                     return;
                 }
             }
+
             //Open file then clean-up.
             System.Diagnostics.Process proc = System.Diagnostics.Process.Start(Params["filename"], Params["argument"]);
             proc.Dispose();
         }
         catch (Exception ex)
         {
+            if (ex.Message.Contains("The operation was canceled by the user")) return;
             var sb = new System.Text.StringBuilder();
             sb.AppendLine("");
             sb.AppendLine(ex.ToString());
