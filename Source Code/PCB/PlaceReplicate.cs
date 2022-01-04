@@ -545,7 +545,7 @@ public class PlaceReplicate
     /// Collect all the selected destination components.
     /// </summary>
     public void GetDestinationParts()
-    {//TODO: allow adding dest from sch
+    {
         _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         IDXPDocument ActiveDoc = DXP.GlobalVars.DXPWorkSpace.DM_FocusedDocument();
@@ -757,6 +757,8 @@ public class PlaceReplicate
 
     void GetDestPartsFromSCH(List<string> Components)
     {
+        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
         Util.GetCurrentPCB(true);
 
         SelectedDestRef = new List<string>();
@@ -768,7 +770,6 @@ public class PlaceReplicate
 
         IPCB_BoardIterator BoardIterator;
         IPCB_Parameter parameter;
-        IPCB_Primitive Primitive;
         IPCB_Component componentObject;
 
         IPCB_Board Board = Util.GetCurrentPCB();
@@ -938,7 +939,7 @@ public class cls_IPCB_Component : Dictionary<string, st_IPCB_Component>
 
     public bool ContainsRefdes(string RefDes, out string Key)
     {
-        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        //_Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
         if (RefDes == null)
         {
             Key = null;

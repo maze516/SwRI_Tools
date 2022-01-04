@@ -518,8 +518,35 @@ public partial class frmPlaceReplicate : ServerPanelForm
         lstMatched.Items.Add(Source + ">" + Dest);
 
         if (chkAutoMatch.Checked & !AutoMatching)
+        {
             AttemptAutoMatch(Dest, Source, lstSource.Items.OfType<string>().ToList<string>(), lstDest.Items.OfType<string>().ToList<string>());
 
+            _Log.Debug("Rerun Matched");
+            #region Rerun Matched
+            if (chkInDepth.Checked)
+                if (!SmartNetMatching)
+                {
+                    SmartNetMatching = true;
+
+                    List<string> lstSrc = new List<string>();
+                    List<string> lstDst = new List<string>();
+
+                    foreach (string item in lstMatched.Items)
+                    {
+                        lstSrc.Add(item.Split('>')[0]);
+                        lstDst.Add(item.Split('>')[1]);
+                    }
+
+                    while (lstSrc.Count > 0)
+                    {
+                        AttemptAutoMatch(lstDst[0], lstSrc[0], lstSrc.GetRange(1, lstSrc.Count - 1), lstDst.GetRange(1, lstDst.Count - 1));//lstSource.Items.OfType<string>().ToList<string>(), lstDest.Items.OfType<string>().ToList<string>());//
+                        lstSrc.RemoveAt(0);
+                        lstDst.RemoveAt(0);
+                    }
+                    SmartNetMatching = false;
+                }
+        }
+        #endregion
     }
     private void lstMatched_MouseDoubleClick(object sender, MouseEventArgs e)
     {
@@ -748,9 +775,6 @@ public partial class frmPlaceReplicate : ServerPanelForm
             }
 
             #endregion
-
-
-
 
             _Log.Debug("Match Part Numbers");
             #region Match Part Numbers
@@ -1047,34 +1071,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
                         }
                     }
                     #endregion
-                    _Log.Debug("Rerun Matched");
-                    #region Rerun Matched
-                    if (chkInDepth.Checked)
-                        if (!SmartNetMatching)
-                        {
-                            SmartNetMatching = true;
-
-                            lstSrc = new List<string>();
-                            lstDst = new List<string>();
-
-                            foreach (string item in lstMatched.Items)
-                            {
-                                lstSrc.Add(item.Split('>')[0]);
-                                lstDst.Add(item.Split('>')[1]);
-                            }
-
-                            while (lstSrc.Count > 0)
-                            {
-
-                                AttemptAutoMatch(lstDst[0], lstSrc[0], lstSrc.GetRange(1, lstSrc.Count - 1), lstDst.GetRange(1, lstDst.Count - 1));//lstSource.Items.OfType<string>().ToList<string>(), lstDest.Items.OfType<string>().ToList<string>());//
-                                lstSrc.RemoveAt(0);
-                                lstDst.RemoveAt(0);
-                            }
-                            SmartNetMatching = false;
-                        }
-                    #endregion
-
-
+                    
                     AutoMatching = false;
                 }
             //else
