@@ -3,7 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using NLog;
-
+using DXP;
+using SCH;
 
 /// <summary>
 /// 
@@ -70,7 +71,7 @@ public class PlaceReplicate
                     switch (Primitive.GetState_ObjectID())
                     {
                         #region Arcs
-                        case TObjectId.eArcObject:  //Arcs
+                        case PCB.TObjectId.eArcObject:  //Arcs
                             IPCB_Arc arcObject = Primitive as IPCB_Arc;
                             selectedSourceObjects.arcObjects.Add(arcObject);
                             clsOutput.st_IPCB_Arc newArc = new clsOutput.st_IPCB_Arc();
@@ -104,14 +105,14 @@ public class PlaceReplicate
                             break;
                         #endregion
                         #region Pads
-                        case TObjectId.ePadObject:
+                        case PCB.TObjectId.ePadObject:
                             IPCB_Pad padObject = Primitive as IPCB_Pad;
                             selectedSourceObjects.padObjects.Add(padObject);
                             _Log.Debug(Primitive.GetState_DescriptorString());
                             break;
                         #endregion
                         #region Vias
-                        case TObjectId.eViaObject:
+                        case PCB.TObjectId.eViaObject:
                             _Log.Debug(Primitive.GetState_DescriptorString());
                             IPCB_Via ViaObject = Primitive as IPCB_Via;
 
@@ -141,7 +142,7 @@ public class PlaceReplicate
                             break;
                         #endregion
                         #region Tracks
-                        case TObjectId.eTrackObject:
+                        case PCB.TObjectId.eTrackObject:
                             IPCB_Track trackObject = Primitive as IPCB_Track;
                             _Log.Debug(Primitive.GetState_DescriptorString());
                             selectedSourceObjects.trackObjects.Add(trackObject);
@@ -167,14 +168,14 @@ public class PlaceReplicate
                             break;
                         #endregion
                         #region Text
-                        case TObjectId.eTextObject:
+                        case PCB.TObjectId.eTextObject:
                             IPCB_Text textObject = Primitive as IPCB_Text;
                             selectedSourceObjects.textObjects.Add(textObject);
                             _Log.Debug(Primitive.GetState_DescriptorString());
                             break;
                         #endregion
                         #region Fills
-                        case TObjectId.eFillObject:
+                        case PCB.TObjectId.eFillObject:
                             IPCB_Fill fillObject = Primitive as IPCB_Fill;
                             selectedSourceObjects.fillObjects.Add(fillObject);
 
@@ -206,14 +207,14 @@ public class PlaceReplicate
                             _Log.Debug(Primitive.GetState_DescriptorString());
                             break;
                         #endregion
-                        //case TObjectId.eConnectionObject:
+                        //case PCB.TObjectId.eConnectionObject:
                         //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
-                        //case TObjectId.eNetObject:
+                        //case PCB.TObjectId.eNetObject:
                         //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
                         #region Components
-                        case TObjectId.eComponentObject:
+                        case PCB.TObjectId.eComponentObject:
                             IPCB_Component componentObject = Primitive as IPCB_Component;
                             selectedSourceObjects.componentObjects.Add(componentObject);
 
@@ -222,7 +223,7 @@ public class PlaceReplicate
                             IPCB_GroupIterator compIterator = componentObject.GroupIterator_Create();
 
                             PCB.TObjectSet compFilterset = new PCB.TObjectSet();
-                            compFilterset.Add(TObjectId.ePadObject);
+                            compFilterset.Add(PCB.TObjectId.ePadObject);
                             compIterator.AddFilter_ObjectSet(compFilterset);
                             compIterator.AddFilter_LayerSet(PCBConstant.V6AllLayersSet); //Filter all layers.
 
@@ -335,7 +336,7 @@ public class PlaceReplicate
                             break;
                         #endregion
                         #region Polygons
-                        case TObjectId.ePolyObject:
+                        case PCB.TObjectId.ePolyObject:
                             IPCB_Polygon polygonObject = Primitive as IPCB_Polygon;
                             selectedSourceObjects.polygonObjects.Add(polygonObject);
 
@@ -370,7 +371,7 @@ public class PlaceReplicate
                             break;
                         #endregion
                         #region Regions
-                        case TObjectId.eRegionObject:
+                        case PCB.TObjectId.eRegionObject:
 
                             IPCB_Region regionObject = Primitive as IPCB_Region;
                             selectedSourceObjects.regionObjects.Add(regionObject);
@@ -421,49 +422,49 @@ public class PlaceReplicate
 
                             break;
                         #endregion
-                        //case TObjectId.eComponentBodyObject:
+                        //case PCB.TObjectId.eComponentBodyObject:
                         //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
-                        //case TObjectId.eDimensionObject:
+                        //case PCB.TObjectId.eDimensionObject:
                         //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
-                        //case TObjectId.eCoordinateObject:
+                        //case PCB.TObjectId.eCoordinateObject:
                         //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
-                        //case TObjectId.eClassObject:
+                        //case PCB.TObjectId.eClassObject:
                         //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
-                        //case TObjectId.eRuleObject:
+                        //case PCB.TObjectId.eRuleObject:
                         //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
-                        //case TObjectId.eFromToObject:
+                        //case PCB.TObjectId.eFromToObject:
                         //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
-                        //case TObjectId.eDifferentialPairObject:
+                        //case PCB.TObjectId.eDifferentialPairObject:
                         //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
-                        //case TObjectId.eViolationObject:
+                        //case PCB.TObjectId.eViolationObject:
                         //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
-                        //case TObjectId.eEmbeddedObject:
+                        //case PCB.TObjectId.eEmbeddedObject:
                         //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
-                        //case TObjectId.eEmbeddedBoardObject:
+                        //case PCB.TObjectId.eEmbeddedBoardObject:
                         //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
-                        //case TObjectId.eSplitPlaneObject:
+                        //case PCB.TObjectId.eSplitPlaneObject:
                         //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
-                        //case TObjectId.eTraceObject:
+                        //case PCB.TObjectId.eTraceObject:
                         //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
-                        //case TObjectId.eSpareViaObject:
+                        //case PCB.TObjectId.eSpareViaObject:
                         //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
-                        //case TObjectId.eBoardObject:
+                        //case PCB.TObjectId.eBoardObject:
                         //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
-                        //case TObjectId.eBoardOutlineObject:
+                        //case PCB.TObjectId.eBoardOutlineObject:
                         //    _Log.Debug(Primitive.GetState_DescriptorString());
                         //    break;
                         #region Default
@@ -521,7 +522,7 @@ public class PlaceReplicate
         //Iterate theough all components on the board.
         BoardIterator = Board.BoardIterator_Create();
         PCB.TObjectSet FilterSet = new PCB.TObjectSet();
-        FilterSet.Add(TObjectId.eNetObject);
+        FilterSet.Add(PCB.TObjectId.eNetObject);
         BoardIterator.AddFilter_ObjectSet(FilterSet);
         BoardIterator.AddFilter_LayerSet(PCBConstant.V6AllLayersSet); //Filter all layers.
         BoardIterator.AddFilter_Method(TIterationMethod.eProcessAll);
@@ -544,8 +545,219 @@ public class PlaceReplicate
     /// Collect all the selected destination components.
     /// </summary>
     public void GetDestinationParts()
-    {
+    {//TODO: allow adding dest from sch
         _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
+        IDXPDocument ActiveDoc = DXP.GlobalVars.DXPWorkSpace.DM_FocusedDocument();
+
+        if (ActiveDoc.DM_DocumentKind() == "PCB")
+        {
+            SelectedDestRef = new List<string>();
+            DestNets = new Dictionary<string, List<structNet>>();
+            selectedDestinationObjects = new clsSelectedObjects();
+            Destination = new clsOutput();
+
+            string parameterName, parameterValue;
+
+            IPCB_BoardIterator BoardIterator;
+            IPCB_Parameter parameter;
+            IPCB_Primitive Primitive;
+
+            IPCB_Board Board = Util.GetCurrentPCB();
+
+            if (Board == null)
+                return;
+
+            //Iterate theough all components on the board.
+            BoardIterator = Board.BoardIterator_Create();
+            PCB.TObjectSet FilterSet = new PCB.TObjectSet();
+            BoardIterator.AddFilter_ObjectSet(Util.PCBAllObject);
+            BoardIterator.AddFilter_LayerSet(PCBConstant.V6AllLayersSet); //Filter all layers.
+            BoardIterator.AddFilter_Method(TIterationMethod.eProcessAll);
+
+            Primitive = BoardIterator.FirstPCBObject();
+
+            while (Primitive != null)
+            {
+                if (Primitive.GetState_Selected())
+                {
+                    switch (Primitive.GetState_ObjectID())
+                    {
+                        #region Components
+                        case PCB.TObjectId.eComponentObject:
+                            IPCB_Component componentObject = Primitive as IPCB_Component;
+                            selectedDestinationObjects.componentObjects.Add(componentObject);
+
+                            st_IPCB_Component newComp = new st_IPCB_Component();
+
+                            IPCB_GroupIterator compIterator = componentObject.GroupIterator_Create();
+
+                            PCB.TObjectSet compFilterset = new PCB.TObjectSet();
+                            compFilterset.Add(PCB.TObjectId.ePadObject);
+                            compIterator.AddFilter_ObjectSet(compFilterset);
+                            compIterator.AddFilter_LayerSet(PCBConstant.V6AllLayersSet); //Filter all layers.
+
+                            IPCB_Pad pad = compIterator.FirstPCBObject() as IPCB_Pad;
+                            int pinCount = 0;
+
+                            newComp.ID = componentObject.GetState_UniqueId();
+
+                            newComp.Nets = new Dictionary<string, string>();
+                            while (pad != null)
+                            {
+                                if (pad.GetState_Net() != null)
+                                {
+                                    if (!newComp.Nets.ContainsKey(pad.GetState_Name()))
+                                        newComp.Nets.Add(pad.GetState_Name(), pad.GetState_Net().GetState_Name());
+                                    if (DestNets.ContainsKey(pad.GetState_Net().GetState_Name()))
+                                    {
+                                        //string tmp = componentObject.GetState_Name().GetState_Text();
+                                        structNet tmpNet = new structNet
+                                        {
+                                            Pin = pad.GetState_Name(),
+                                            RefDes = componentObject.GetState_Name().GetState_Text()
+                                        };
+
+                                        if (!DestNets[pad.GetState_Net().GetState_Name()].Contains(tmpNet))
+                                            DestNets[pad.GetState_Net().GetState_Name()].Add(tmpNet);
+                                    }
+                                    else
+                                    {
+                                        DestNets.Add(pad.GetState_Net().GetState_Name(), new List<structNet>
+                                        {
+                                            new structNet {
+                                                Pin = pad.GetState_Name(),
+                                                RefDes = componentObject.GetState_Name().GetState_Text()
+                                            }
+                                        });
+                                    }
+                                }
+                                pinCount++;
+                                pad = compIterator.NextPCBObject() as IPCB_Pad;
+                            }
+
+                            componentObject.GroupIterator_Destroy(ref compIterator);
+
+                            IPCB_PrimitiveParameters componentParameters = componentObject as IPCB_PrimitiveParameters;
+                            newComp.Parameters = new Dictionary<string, string>();
+                            for (int i = 0; i < componentParameters.Count(); i++)
+                            {
+                                parameter = componentParameters.GetParameterByIndex(i);
+                                parameterName = parameter.GetName();
+                                if (parameter.GetValue() == null)
+                                    parameterValue = "null";
+                                else
+                                    parameterValue = parameter.GetValue();
+
+                                newComp.Parameters.Add(parameterName, parameterValue);
+                            }
+
+                            newComp.RefDes = componentObject.GetState_Name().GetState_Text();
+                            newComp.Footprint = componentObject.GetState_Pattern();
+                            newComp.PinCount = pinCount;
+                            newComp.Dupe = false;
+
+
+                            string dstKey;
+                            if (Destination.Components.ContainsRefdes(newComp.RefDes, out dstKey))
+                            {
+                                st_IPCB_Component tmp = Destination.Components[dstKey];
+                                tmp.Dupe = true;
+                                Destination.Components[dstKey] = tmp;
+
+                                for (int i = 0; i < SelectedDestRef.Count; i++)
+                                {
+                                    if (SelectedDestRef[i] == newComp.RefDes)
+                                    {
+                                        SelectedDestRef[i] = tmp.RefDes + " (" + tmp.Footprint + ")";
+                                        break;
+                                    }
+                                }
+
+                                newComp.Dupe = true;
+                                Destination.Components.Add(newComp.ID, newComp);
+                                _Log.Debug(newComp.RefDes);
+                            }
+                            else
+                                Destination.Components.Add(newComp.ID, newComp);
+
+                            if (newComp.Dupe)
+                                SelectedDestRef.Add(newComp.RefDes + " (" + newComp.Footprint + ")");
+                            else
+                                SelectedDestRef.Add(newComp.RefDes);
+
+
+                            //?componentObject.GetState_DescriptorString()
+                            //"SOIC Component U5FM-QT#94L9#-20.000MHz (5528.098mil,6358.425mil) on Top Layer"
+                            //? componentObject.GetState_DetailString()
+                            //"Component U5FM Comment:QT#94L9#-20.000MHz Footprint: QT194"
+                            //?componentObject.GetState_Layer()
+                            //componentObject.GetState_Pattern() Footprint
+                            //componentObject.GetState_SourceDesignator() Refdes 
+                            //componentObject.GetState_SourceFootprintLibrary() library
+                            //componentObject.GetState_SourceLibReference() corp number
+                            //componentObject.GetState_XLocation()
+                            //componentObject.GetState_YLocation()
+                            _Log.Debug(componentObject.GetState_DescriptorString());
+                            break;
+                        #endregion
+                        #region Default
+                        default:
+                            //selectedSourceObjects.primitiveObjects.Add(Primitive);
+                            _Log.Debug(Primitive.GetState_DescriptorString());
+                            break;
+                            #endregion
+                    }
+
+                    //Primitive.Export_ToParameters(ref RefDes);
+                }
+                Primitive = BoardIterator.NextPCBObject();
+
+            }
+            //Iterator clean-up
+            Board.BoardIterator_Destroy(ref BoardIterator);
+        }
+        else if (ActiveDoc.DM_DocumentKind() == "SCH")
+        {
+
+            List<string> SelectedPart = new List<string>();
+            ISch_Document SchDoc = SCH.GlobalVars.SchServer.GetCurrentSchDocument();
+
+            ISch_Iterator SchIterator;
+            ISch_BasicContainer SchObject;
+            List<string> SelectedIDs = new List<string>();
+            if (SchDoc == null)
+                return;
+
+            //Iterate theough all components on the schematic.
+            SchIterator = SchDoc.SchIterator_Create();
+            SchIterator.AddFilter_ObjectSet(new SCH.TObjectSet(SCH.TObjectId.eSchComponent));
+
+            SchObject = SchIterator.FirstSchObject();
+
+            while (SchObject != null)
+            {
+                ISch_Component componentObject = SchObject as ISch_Component;
+
+                if (componentObject.GetState_Selection())
+                    SelectedPart.Add(componentObject.GetState_IdentifierString());
+
+                SchObject = SchIterator.NextSchObject();
+
+            }
+
+            GetDestPartsFromSCH(SelectedPart);
+
+        }
+        else
+        {
+            MessageBox.Show("Unknown document type. Please only use PCB or SCH documents.");
+        }
+    }
+
+    void GetDestPartsFromSCH(List<string> Components)
+    {
+        Util.GetCurrentPCB(true);
 
         SelectedDestRef = new List<string>();
         DestNets = new Dictionary<string, List<structNet>>();
@@ -557,6 +769,7 @@ public class PlaceReplicate
         IPCB_BoardIterator BoardIterator;
         IPCB_Parameter parameter;
         IPCB_Primitive Primitive;
+        IPCB_Component componentObject;
 
         IPCB_Board Board = Util.GetCurrentPCB();
 
@@ -566,165 +779,142 @@ public class PlaceReplicate
         //Iterate theough all components on the board.
         BoardIterator = Board.BoardIterator_Create();
         PCB.TObjectSet FilterSet = new PCB.TObjectSet();
-        BoardIterator.AddFilter_ObjectSet(Util.PCBAllObject);
+        FilterSet.Add(PCB.TObjectId.eComponentObject);
+        BoardIterator.AddFilter_ObjectSet(FilterSet);
         BoardIterator.AddFilter_LayerSet(PCBConstant.V6AllLayersSet); //Filter all layers.
         BoardIterator.AddFilter_Method(TIterationMethod.eProcessAll);
 
-        Primitive = BoardIterator.FirstPCBObject();
+        componentObject = BoardIterator.FirstPCBObject() as IPCB_Component;
 
-        while (Primitive != null)
+        while (componentObject != null)
         {
-            if (Primitive.GetState_Selected())
+            if (Components.Contains(componentObject.GetState_Name().GetState_Text()))
             {
-                switch (Primitive.GetState_ObjectID())
+                #region Components
+
+
+                selectedDestinationObjects.componentObjects.Add(componentObject);
+
+                st_IPCB_Component newComp = new st_IPCB_Component();
+
+                IPCB_GroupIterator compIterator = componentObject.GroupIterator_Create();
+
+                PCB.TObjectSet compFilterset = new PCB.TObjectSet();
+                compFilterset.Add(PCB.TObjectId.ePadObject);
+                compIterator.AddFilter_ObjectSet(compFilterset);
+                compIterator.AddFilter_LayerSet(PCBConstant.V6AllLayersSet); //Filter all layers.
+
+                IPCB_Pad pad = compIterator.FirstPCBObject() as IPCB_Pad;
+                int pinCount = 0;
+
+                newComp.ID = componentObject.GetState_UniqueId();
+
+                newComp.Nets = new Dictionary<string, string>();
+                while (pad != null)
                 {
-                    #region Components
-                    case TObjectId.eComponentObject:
-                        IPCB_Component componentObject = Primitive as IPCB_Component;
-                        selectedDestinationObjects.componentObjects.Add(componentObject);
-
-                        st_IPCB_Component newComp = new st_IPCB_Component();
-
-                        IPCB_GroupIterator compIterator = componentObject.GroupIterator_Create();
-
-                        PCB.TObjectSet compFilterset = new PCB.TObjectSet();
-                        compFilterset.Add(TObjectId.ePadObject);
-                        compIterator.AddFilter_ObjectSet(compFilterset);
-                        compIterator.AddFilter_LayerSet(PCBConstant.V6AllLayersSet); //Filter all layers.
-
-                        IPCB_Pad pad = compIterator.FirstPCBObject() as IPCB_Pad;
-                        int pinCount = 0;
-
-                        newComp.ID = componentObject.GetState_UniqueId();
-
-                        newComp.Nets = new Dictionary<string, string>();
-                        while (pad != null)
+                    if (pad.GetState_Net() != null)
+                    {
+                        if (!newComp.Nets.ContainsKey(pad.GetState_Name()))
+                            newComp.Nets.Add(pad.GetState_Name(), pad.GetState_Net().GetState_Name());
+                        if (DestNets.ContainsKey(pad.GetState_Net().GetState_Name()))
                         {
-                            if (pad.GetState_Net() != null)
+                            //string tmp = componentObject.GetState_Name().GetState_Text();
+                            structNet tmpNet = new structNet
                             {
-                                if (!newComp.Nets.ContainsKey(pad.GetState_Name()))
-                                    newComp.Nets.Add(pad.GetState_Name(), pad.GetState_Net().GetState_Name());
-                                if (DestNets.ContainsKey(pad.GetState_Net().GetState_Name()))
-                                {
-                                    //string tmp = componentObject.GetState_Name().GetState_Text();
-                                    structNet tmpNet = new structNet
-                                    {
-                                        Pin = pad.GetState_Name(),
-                                        RefDes = componentObject.GetState_Name().GetState_Text()
-                                    };
+                                Pin = pad.GetState_Name(),
+                                RefDes = componentObject.GetState_Name().GetState_Text()
+                            };
 
-                                    if (!DestNets[pad.GetState_Net().GetState_Name()].Contains(tmpNet))
-                                        DestNets[pad.GetState_Net().GetState_Name()].Add(tmpNet);
-                                }
-                                else
-                                {
-                                    DestNets.Add(pad.GetState_Net().GetState_Name(), new List<structNet>
+                            if (!DestNets[pad.GetState_Net().GetState_Name()].Contains(tmpNet))
+                                DestNets[pad.GetState_Net().GetState_Name()].Add(tmpNet);
+                        }
+                        else
+                        {
+                            DestNets.Add(pad.GetState_Net().GetState_Name(), new List<structNet>
                                         {
                                             new structNet {
                                                 Pin = pad.GetState_Name(),
                                                 RefDes = componentObject.GetState_Name().GetState_Text()
                                             }
                                         });
-                                }
-                            }
-                            pinCount++;
-                            pad = compIterator.NextPCBObject() as IPCB_Pad;
                         }
-
-                        componentObject.GroupIterator_Destroy(ref compIterator);
-
-                        IPCB_PrimitiveParameters componentParameters = componentObject as IPCB_PrimitiveParameters;
-                        newComp.Parameters = new Dictionary<string, string>();
-                        for (int i = 0; i < componentParameters.Count(); i++)
-                        {
-                            parameter = componentParameters.GetParameterByIndex(i);
-                            parameterName = parameter.GetName();
-                            if (parameter.GetValue() == null)
-                                parameterValue = "null";
-                            else
-                                parameterValue = parameter.GetValue();
-
-
-                            newComp.Parameters.Add(parameterName, parameterValue);
-                        }
-
-                        newComp.RefDes = componentObject.GetState_Name().GetState_Text();
-                        newComp.Footprint = componentObject.GetState_Pattern();
-                        newComp.PinCount = pinCount;
-                        newComp.Dupe = false;
-
-
-                        string dstKey;
-                        if (Destination.Components.ContainsRefdes(newComp.RefDes, out dstKey))
-                        {
-                            st_IPCB_Component tmp = Destination.Components[dstKey];
-                            tmp.Dupe = true;
-                            Destination.Components[dstKey] = tmp;
-
-                            for (int i = 0; i < SelectedDestRef.Count; i++)
-                            {
-                                if (SelectedDestRef[i] == newComp.RefDes)
-                                {
-                                    SelectedDestRef[i] = tmp.RefDes + " (" + tmp.Footprint + ")";
-                                    break;
-                                }
-                            }
-
-                            newComp.Dupe = true;
-                            Destination.Components.Add(newComp.ID, newComp);
-                            _Log.Debug(newComp.RefDes);
-                        }
-                        else
-                            Destination.Components.Add(newComp.ID, newComp);
-
-                        if (newComp.Dupe)
-                            SelectedDestRef.Add(newComp.RefDes + " (" + newComp.Footprint + ")");
-                        else
-                            SelectedDestRef.Add(newComp.RefDes);
-
-
-
-                        //if (!Destination.Components.ContainsRefdes(newComp.RefDes, out _) && !SelectedDestRef.Contains(newComp.RefDes))
-                        //{
-                        //    Destination.Components.Add(newComp.ID, newComp);
-
-                        //    SelectedDestRef.Add(newComp.RefDes);
-                        //}
-                        //else
-                        //{
-                        //    MessageBox.Show("Multiple " + newComp.RefDes + " refdes found. Only one was added. Please look into this issue.");
-                        //}
-
-                        //?componentObject.GetState_DescriptorString()
-                        //"SOIC Component U5FM-QT#94L9#-20.000MHz (5528.098mil,6358.425mil) on Top Layer"
-                        //? componentObject.GetState_DetailString()
-                        //"Component U5FM Comment:QT#94L9#-20.000MHz Footprint: QT194"
-                        //?componentObject.GetState_Layer()
-                        //componentObject.GetState_Pattern() Footprint
-                        //componentObject.GetState_SourceDesignator() Refdes 
-                        //componentObject.GetState_SourceFootprintLibrary() library
-                        //componentObject.GetState_SourceLibReference() corp number
-                        //componentObject.GetState_XLocation()
-                        //componentObject.GetState_YLocation()
-                        _Log.Debug(componentObject.GetState_DescriptorString());
-                        break;
-                    #endregion
-                    #region Default
-                    default:
-                        //selectedSourceObjects.primitiveObjects.Add(Primitive);
-                        _Log.Debug(Primitive.GetState_DescriptorString());
-                        break;
-                        #endregion
+                    }
+                    pinCount++;
+                    pad = compIterator.NextPCBObject() as IPCB_Pad;
                 }
+
+                componentObject.GroupIterator_Destroy(ref compIterator);
+
+                IPCB_PrimitiveParameters componentParameters = componentObject as IPCB_PrimitiveParameters;
+                newComp.Parameters = new Dictionary<string, string>();
+                for (int i = 0; i < componentParameters.Count(); i++)
+                {
+                    parameter = componentParameters.GetParameterByIndex(i);
+                    parameterName = parameter.GetName();
+                    if (parameter.GetValue() == null)
+                        parameterValue = "null";
+                    else
+                        parameterValue = parameter.GetValue();
+
+                    newComp.Parameters.Add(parameterName, parameterValue);
+                }
+
+                newComp.RefDes = componentObject.GetState_Name().GetState_Text();
+                newComp.Footprint = componentObject.GetState_Pattern();
+                newComp.PinCount = pinCount;
+                newComp.Dupe = false;
+
+
+                string dstKey;
+                if (Destination.Components.ContainsRefdes(newComp.RefDes, out dstKey))
+                {
+                    st_IPCB_Component tmp = Destination.Components[dstKey];
+                    tmp.Dupe = true;
+                    Destination.Components[dstKey] = tmp;
+
+                    for (int i = 0; i < SelectedDestRef.Count; i++)
+                    {
+                        if (SelectedDestRef[i] == newComp.RefDes)
+                        {
+                            SelectedDestRef[i] = tmp.RefDes + " (" + tmp.Footprint + ")";
+                            break;
+                        }
+                    }
+
+                    newComp.Dupe = true;
+                    Destination.Components.Add(newComp.ID, newComp);
+                    _Log.Debug(newComp.RefDes);
+                }
+                else
+                    Destination.Components.Add(newComp.ID, newComp);
+
+                if (newComp.Dupe)
+                    SelectedDestRef.Add(newComp.RefDes + " (" + newComp.Footprint + ")");
+                else
+                    SelectedDestRef.Add(newComp.RefDes);
+
+
+                //?componentObject.GetState_DescriptorString()
+                //"SOIC Component U5FM-QT#94L9#-20.000MHz (5528.098mil,6358.425mil) on Top Layer"
+                //? componentObject.GetState_DetailString()
+                //"Component U5FM Comment:QT#94L9#-20.000MHz Footprint: QT194"
+                //?componentObject.GetState_Layer()
+                //componentObject.GetState_Pattern() Footprint
+                //componentObject.GetState_SourceDesignator() Refdes 
+                //componentObject.GetState_SourceFootprintLibrary() library
+                //componentObject.GetState_SourceLibReference() corp number
+                //componentObject.GetState_XLocation()
+                //componentObject.GetState_YLocation()
+                _Log.Debug(componentObject.GetState_DescriptorString());
+                #endregion
 
                 //Primitive.Export_ToParameters(ref RefDes);
             }
-            Primitive = BoardIterator.NextPCBObject();
+            componentObject = BoardIterator.NextPCBObject() as IPCB_Component;
 
         }
         //Iterator clean-up
         Board.BoardIterator_Destroy(ref BoardIterator);
-
     }
 
 }
@@ -749,7 +939,11 @@ public class cls_IPCB_Component : Dictionary<string, st_IPCB_Component>
     public bool ContainsRefdes(string RefDes, out string Key)
     {
         _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
-
+        if (RefDes == null)
+        {
+            Key = null;
+            return false;
+        }
         string Footprint = "";
         if (RefDes.Contains(" "))
         {

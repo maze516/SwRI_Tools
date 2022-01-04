@@ -58,12 +58,14 @@ public partial class frmPlaceReplicate : ServerPanelForm
     }
 
     private void btnDest_Click(object sender, EventArgs e)
-    {//TODO: allow adding dest from sch
+    {
         _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         try
         {
             PR.GetDestinationParts();
+
+            if (PR.SelectedDestRef == null) return;
 
             if (PR.SelectedDestRef.Count == 0)
             {
@@ -160,7 +162,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
                 OffsetX = OffsetX - PR.selectedSourceObjects.componentObjects[0].GetState_XLocation();
                 OffsetY = OffsetY - PR.selectedSourceObjects.componentObjects[0].GetState_YLocation();
-                _Log.Debug("OffsetX: "+OffsetX+ ", OffsetY: " + OffsetY);
+                _Log.Debug("OffsetX: " + OffsetX + ", OffsetY: " + OffsetY);
             }
             catch (Exception ex)
             {
@@ -379,7 +381,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
 
 
-            string srcRef, dstRef,srcKey,dstKey;
+            string srcRef, dstRef, srcKey, dstKey;
 
             IPCB_Component srcComp, dstComp;
 
@@ -686,11 +688,13 @@ public partial class frmPlaceReplicate : ServerPanelForm
             else
             {
 
-                srcComp = PR.Source.Components.GetComponent(Source);//todo: check for dupes
+                srcComp = PR.Source.Components.GetComponent(Source);
                 if (srcComp == null) return;
+                if (srcComp.Dupe) return;
                 srcKey = srcComp.ID;
             }
-            //todo: what if srcComp still null?
+
+            if (srcComp == null) return;
             #endregion
 
 
@@ -717,10 +721,13 @@ public partial class frmPlaceReplicate : ServerPanelForm
             }
             else
             {
-                dstComp = PR.Destination.Components.GetComponent(Dest);//todo: check for dupes
+                dstComp = PR.Destination.Components.GetComponent(Dest);
+                if (dstComp == null) return;
+                if (dstComp.Dupe) return;
                 dstKey = dstComp.ID;
             }
-            //todo: what if dstComp still null?
+
+            if (dstComp == null) return;
             #endregion
 
 
@@ -752,29 +759,31 @@ public partial class frmPlaceReplicate : ServerPanelForm
             string secondDestKey = null;
             foreach (string src in SrcList)
             {
-                if (PR.Source.Components.ContainsRefdes(src, out secondSrcKey))//todo: check for dupes
-                    foreach (string dest in DstList)
-                    {
-                        if (PR.Destination.Components.ContainsRefdes(dest, out secondDestKey))//todo: check for dupes
-                            if (src.StartsWith(dest.First().ToString()))
-                                //if (PR.Source.Components[src].Footprint == PR.Destination.Components[dest].Footprint)
-                                //{
-                                if (PR.Source.Components[secondSrcKey].Parameters.ContainsKey("PartNumber") & PR.Destination.Components[secondDestKey].Parameters.ContainsKey("PartNumber"))
-                                    if (PR.Source.Components[secondSrcKey].Parameters["PartNumber"] == PR.Destination.Components[secondDestKey].Parameters["PartNumber"])
-                                        if (!Matched(src))
-                                            if (Matches.ContainsKey(src))
-                                                Matches[src] = "multi";
-                                            else
-                                                Matches.Add(src, dest);
-                        //}
-                        //else
-                        //{
-                        //    if (Matches.ContainsKey(src))
-                        //        Matches[src] = "multi";
-                        //    else
-                        //        Matches.Add(src, dest);
-                        //}
-                    }
+                if (PR.Source.Components.ContainsRefdes(src, out secondSrcKey))
+                    if (!PR.Source.Components[secondSrcKey].Dupe)
+                        foreach (string dest in DstList)
+                        {
+                            if (PR.Destination.Components.ContainsRefdes(dest, out secondDestKey))
+                                if (!PR.Destination.Components[secondDestKey].Dupe)
+                                    if (src.StartsWith(dest.First().ToString()))
+                                        //if (PR.Source.Components[src].Footprint == PR.Destination.Components[dest].Footprint)
+                                        //{
+                                        if (PR.Source.Components[secondSrcKey].Parameters.ContainsKey("PartNumber") & PR.Destination.Components[secondDestKey].Parameters.ContainsKey("PartNumber"))
+                                            if (PR.Source.Components[secondSrcKey].Parameters["PartNumber"] == PR.Destination.Components[secondDestKey].Parameters["PartNumber"])
+                                                if (!Matched(src))
+                                                    if (Matches.ContainsKey(src))
+                                                        Matches[src] = "multi";
+                                                    else
+                                                        Matches.Add(src, dest);
+                            //}
+                            //else
+                            //{
+                            //    if (Matches.ContainsKey(src))
+                            //        Matches[src] = "multi";
+                            //    else
+                            //        Matches.Add(src, dest);
+                            //}
+                        }
             }
 
             foreach (KeyValuePair<string, string> item in Matches)
@@ -782,7 +791,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
                 if (item.Value != "multi")
                     AddMatch(item.Key, item.Value);
             }
-            
+
 
             #endregion
 
@@ -1075,7 +1084,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
         }
         catch (Exception ex)
         {
-            if(ex.Message=="Exit Automatch")
+            if (ex.Message == "Exit Automatch")
                 throw new Exit_AttempteAutomatch("Exit Automatch");
             var sb = new System.Text.StringBuilder();
             sb.AppendLine("");
