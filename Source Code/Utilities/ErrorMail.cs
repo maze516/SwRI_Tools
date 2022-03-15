@@ -4,6 +4,7 @@ using NLog;
 using System;
 using System.IO;
 using System.Net.Mail;
+using System.Net.Mime;
 using System.Windows.Forms;
 
 public class ErrorMail
@@ -19,7 +20,7 @@ public class ErrorMail
     {
         _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
-#if !DEBUG
+        //#if !DEBUG
 
         try
         {
@@ -39,7 +40,7 @@ public class ErrorMail
             ErrorMsg += "Date: " + Date + "\n";
             ErrorMsg += "\n\n";
             if (PluginRegistryItem != null)
-                ErrorMsg += Util.SERVERNAME+" Ver: " + PluginRegistryItem.GetVersion();
+                ErrorMsg += Util.SERVERNAME + " Ver: " + PluginRegistryItem.GetVersion();
             ErrorMsg += "\n";
             ErrorMsg += ex.ToString();
             ErrorMsg += "\n\nStack Trace:\n";
@@ -49,13 +50,10 @@ public class ErrorMail
             if (ToolsPreferences.SMTP_Enable)
                 Reporter.EmailReport(ErrorMsg);
 
-            //Log error message locally.
-            //Reporter.LogReport(ErrorMsg);
 
             IProject project = DXP.GlobalVars.DXPWorkSpace.DM_FocusedProject() as IProject;
             if (project != null)
                 ProjPath = Path.GetDirectoryName(project.DM_ProjectFullPath()) + "\\";
-
 
 
             if (ToolsPreferences.SMTP_Enable)
@@ -65,10 +63,10 @@ public class ErrorMail
 
             if (ProjPath != "")
                 if (MessageBox.Show("Do you wish to include a copy of the active project?", "Include Project", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    Helpers.Compression.SimpleZip(ProjPath, ZipPath + User + " " + Date.Replace(":",".") + ".zip");
+                    Helpers.Compression.SimpleZip(ProjPath, ZipPath + User + " " + Date.Replace(":", ".") + ".zip");
 
         }
-        catch
+        catch (Exception exc)
         {
             MessageBox.Show("An Error has occured. The error has been logged.\nContact tech support if this error continues.");
         }
@@ -76,7 +74,7 @@ public class ErrorMail
         {
             DXP.Utils.PercentFinish();
         }
-#endif
+        //#endif
     }
 
     /// <summary>
@@ -97,10 +95,27 @@ public class ErrorMail
 
         try
         {
+
+            string loggerPath = Util.LoggerFilePath();
+            loggerPath=loggerPath.Replace("\\", "/");
+            loggerPath=loggerPath.Replace("'", "");
+            if (loggerPath != null)
+            {
+                //message.Attachments.Add(new Attachment(loggerPath, MediaTypeNames.Text.Plain));
+                var attachment = new Attachment(loggerPath);
+                // Add time stamp information for the file.
+                ContentDisposition disposition = attachment.ContentDisposition;
+                disposition.CreationDate = System.IO.File.GetCreationTime(loggerPath);
+                disposition.ModificationDate = System.IO.File.GetLastWriteTime(loggerPath);
+                disposition.ReadDate = System.IO.File.GetLastAccessTime(loggerPath);
+                disposition.FileName = Path.GetFileName(loggerPath);
+                message.Attachments.Add(attachment);
+            }
+
             client.Send(message);
 
         }
-        catch //(Exception ex)
+        catch (Exception ex)
         {
             Console.WriteLine("Error occured with email error logging. Please contact Randy Lyne x2259."); //direct to tech support for public release. Ok if just in SwRI.
         }

@@ -74,6 +74,7 @@ class ShowSelectedComponentNets
             CompItem = BoardIterator.NextPCBObject();
         }
 
+        //DXP.Utils.RunCommand("PCB:Netlist", "Action=CleanUpNets");
 
 #if DEBUG
         stopwatch.Stop();

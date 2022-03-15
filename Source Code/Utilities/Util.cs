@@ -15,6 +15,44 @@ public class Util
     //    public static readonly Logger _Log= LogManager.GetLogger(Util.SERVERNAME);
 
 
+    public static string LoggerFilePath()
+    {
+
+
+        NLog.Config.LoggingConfiguration config;
+        if (NLog.LogManager.Configuration == null)
+            return null;
+        else if (LogManager.Configuration.AllTargets.Count == 1)
+        {
+            config = LogManager.Configuration;
+            //System.Diagnostics.Debug.WriteLine(config.AllTargets[0].Name);
+            if (config.AllTargets[0].Name == "logfile")
+            {
+                foreach (NLog.Config.LoggingRule item in config.LoggingRules)
+                {
+                    if (item.LoggerNamePattern == "SwRI_Tools")
+                    {
+                        return ((NLog.Targets.FileTarget)item.Targets[0]).FileName.ToString();
+                    }
+                }
+            }
+        }
+        else
+        {
+            config = LogManager.Configuration;
+            foreach (NLog.Config.LoggingRule item in config.LoggingRules)
+            {
+                if (item.LoggerNamePattern == "SwRI_Tools")
+                {
+                    return ((NLog.Targets.FileTarget)item.Targets[0]).FileName.ToString();
+                }
+            }
+        };
+
+        return null;
+
+    }
+
     public static void UpdateLogger(LogLevel logLevel)
     {
         _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);

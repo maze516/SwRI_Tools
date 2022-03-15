@@ -777,6 +777,7 @@ class TestClass
 
         try
         {
+            var test = Util.LoggerFilePath();
             _Log.Trace("Trace");
             _Log.Debug("Debug");
             _Log.Info("Info");
@@ -784,9 +785,12 @@ class TestClass
             _Log.Error("Error");
 
             System.Console.ReadKey();
+            throw new NotImplementedException();
         }
         catch (Exception ex)
         {
+
+            ErrorMail.LogError("test", ex);
             _Log.Fatal(ex, "Fatal");
             var sb = new StringBuilder();
             sb.AppendLine("");

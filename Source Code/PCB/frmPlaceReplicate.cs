@@ -385,15 +385,20 @@ public partial class frmPlaceReplicate : ServerPanelForm
 
             IPCB_Component srcComp, dstComp;
 
+            _Log.Debug("Placing objects");
             foreach (string item in lstMatched.Items)
             {
                 srcRef = item.Split('>')[0];
                 dstRef = item.Split('>')[1];
 
+                _Log.Debug("Src: " + srcRef + ", Dst: " + dstRef);
+
                 if (PR.Destination.Components.ContainsRefdes(dstRef, out dstKey) && PR.Source.Components.ContainsRefdes(srcRef, out srcKey))
                 {
                     srcComp = PR.selectedSourceObjects.GetComponent(srcKey);
                     dstComp = PR.selectedDestinationObjects.GetComponent(dstKey);
+
+                    if (srcComp == null || dstComp == null) continue;
 
                     dstComp.BeginModify();
                     if (srcComp.GetState_Layer() != dstComp.GetState_Layer())
@@ -443,18 +448,21 @@ public partial class frmPlaceReplicate : ServerPanelForm
         {
             src = item.Split('>')[0];
             dst = item.Split('>')[1];
+            _Log.Trace("src: " + src + ", dst: " + dst);
 
             if (PR.Source.Components.ContainsRefdes(src, out srcKey) && PR.Destination.Components.ContainsRefdes(dst, out dstKey))
-                foreach (string pin in PR.Source.Components[srcKey].Nets.Keys)
-                {
-                    if (!tempOut.ContainsKey(PR.Source.Components[srcKey].Nets[pin]))
-                        tempOut.Add(PR.Source.Components[srcKey].Nets[pin], PR.Destination.Components[dstKey].Nets[pin]);
-                    else
+                if (PR.Source.Components.ContainsKey(srcKey) && PR.Destination.Components.ContainsKey(dstKey))
+                    foreach (string pin in PR.Source.Components[srcKey].Nets.Keys)
                     {
-                        if (tempOut[PR.Source.Components[srcKey].Nets[pin]] != PR.Destination.Components[dstKey].Nets[pin])
-                            tempOut[PR.Source.Components[srcKey].Nets[pin]] = "dupe";
+                        if (PR.Destination.Components[dstKey].Nets.ContainsKey(pin))
+                            if (!tempOut.ContainsKey(PR.Source.Components[srcKey].Nets[pin]))
+                                tempOut.Add(PR.Source.Components[srcKey].Nets[pin], PR.Destination.Components[dstKey].Nets[pin]);
+                            else
+                            {
+                                if (tempOut[PR.Source.Components[srcKey].Nets[pin]] != PR.Destination.Components[dstKey].Nets[pin])
+                                    tempOut[PR.Source.Components[srcKey].Nets[pin]] = "dupe";
+                            }
                     }
-                }
         }
         _Log.Debug("GetNetDiff>");
         return tempOut;
@@ -470,8 +478,11 @@ public partial class frmPlaceReplicate : ServerPanelForm
             foreach (string item in lstMatched.Items)
             {
                 temp = item.Split('>');
-                lstSource.Items.Add(temp[0]);
-                lstDest.Items.Add(temp[1]);
+                if (temp[0] != null && temp[1] != null)
+                {
+                    lstSource.Items.Add(temp[0]);
+                    lstDest.Items.Add(temp[1]);
+                }
             }
             lstMatched.Items.Clear();
         }
@@ -480,16 +491,20 @@ public partial class frmPlaceReplicate : ServerPanelForm
             foreach (string item in lstMatched.Items)
             {
                 temp = item.Split('>');
-                lstSource.Items.Add(temp[0]);
+                if (temp[0] != null)
+                    lstSource.Items.Add(temp[0]);
             }
             lstMatched.Items.Clear();
         }
         else
         {
             temp = Match.Split('>');
-            lstSource.Items.Add(temp[0]);
-            lstDest.Items.Add(temp[1]);
-            lstMatched.Items.Remove(Match);
+            if (temp[0] != null && temp[1] != null)
+            {
+                lstSource.Items.Add(temp[0]);
+                lstDest.Items.Add(temp[1]);
+                lstMatched.Items.Remove(Match);
+            }
         }
     }
 
@@ -1071,7 +1086,7 @@ public partial class frmPlaceReplicate : ServerPanelForm
                         }
                     }
                     #endregion
-                    
+
                     AutoMatching = false;
                 }
             //else

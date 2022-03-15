@@ -15,7 +15,7 @@ public class HeightReport
     /// <summary>
     /// Generates a report comparing schematic height parameter to footprint body height.
     /// </summary>
-    /// <param name="Update">Update body heights to schematic height parameter.</param>
+    /// <param name="Update">(Not implemented) Update body heights to schematic height parameter.</param>
     public void GetReport(bool Update = false)
     {
         _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
@@ -33,8 +33,8 @@ public class HeightReport
                 DXP.Utils.StatusBarSetState(2, "Generating Report");
                 GenerateReport(ref CompHeights);
 
-                if (Update)
-                    UpdateBodies(CompHeights);
+                //if (Update)
+                //    UpdateBodies(CompHeights);
             }
             DXP.Utils.PercentFinish();
             DXP.Utils.StatusBarSetStateDefault();
@@ -275,141 +275,142 @@ public class HeightReport
         }
     }
 
+    #region not functional
     /// <summary>
     /// Update the body heights of all fooprints with bodies.
     /// </summary>
     /// <param name="argHeights">Reference to the dict storing report info.</param>
-    void UpdateBodies(Dictionary<string, Heights> argHeights)
-    {
-        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
+    //void UpdateBodies(Dictionary<string, Heights> argHeights)
+    //{
+    //    _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
-        try
-        {
-            frmHeightReport HeightForm = new frmHeightReport();
-            HeightForm.FillList(argHeights);
-            if (HeightForm.ListCount() == 0)
-            {
-                DXP.Utils.ShowInfo("There are no components to update.");
-                return;
-            }
-            DialogResult tmp = HeightForm.ShowDialog();
-            if (tmp == DialogResult.OK)
-            {
-                List<string> tmpList = HeightForm.GetSelectedComponents();
-                SetBodyHeight(argHeights, tmpList);
-            }
-        }
-        catch (Exception ex)
-        {
-            var sb = new System.Text.StringBuilder();
-            sb.AppendLine("");
-            sb.AppendLine(ex.ToString());
-            _Log.Fatal(sb);
-            ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
-            return;
-        }
-    }
+    //    try
+    //    {
+    //        frmHeightReport HeightForm = new frmHeightReport();
+    //        HeightForm.FillList(argHeights);
+    //        if (HeightForm.ListCount() == 0)
+    //        {
+    //            DXP.Utils.ShowInfo("There are no components to update.");
+    //            return;
+    //        }
+    //        DialogResult tmp = HeightForm.ShowDialog();
+    //        if (tmp == DialogResult.OK)
+    //        {
+    //            List<string> tmpList = HeightForm.GetSelectedComponents();
+    //            SetBodyHeight(argHeights, tmpList);
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        var sb = new System.Text.StringBuilder();
+    //        sb.AppendLine("");
+    //        sb.AppendLine(ex.ToString());
+    //        _Log.Fatal(sb);
+    //        ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
+    //        return;
+    //    }
+    //}
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="argHeights">Reference to the dict storing report info.</param>
     /// <param name="tmpList"></param>
-    private void SetBodyHeight(Dictionary<string, Heights> argHeights, List<string> tmpList)
-    {
-        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
+    //private void SetBodyHeight(Dictionary<string, Heights> argHeights, List<string> tmpList)
+    //{
+    //    _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
-        //?Body.GetState_DescriptorString()
-        //"3D Extruded  (Mechanical 2, Bot Assy)  Standoff=0mil  Overall=163mil  (26522.112mil, 20350.482mil)"
-        //? Body.GetState_DescriptorString()
-        //"3D STEP SW3dPS-74VHC32 - 14lead IC SOIC (Mechanical 2, Bot Assy)  Standoff=-0.5mil  Overall=68.5mil  (26522.107mil, 20347.985mil)"
-        //argComponent.GetState_Name().GetState_ConvertedString() "U18EM" string
-        //Body.GetModel().GetFileName()   "SW3dPS-74VHC32 - 14lead IC SOIC.STEP"  string
+    //    //?Body.GetState_DescriptorString()
+    //    //"3D Extruded  (Mechanical 2, Bot Assy)  Standoff=0mil  Overall=163mil  (26522.112mil, 20350.482mil)"
+    //    //? Body.GetState_DescriptorString()
+    //    //"3D STEP SW3dPS-74VHC32 - 14lead IC SOIC (Mechanical 2, Bot Assy)  Standoff=-0.5mil  Overall=68.5mil  (26522.107mil, 20347.985mil)"
+    //    //argComponent.GetState_Name().GetState_ConvertedString() "U18EM" string
+    //    //Body.GetModel().GetFileName()   "SW3dPS-74VHC32 - 14lead IC SOIC.STEP"  string
 
-        IPCB_Component Component; // component object
-        IPCB_BoardIterator BoardIterator;
-        IPCB_Board Board; // document board object
-        IPCB_GroupIterator CompIterator;
-        IPCB_Primitive CompItem;
-        bool FoundBody = false;
+    //    IPCB_Component Component; // component object
+    //    IPCB_BoardIterator BoardIterator;
+    //    IPCB_Board Board; // document board object
+    //    IPCB_GroupIterator CompIterator;
+    //    IPCB_Primitive CompItem;
+    //    bool FoundBody = false;
 
-        Board = Util.GetCurrentPCB(true);
-        if (Board == null)
-            return;
+    //    Board = Util.GetCurrentPCB(true);
+    //    if (Board == null)
+    //        return;
 
-        BoardIterator = Board.BoardIterator_Create();
-        PCB.TObjectSet FilterSet = new PCB.TObjectSet();
-        //Filter for components only
-        FilterSet.Add(PCB.TObjectId.eComponentObject);
-        BoardIterator.AddFilter_ObjectSet(FilterSet);
-        BoardIterator.AddFilter_LayerSet(PCBConstant.V6AllLayersSet);
-        BoardIterator.AddFilter_Method(TIterationMethod.eProcessAll);
+    //    BoardIterator = Board.BoardIterator_Create();
+    //    PCB.TObjectSet FilterSet = new PCB.TObjectSet();
+    //    //Filter for components only
+    //    FilterSet.Add(PCB.TObjectId.eComponentObject);
+    //    BoardIterator.AddFilter_ObjectSet(FilterSet);
+    //    BoardIterator.AddFilter_LayerSet(PCBConstant.V6AllLayersSet);
+    //    BoardIterator.AddFilter_Method(TIterationMethod.eProcessAll);
 
-        //Iterate through all components looking for components.
-        Component = (IPCB_Component)BoardIterator.FirstPCBObject();
-        while (Component != null)
-        {
-            if (tmpList.Contains(Component.GetState_SourceDesignator()))
-            {
-                if (Component.GetState_SourceDesignator() == "JA1" || Component.GetState_SourceDesignator() == "JB6" || Component.GetState_SourceDesignator() == "U2EM")
-                    MessageBox.Show("temp");
-                //argComponent.GetState_SourceDesignator()
-                CompIterator = Component.GroupIterator_Create();
-                CompIterator.AddFilter_LayerSet_2(PCBConstant.V7AllLayersSet);
-                CompItem = CompIterator.FirstPCBObject();
+    //    //Iterate through all components looking for components.
+    //    Component = (IPCB_Component)BoardIterator.FirstPCBObject();
+    //    while (Component != null)
+    //    {
+    //        if (tmpList.Contains(Component.GetState_SourceDesignator()))
+    //        {
+    //            if (Component.GetState_SourceDesignator() == "JA1" || Component.GetState_SourceDesignator() == "JB6" || Component.GetState_SourceDesignator() == "U2EM")
+    //                MessageBox.Show("temp");
+    //            //argComponent.GetState_SourceDesignator()
+    //            CompIterator = Component.GroupIterator_Create();
+    //            CompIterator.AddFilter_LayerSet_2(PCBConstant.V7AllLayersSet);
+    //            CompItem = CompIterator.FirstPCBObject();
 
-                IPCB_ComponentBody Body, temp;
-                FoundBody = false;
-                Body = null;
-                while (CompItem != null)
-                {
-                    if (CompItem.GetState_ObjectIDString() == "ComponentBody")
-                    {
-                        temp = CompItem as IPCB_ComponentBody;
-                        if (!FoundBody)
-                        {
-                            FoundBody = true;
-                            Body = temp;
-                        }
-                        else
-                        {
-                            if (GetCompHeight(Body) < GetCompHeight(temp))
-                            {
-                                Body = temp;
-                            }
-                        }
-                    }
-                    CompItem = CompIterator.NextPCBObject();
-                }
+    //            IPCB_ComponentBody Body, temp;
+    //            FoundBody = false;
+    //            Body = null;
+    //            while (CompItem != null)
+    //            {
+    //                if (CompItem.GetState_ObjectIDString() == "ComponentBody")
+    //                {
+    //                    temp = CompItem as IPCB_ComponentBody;
+    //                    if (!FoundBody)
+    //                    {
+    //                        FoundBody = true;
+    //                        Body = temp;
+    //                    }
+    //                    else
+    //                    {
+    //                        if (GetCompHeight(Body) < GetCompHeight(temp))
+    //                        {
+    //                            Body = temp;
+    //                        }
+    //                    }
+    //                }
+    //                CompItem = CompIterator.NextPCBObject();
+    //            }
 
-                Component.BeginModify();
-                SetCompHeight(Body, EDP.Utils.MilsToCoord(argHeights[Component.GetState_SourceDesignator()].ParameterHeight));
-                Component.EndModify();
+    //            Component.BeginModify();
+    //            SetCompHeight(Body, EDP.Utils.MilsToCoord(argHeights[Component.GetState_SourceDesignator()].ParameterHeight));
+    //            Component.EndModify();
 
-                Body = null;
-            }
-            Component = (IPCB_Component)BoardIterator.NextPCBObject();
-        }
-
-
-        try
-        {
+    //            Body = null;
+    //        }
+    //        Component = (IPCB_Component)BoardIterator.NextPCBObject();
+    //    }
 
 
+    //    try
+    //    {
 
-        }
-        catch (Exception ex)
-        {
-            var sb = new System.Text.StringBuilder();
-            sb.AppendLine("");
-            sb.AppendLine(ex.ToString());
-            _Log.Fatal(sb);
-            ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
-            return;
 
-        }
-    }
 
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        var sb = new System.Text.StringBuilder();
+    //        sb.AppendLine("");
+    //        sb.AppendLine(ex.ToString());
+    //        _Log.Fatal(sb);
+    //        ErrorMail.LogError("Error in " + System.Reflection.MethodBase.GetCurrentMethod().Name + ".", ex);
+    //        return;
+
+    //    }
+    //}
+    #endregion
 
     /// <summary>
     /// Generate text height report.
@@ -673,25 +674,25 @@ public class HeightReport
     /// </summary>
     /// <param name="Body">Body to adjust</param>
     /// <param name="value">Desired height in AD coords</param>
-    void SetCompHeight(IPCB_ComponentBody Body, int value)
-    {
-        _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
+    //void SetCompHeight(IPCB_ComponentBody Body, int value)
+    //{
+    //    _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
-        double RotX, RotY, RotZ;
-        int StandOff;
+    //    double RotX, RotY, RotZ;
+    //    int StandOff;
 
-        Body.BeginModify();
+    //    Body.BeginModify();
 
-        if (Body.GetState_DescriptorString().Contains("STEP"))
-        {//todo: alter offset dont override
-            Body.GetModel().GetState(out RotX, out RotY, out RotZ, out StandOff);
-            Body.GetModel().SetState(RotX, RotY, RotZ, StandOff + value - Body.GetOverallHeight());//todo: value = coord or mils?
-        }
-        else
-            Body.SetOverallHeight(value);
-        Body.EndModify();
+    //    if (Body.GetState_DescriptorString().Contains("STEP"))
+    //    {//todo: alter offset dont override
+    //        Body.GetModel().GetState(out RotX, out RotY, out RotZ, out StandOff);
+    //        Body.GetModel().SetState(RotX, RotY, RotZ, StandOff + value - Body.GetOverallHeight());//todo: value = coord or mils?
+    //    }
+    //    else
+    //        Body.SetOverallHeight(value);
+    //    Body.EndModify();
 
-    }
+    //}
 }
 
 /// <summary>
