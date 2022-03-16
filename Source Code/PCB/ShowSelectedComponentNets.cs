@@ -37,10 +37,12 @@ class ShowSelectedComponentNets
         BoardIterator = Board.BoardIterator_Create();
         PCB.TObjectSet FilterSet = new PCB.TObjectSet();
 
-        //Filter for components only.
+        //Filter.
         FilterSet.Add(PCB.TObjectId.eComponentObject);
         FilterSet.Add(PCB.TObjectId.ePadObject);
         FilterSet.Add(PCB.TObjectId.eTrackObject);
+        FilterSet.Add(PCB.TObjectId.eViaObject);
+
         BoardIterator.AddFilter_ObjectSet(FilterSet);
         BoardIterator.AddFilter_LayerSet(PCBConstant.V6AllLayersSet); //Filter all layers.
         BoardIterator.AddFilter_Method(TIterationMethod.eProcessAll);
@@ -51,7 +53,7 @@ class ShowSelectedComponentNets
         {
             if (CompItem.GetState_Selected())
             {
-                if (CompItem.GetState_ObjectIDString() == "Pad" || CompItem.GetState_ObjectIDString() == "Track")
+                if (CompItem.GetState_ObjectIDString() == "Pad" || CompItem.GetState_ObjectIDString() == "Track" || CompItem.GetState_ObjectIDString() == "Via")
                 {
                     if (CompItem.GetState_InNet())
                         CompItem.GetState_Net().ShowNetConnects();
