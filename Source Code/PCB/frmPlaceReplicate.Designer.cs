@@ -50,7 +50,7 @@
             this.lstSource.HorizontalScrollbar = true;
             this.lstSource.Location = new System.Drawing.Point(14, 54);
             this.lstSource.Name = "lstSource";
-            this.lstSource.Size = new System.Drawing.Size(79, 264);
+            this.lstSource.Size = new System.Drawing.Size(63, 199);
             this.lstSource.Sorted = true;
             this.lstSource.TabIndex = 0;
             this.lstSource.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lstSource_MouseClick);
@@ -62,7 +62,7 @@
             this.lstDest.HorizontalScrollbar = true;
             this.lstDest.Location = new System.Drawing.Point(99, 54);
             this.lstDest.Name = "lstDest";
-            this.lstDest.Size = new System.Drawing.Size(79, 264);
+            this.lstDest.Size = new System.Drawing.Size(63, 199);
             this.lstDest.Sorted = true;
             this.lstDest.TabIndex = 0;
             this.lstDest.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lstDest_MouseClick);
@@ -202,8 +202,7 @@
             // 
             // frmPlaceReplicate
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(299, 542);
             this.Controls.Add(this.chkInDepth);
             this.Controls.Add(this.btnFullReset);
