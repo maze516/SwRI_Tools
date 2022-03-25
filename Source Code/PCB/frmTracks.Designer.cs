@@ -53,14 +53,13 @@
             this.txtCmd.Location = new System.Drawing.Point(0, 103);
             this.txtCmd.Margin = new System.Windows.Forms.Padding(4);
             this.txtCmd.Name = "txtCmd";
-            this.txtCmd.Size = new System.Drawing.Size(929, 22);
+            this.txtCmd.Size = new System.Drawing.Size(929, 20);
             this.txtCmd.TabIndex = 0;
             this.txtCmd.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCmd_KeyPress);
             // 
             // frmTracks
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(932, 130);
             this.Controls.Add(this.txtCmd);

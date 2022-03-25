@@ -38,10 +38,10 @@
             // 
             // btnImport
             // 
-            this.btnImport.Location = new System.Drawing.Point(16, 68);
-            this.btnImport.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnImport.Location = new System.Drawing.Point(12, 55);
+            this.btnImport.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnImport.Name = "btnImport";
-            this.btnImport.Size = new System.Drawing.Size(75, 25);
+            this.btnImport.Size = new System.Drawing.Size(56, 20);
             this.btnImport.TabIndex = 0;
             this.btnImport.Text = "Import";
             this.btnImport.UseVisualStyleBackColor = true;
@@ -49,10 +49,10 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(176, 68);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnCancel.Location = new System.Drawing.Point(132, 55);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 25);
+            this.btnCancel.Size = new System.Drawing.Size(56, 20);
             this.btnCancel.TabIndex = 0;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -61,9 +61,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(9, 7);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(132, 17);
+            this.label1.Size = new System.Drawing.Size(102, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Mod BOM Location:";
             // 
@@ -71,19 +72,19 @@
             // 
             this.txtPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPath.Location = new System.Drawing.Point(12, 30);
-            this.txtPath.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtPath.Location = new System.Drawing.Point(9, 24);
+            this.txtPath.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtPath.Name = "txtPath";
-            this.txtPath.Size = new System.Drawing.Size(183, 22);
+            this.txtPath.Size = new System.Drawing.Size(138, 20);
             this.txtPath.TabIndex = 2;
             // 
             // btnBrowse
             // 
             this.btnBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowse.Location = new System.Drawing.Point(201, 30);
-            this.btnBrowse.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnBrowse.Location = new System.Drawing.Point(151, 24);
+            this.btnBrowse.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnBrowse.Name = "btnBrowse";
-            this.btnBrowse.Size = new System.Drawing.Size(68, 25);
+            this.btnBrowse.Size = new System.Drawing.Size(51, 20);
             this.btnBrowse.TabIndex = 3;
             this.btnBrowse.Text = "Browse";
             this.btnBrowse.UseVisualStyleBackColor = true;
@@ -97,26 +98,25 @@
             // 
             this.pbProgress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbProgress.Location = new System.Drawing.Point(0, 101);
-            this.pbProgress.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pbProgress.Location = new System.Drawing.Point(0, 82);
+            this.pbProgress.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pbProgress.Maximum = 10;
             this.pbProgress.Name = "pbProgress";
-            this.pbProgress.Size = new System.Drawing.Size(269, 23);
+            this.pbProgress.Size = new System.Drawing.Size(202, 19);
             this.pbProgress.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.pbProgress.TabIndex = 6;
             // 
             // ModBom_IO
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(268, 124);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.ClientSize = new System.Drawing.Size(201, 101);
             this.Controls.Add(this.pbProgress);
             this.Controls.Add(this.btnBrowse);
             this.Controls.Add(this.txtPath);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnImport);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ModBom_IO";

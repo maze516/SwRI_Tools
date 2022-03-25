@@ -51,7 +51,7 @@
             this.btnGenerate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnGenerate.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnGenerate.Location = new System.Drawing.Point(9, 363);
-            this.btnGenerate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnGenerate.Margin = new System.Windows.Forms.Padding(2);
             this.btnGenerate.Name = "btnGenerate";
             this.btnGenerate.Size = new System.Drawing.Size(62, 22);
             this.btnGenerate.TabIndex = 2;
@@ -64,7 +64,7 @@
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(76, 363);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(62, 22);
             this.btnCancel.TabIndex = 2;
@@ -79,7 +79,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.treeOutjobs.CheckBoxes = true;
             this.treeOutjobs.Location = new System.Drawing.Point(9, 24);
-            this.treeOutjobs.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.treeOutjobs.Margin = new System.Windows.Forms.Padding(2);
             this.treeOutjobs.Name = "treeOutjobs";
             this.treeOutjobs.PathSeparator = "-";
             this.treeOutjobs.Size = new System.Drawing.Size(276, 336);
@@ -91,7 +91,7 @@
             this.cboVariant.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboVariant.FormattingEnabled = true;
             this.cboVariant.Location = new System.Drawing.Point(194, 2);
-            this.cboVariant.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cboVariant.Margin = new System.Windows.Forms.Padding(2);
             this.cboVariant.Name = "cboVariant";
             this.cboVariant.Size = new System.Drawing.Size(92, 21);
             this.cboVariant.TabIndex = 4;
@@ -121,8 +121,7 @@
             // 
             // frmBatchOutjob
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(295, 396);
             this.Controls.Add(this.cbClose);
             this.Controls.Add(this.label2);
@@ -131,7 +130,7 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnGenerate);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(311, 435);
             this.Name = "frmBatchOutjob";
             this.Text = "frmBatchOutjob";

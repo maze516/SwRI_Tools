@@ -46,7 +46,7 @@
             this.cbSource.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSource.FormattingEnabled = true;
             this.cbSource.Location = new System.Drawing.Point(14, 28);
-            this.cbSource.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbSource.Margin = new System.Windows.Forms.Padding(2);
             this.cbSource.Name = "cbSource";
             this.cbSource.Size = new System.Drawing.Size(92, 21);
             this.cbSource.TabIndex = 0;
@@ -75,7 +75,7 @@
             // btnSync
             // 
             this.btnSync.Location = new System.Drawing.Point(48, 137);
-            this.btnSync.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnSync.Margin = new System.Windows.Forms.Padding(2);
             this.btnSync.Name = "btnSync";
             this.btnSync.Size = new System.Drawing.Size(56, 21);
             this.btnSync.TabIndex = 2;
@@ -86,7 +86,7 @@
             // btnCancel
             // 
             this.btnCancel.Location = new System.Drawing.Point(135, 137);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(56, 21);
             this.btnCancel.TabIndex = 2;
@@ -99,7 +99,7 @@
             this.rbOverwrite.AutoSize = true;
             this.rbOverwrite.Checked = true;
             this.rbOverwrite.Location = new System.Drawing.Point(14, 104);
-            this.rbOverwrite.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbOverwrite.Margin = new System.Windows.Forms.Padding(2);
             this.rbOverwrite.Name = "rbOverwrite";
             this.rbOverwrite.Size = new System.Drawing.Size(70, 17);
             this.rbOverwrite.TabIndex = 3;
@@ -121,7 +121,7 @@
             // 
             this.rbPrompt.AutoSize = true;
             this.rbPrompt.Location = new System.Drawing.Point(85, 104);
-            this.rbPrompt.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbPrompt.Margin = new System.Windows.Forms.Padding(2);
             this.rbPrompt.Name = "rbPrompt";
             this.rbPrompt.Size = new System.Drawing.Size(58, 17);
             this.rbPrompt.TabIndex = 3;
@@ -132,7 +132,7 @@
             // 
             this.rbSkip.AutoSize = true;
             this.rbSkip.Location = new System.Drawing.Point(145, 104);
-            this.rbSkip.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbSkip.Margin = new System.Windows.Forms.Padding(2);
             this.rbSkip.Name = "rbSkip";
             this.rbSkip.Size = new System.Drawing.Size(46, 17);
             this.rbSkip.TabIndex = 3;
@@ -144,7 +144,7 @@
             this.pbProgress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pbProgress.Location = new System.Drawing.Point(-2, 173);
-            this.pbProgress.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pbProgress.Margin = new System.Windows.Forms.Padding(2);
             this.pbProgress.Maximum = 10;
             this.pbProgress.Name = "pbProgress";
             this.pbProgress.Size = new System.Drawing.Size(256, 19);
@@ -155,7 +155,7 @@
             // 
             this.cbForce.Enabled = false;
             this.cbForce.Location = new System.Drawing.Point(14, 50);
-            this.cbForce.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbForce.Margin = new System.Windows.Forms.Padding(2);
             this.cbForce.Name = "cbForce";
             this.cbForce.Size = new System.Drawing.Size(129, 33);
             this.cbForce.TabIndex = 6;
@@ -168,7 +168,7 @@
             this.cbDest.CheckOnClick = true;
             this.cbDest.FormattingEnabled = true;
             this.cbDest.Location = new System.Drawing.Point(153, 28);
-            this.cbDest.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbDest.Margin = new System.Windows.Forms.Padding(2);
             this.cbDest.Name = "cbDest";
             this.cbDest.Size = new System.Drawing.Size(91, 64);
             this.cbDest.TabIndex = 7;
@@ -176,8 +176,7 @@
             // 
             // VariantSync
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(253, 191);
             this.Controls.Add(this.cbDest);
             this.Controls.Add(this.cbForce);
@@ -192,7 +191,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cbSource);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "VariantSync";

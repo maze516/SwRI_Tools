@@ -1040,31 +1040,34 @@ public partial class frmPlaceReplicate : ServerPanelForm
                         Dictionary<string, string> DestCount = new Dictionary<string, string>();
                         var digits = new[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 
-                        foreach (structNet structNet in PR.SourceNets[srcItem.Value])
-                        {
-                            if (structNet.RefDes != Source) // && structNet.RefDes != Dest)
+                        if (PR.SourceNets.ContainsKey(srcItem.Value))
+                            foreach (structNet structNet in PR.SourceNets[srcItem.Value])
                             {
-                                string refType = structNet.RefDes.TrimEnd(digits);
-                                if (!Matched(structNet.RefDes))
-                                    if (!SourceCount.ContainsKey(refType))
-                                        SourceCount.Add(refType, structNet.RefDes);
-                                    else
-                                        SourceCount[refType] = "multi";
+                                if (structNet.RefDes != Source) // && structNet.RefDes != Dest)
+                                {
+                                    string refType = structNet.RefDes.TrimEnd(digits);
+                                    if (!Matched(structNet.RefDes))
+                                        if (!SourceCount.ContainsKey(refType))
+                                            SourceCount.Add(refType, structNet.RefDes);
+                                        else
+                                            SourceCount[refType] = "multi";
+                                }
                             }
-                        }
 
-                        foreach (structNet structNet in PR.DestNets[DNets[srcItem.Key]])
-                        {
-                            if (structNet.RefDes != Dest) // && structNet.RefDes != Dest)
-                            {
-                                string refType = structNet.RefDes.TrimEnd(digits);
-                                if (!Matched(structNet.RefDes))
-                                    if (!DestCount.ContainsKey(refType))
-                                        DestCount.Add(refType, structNet.RefDes);
-                                    else
-                                        DestCount[refType] = "multi";
-                            }
-                        }
+                        if (DNets.ContainsKey(srcItem.Key))
+                            if (PR.DestNets.ContainsKey(DNets[srcItem.Key]))
+                                foreach (structNet structNet in PR.DestNets[DNets[srcItem.Key]])
+                                {
+                                    if (structNet.RefDes != Dest) // && structNet.RefDes != Dest)
+                                    {
+                                        string refType = structNet.RefDes.TrimEnd(digits);
+                                        if (!Matched(structNet.RefDes))
+                                            if (!DestCount.ContainsKey(refType))
+                                                DestCount.Add(refType, structNet.RefDes);
+                                            else
+                                                DestCount[refType] = "multi";
+                                    }
+                                }
 
                         foreach (KeyValuePair<string, string> cnt in SourceCount)
                         {

@@ -125,6 +125,13 @@ PL
 End
 
 PL
+  PLSwRI_Tools:MatchRefDesRotation
+  Command='SwRI_Tools:MatchRefDesRotation'
+  Caption='Match Rotation'
+   Description='Matches the rotation of component refdes based on component rotation.'
+End
+
+PL
   PLSwRI_Tools:PIMS
   Command='SwRI_Tools:PIMS'
   Caption='Open PIMS'
@@ -480,6 +487,7 @@ Insertion MNSwRIPCBMenu10 TargetID='MNPCBMenu' InsertType='After' RefID0='MNPCB_
         Link SwRI_ToolsMenu60 PLID='PLSwRI_Tools:HideDiscreteRefDes' End
       End
       Link SwRI_ToolsMenu70 PLID='PLSwRI_Tools:FixRefDesRotation' End
+      Link SwRI_ToolsMenu71 PLID='PLSwRI_Tools:MatchRefDesRotation' End
     End
     Separator SwRI_ToolsSep30 End
     Link SwRI_ToolsMenu70 PLID='PLSwRI_Tools:FixEmbededResistors' End

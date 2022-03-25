@@ -62,7 +62,7 @@ namespace Helpers
         static long transfer = 0;
         private static void Zip_SaveProgress(object sender, SaveProgressEventArgs e)
         {
-            _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
+            //_Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
             if (e.TotalBytesToTransfer > 0 & !initialized)
             {

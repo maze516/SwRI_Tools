@@ -9,7 +9,7 @@ class FixRefdesOrientation
     /// <summary>
     /// Will adjust refdes orientation to match component orientation.
     /// </summary>
-    public void FixRefDesOrientation()
+    public void FixRefDesOrientation(bool MatchRotation = false)
     {
         _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
@@ -50,32 +50,52 @@ class FixRefdesOrientation
                     Component.SetState_NameAutoPos(TTextAutoposition.eAutoPos_Manual);
                     Component.BeginModify();
                     RefDes.BeginModify();
-                    switch (Convert.ToInt32(Component.GetState_Rotation()))
+                    if (!MatchRotation)
                     {
-                        case 0://for bottom: 90=270 
-                            RefDes.SetState_Rotation(0);
-                            break;
-                        case 90:
-                            if (RefDes.GetState_Layer() == TV6_Layer.eV6_BottomOverlay)
-                                RefDes.SetState_Rotation(270);
-                            else
-                                RefDes.SetState_Rotation(90);
-                            break;
-                        case 180:
-                            RefDes.SetState_Rotation(0);
-                            break;
-                        case 270:
-                            if (RefDes.GetState_Layer() == TV6_Layer.eV6_BottomOverlay)
-                                RefDes.SetState_Rotation(270);
-                            else
-                                RefDes.SetState_Rotation(90);
-                            break;
+                        switch (Convert.ToInt32(Component.GetState_Rotation()))
+                        {
+                            case 0://for bottom: 90=270 
+                                RefDes.SetState_Rotation(0);
+                                break;
+                            case 90:
+                                if (RefDes.GetState_Layer() == TV6_Layer.eV6_BottomOverlay)
+                                    RefDes.SetState_Rotation(270);
+                                else
+                                    RefDes.SetState_Rotation(90);
+                                break;
+                            case 180:
+                                RefDes.SetState_Rotation(0);
+                                break;
+                            case 270:
+                                if (RefDes.GetState_Layer() == TV6_Layer.eV6_BottomOverlay)
+                                    RefDes.SetState_Rotation(270);
+                                else
+                                    RefDes.SetState_Rotation(90);
+                                break;
+                            default:
+                                RefDes.SetState_Rotation(Math.Floor(Convert.ToInt32(Component.GetState_Rotation())/90d)*90);
+                                break;
+
+                        }
+
+                        Component.ChangeNameAutoposition(TTextAutoposition.eAutoPos_CenterCenter);
+                    }
+                    else
+                    {
+                        double mod = 0;
+                        //double OriginX = EDP.Utils.CoordToMils(Board.GetState_XOrigin());
+                        double OriginY = EDP.Utils.CoordToMils(Board.GetState_YOrigin());
+                        //if (RefDes.GetState_Layer() == TV6_Layer.eV6_BottomOverlay)
+                        if (EDP.Utils.CoordToMils(RefDes.GetState_YLocation())-OriginY > 0)
+                            mod = 180;
+
+                        RefDes.SetState_Rotation(Component.GetState_Rotation() + mod);
+                        //RefDes.RotateAroundXY(RefDes.GetState_XLocation(), RefDes.GetState_YLocation(), Component.GetState_Rotation());
+                        //RefDes.RotateAroundXY(RefDes.BoundingRectangle().X2, RefDes.BoundingRectangle().Y2, Component.GetState_Rotation());
+                        //RefDes.RotateAroundXY(Component.GetState_XLocation(), Component.GetState_YLocation(), Component.GetState_Rotation());
                     }
 
-
-
                     //Component.SetState_NameAutoPos(TTextAutoposition.eAutoPos_CenterCenter);
-                    Component.ChangeNameAutoposition(TTextAutoposition.eAutoPos_CenterCenter);
                     RefDes.EndModify();
                     RefDes.GraphicallyInvalidate();
                     Component.EndModify();
