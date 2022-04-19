@@ -26,6 +26,7 @@ public class ToolsPreferences
     //Logger level
     public static NLog.LogLevel LoggerLevel = NLog.LogLevel.Info;
 
+
     /// <summary>
     /// Load preference settings from Altium Designer.
     /// </summary>

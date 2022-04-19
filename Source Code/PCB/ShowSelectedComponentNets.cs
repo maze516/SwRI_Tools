@@ -11,10 +11,10 @@ class ShowSelectedComponentNets
 {
     public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
 
-    public void NetConnect()
+    public void NetConnect(bool Show)
     {
         _Log.Trace(System.Reflection.MethodBase.GetCurrentMethod().Name);
-
+        _Log.Trace("Show = " + Show.ToString());
 #if DEBUG
         Stopwatch stopwatch;
         stopwatch = new Stopwatch();
@@ -56,7 +56,10 @@ class ShowSelectedComponentNets
                 if (CompItem.GetState_ObjectIDString() == "Pad" || CompItem.GetState_ObjectIDString() == "Track" || CompItem.GetState_ObjectIDString() == "Via")
                 {
                     if (CompItem.GetState_InNet())
-                        CompItem.GetState_Net().ShowNetConnects();
+                        if (Show)
+                            CompItem.GetState_Net().ShowNetConnects();
+                        else
+                            CompItem.GetState_Net().HideNetConnects();
                 }
                 else
                 {
@@ -68,13 +71,31 @@ class ShowSelectedComponentNets
                     while (CompItem != null)
                     {
                         if (CompItem.GetState_InNet())
-                            CompItem.GetState_Net().ShowNetConnects();
+                            if (Show)
+                                CompItem.GetState_Net().ShowNetConnects();
+                            else
+                                CompItem.GetState_Net().HideNetConnects();
                         CompItem = CompIterator.NextPCBObject();
                     }
                 }
             }
             CompItem = BoardIterator.NextPCBObject();
         }
+
+
+        ////Reset mask if applied.
+        //string process = "PCB:RunQuery";
+        //string parameters = "Clear=True";
+        //DXP.Utils.RunCommand(process, parameters);
+
+        //Board.AddObjectToHighlightObjectList(Component); 
+
+        //Board.SetState_Navigate_HighlightObjectList(new EDP.THighlightMethodSet(EDP.THighlightMethod.eHighlight_Filter), false);
+
+
+
+
+
 
         //DXP.Utils.RunCommand("PCB:Netlist", "Action=CleanUpNets");
 

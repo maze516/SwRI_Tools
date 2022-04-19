@@ -295,7 +295,7 @@ partial class General_Options
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(374, 434);
+            this.ClientSize = new System.Drawing.Size(374, 430);
             this.Controls.Add(this.cboLogLevel);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
