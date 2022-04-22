@@ -82,13 +82,15 @@ class ShowSelectedComponentNets
             CompItem = BoardIterator.NextPCBObject();
         }
 
+        //CompItem.GetState_Net().SetState_LiveHighlightMode(TLiveHighlightMode.eLiveHighlightMode_High);
+
 
         ////Reset mask if applied.
         //string process = "PCB:RunQuery";
         //string parameters = "Clear=True";
         //DXP.Utils.RunCommand(process, parameters);
 
-        //Board.AddObjectToHighlightObjectList(Component); 
+        //Board.AddObjectToHighlightObjectList(Component);
 
         //Board.SetState_Navigate_HighlightObjectList(new EDP.THighlightMethodSet(EDP.THighlightMethod.eHighlight_Filter), false);
 

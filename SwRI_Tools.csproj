@@ -185,7 +185,7 @@
     <Compile Include="Source Code\PCB\frmViaReplace.Designer.cs">
       <DependentUpon>frmViaReplace.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source Code\PCB\HideSelectedComponentNets.cs" />
+    <Compile Include="Source Code\PCB\HighlightSelectedComponentNets.cs" />
     <Compile Include="Source Code\PCB\ShowSelectedComponentNets.cs" />
     <Compile Include="Source Code\PCB\xSignals.cs" />
     <Compile Include="Source Code\SCH\DatasheetDownload.cs" />

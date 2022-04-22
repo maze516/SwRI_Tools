@@ -56,14 +56,21 @@ End
 PL
   PLSwRI_Tools:ShowSelectedNets
   Command='SwRI_Tools:ShowSelectedNets' 
-  Caption='Show Selected Nets'
+  Caption='Show All Selected Nets'
   Description='Show nets of selected components.'
 End
 
 PL
   PLSwRI_Tools:HideSelectedNets
   Command='SwRI_Tools:HideSelectedNets' 
-  Caption='Hide Selected Nets'
+  Caption='Hide All Selected Nets'
+  Description='Hide nets of selected components.'
+End
+
+PL
+  PLSwRI_Tools:HighlightSelectedNets
+  Command='SwRI_Tools:HighlightSelectedNets' 
+  Caption='Highlight All Selected Nets'
   Description='Hide nets of selected components.'
 End
 
@@ -603,22 +610,30 @@ Insertion MNSwRIMenu500 TargetID='MNPCB_Primitive' InsertType='After' RefID0='MN
     Link SwRI_ToolsMenu100 PLID='PLSwRI_Tools:SetActiveLayer' End
 End
 
-Insertion MNSwRIMenu500 TargetID='MNPCB_Primitive' InsertType='After' RefID0='MNPCB_Primitive710' 
-    Link SwRI_ToolsMenu110 PLID='PLSwRI_Tools:AssignNet' End
-End
+//Insertion MNSwRIMenu500 TargetID='MNPCB_Primitive' InsertType='After' RefID0='MNPCB_Primitive710' 
+//    Link SwRI_ToolsMenu110 PLID='PLSwRI_Tools:AssignNet' End
+//End
 
-Insertion MNSwRIMenu500 TargetID='MNPCB_Primitive' InsertType='After' RefID0='MNPCB_Primitive710' 
+Insertion MNSwRIMenu530 TargetID='MNPCB_NetPopup' InsertType='After' RefID0='MNPCB_NetPopup100' 
     Link SwRI_ToolsMenu110 PLID='PLSwRI_Tools:ShowSelectedNets' End
 End
 
-Insertion MNSwRIMenu500 TargetID='MNPCB_Primitive' InsertType='After' RefID0='MNPCB_Primitive710' 
-    Link SwRI_ToolsMenu110 PLID='PLSwRI_Tools:HideSelectedNets' End
+Insertion MNSwRIMenu510 TargetID='MNPCB_NetPopup' InsertType='After' RefID0='MNPCB_NetPopup110' 
+    Link SwRI_ToolsMenu140 PLID='PLSwRI_Tools:HighlightSelectedNets' End
 End
 
-Insertion MNSwRIMenu500 TargetID='MNPCB_Primitive' InsertType='After' RefID0='MNPCB_Primitive710' 
-  Separator SwRI_ToolsSep100 End
+Insertion MNSwRIMenu510 TargetID='MNPCB_NetPopup' InsertType='After' RefID0='MNPCB_NetPopup110' 
+    Link SwRI_ToolsMenu140 PLID='PLSwRI_Tools:HideSelectedNets' End
 End
 
-Insertion MNSwRIMenu600 TargetID='MNWorkspaceManagerMenu_Category' InsertType='After' RefID0='MNWorkspaceManager_Category010' 
-    Link SwRI_ToolsMenu1000 PLID='PLSwRI_Tools:OpenSchematics' End
-End
+//Insertion MNSwRIMenu500 TargetID='MNPCB_Primitive' InsertType='After' RefID0='MNPCB_Primitive710' 
+    //Link SwRI_ToolsMenu110 PLID='PLSwRI_Tools:HideSelectedNets' End
+//End
+
+//Insertion MNSwRIMenu500 TargetID='MNPCB_Primitive' InsertType='After' RefID0='MNPCB_Primitive710' 
+  //Separator SwRI_ToolsSep100 End
+//End
+
+//Insertion MNSwRIMenu600 TargetID='MNWorkspaceManagerMenu_Category' InsertType='After' RefID0='MNWorkspaceManager_Category010' 
+    //Link SwRI_ToolsMenu1000 PLID='PLSwRI_Tools:OpenSchematics' End
+//End

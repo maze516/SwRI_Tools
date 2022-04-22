@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using NLog;
 
-class HideSelectedComponentNets
+class HighlightSelectedComponentNets
 {
     public static readonly Logger _Log = LogManager.GetLogger(Util.SERVERNAME);
 
@@ -54,7 +54,7 @@ class HideSelectedComponentNets
                 if (CompItem.GetState_ObjectIDString() == "Pad" || CompItem.GetState_ObjectIDString() == "Track")
                 {
                     if (CompItem.GetState_InNet())
-                        CompItem.GetState_Net().HideNetConnects();
+                        CompItem.GetState_Net().SetState_LiveHighlightMode(TLiveHighlightMode.eLiveHighlightMode_High);
                 }
                 else
                 {
@@ -66,7 +66,7 @@ class HideSelectedComponentNets
                     while (CompItem != null)
                     {
                         if (CompItem.GetState_InNet())
-                            CompItem.GetState_Net().HideNetConnects();
+                            CompItem.GetState_Net().SetState_LiveHighlightMode(TLiveHighlightMode.eLiveHighlightMode_High);
                         CompItem = CompIterator.NextPCBObject();
                     }
                 }
