@@ -70,7 +70,8 @@ public partial class frmBatchOutjob : Form
             {
                 foreach (TreeNode _node in node.Nodes)
                 {
-                    _node.BackColor = System.Drawing.Color.White;
+                    if (_node.Checked)
+                        _node.BackColor = DxpThemeManager.ColorSelectedBack;// System.Drawing.Color.White;
                 }
             }
             string process, parameters;
@@ -146,7 +147,7 @@ public partial class frmBatchOutjob : Form
                             if (dictOutputMedium[_node.FullPath].ODB && ToolsPreferences.ODB_HideRefDes)
                                 if (!PostODB()) break;
                             //_node.ForeColor = System.Drawing.Color.ForestGreen;
-                            _node.BackColor = System.Drawing.Color.LightGreen;
+                            _node.BackColor = System.Drawing.Color.Green;
                             this.Refresh();
                             treeOutjobs.Refresh();
                         }
